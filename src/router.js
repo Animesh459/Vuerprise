@@ -1,0 +1,36 @@
+import { createRouter, createWebHistory } from 'vue-router';
+import Receiving from './views/Receiving.vue';
+import CustomerOrders from './views/CustomerOrders.vue';
+import Inventory from './views/Inventory.vue';
+import Customers from './views/Customers.vue';
+import Welcome from './components/Welcome.vue';
+import Products from './views/products/Products.vue';
+import ProductList from './views/products/ProductList.vue';
+import AddProduct from './views/products/AddProduct.vue';
+import ProductSettings from './views/products/ProductSettings.vue';
+import BulkImportExport from './views/products/BulkImportExport.vue';
+
+const routes = [
+  { path: '/', component: Welcome },
+  {
+    path: '/products',
+    component: Products,
+    children: [
+      { path: 'list', component: ProductList },
+      { path: 'add', component: AddProduct },
+      { path: 'settings', component: ProductSettings },
+      { path: 'import-export', component: BulkImportExport },
+    ],
+  },
+  { path: '/receiving', component: Receiving },
+  { path: '/customer-orders', component: CustomerOrders },
+  { path: '/inventory', component: Inventory },
+  { path: '/customers', component: Customers },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;

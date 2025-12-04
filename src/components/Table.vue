@@ -60,8 +60,44 @@
 </template>
 
 <script setup>
-defineProps({
-  tableData: Array,
-  getStatusClass: Function,
-})
+const tableData = [
+  {
+    name: "Eden's Product Design Process and UX Flow",
+    group: "Designers",
+    status: "In Progress",
+    dueDate: "01/07/2021",
+    complete: "24%"
+  },
+  {
+    name: "Atlas: Personal Blog Template Publishing Process",
+    group: "Developers",
+    status: "In Complete",
+    dueDate: "02/07/2021",
+    complete: "32%"
+  },
+  {
+    name: "Chameleon: E-commerce Mobile App Template",
+    group: "Management",
+    status: "Completed",
+    dueDate: "03/07/2021",
+    complete: "40%"
+  },
+  {
+    name: "Eden's Product Design Process and UX Flow",
+    group: "Social Media",
+    status: "Follow Me",
+    dueDate: "04/07/2021",
+    complete: "48%"
+  }
+]
+
+const getStatusClass = (status) => {
+  const classes = {
+    'In Progress': 'bg-teal-500/20 text-teal-400 border border-teal-500',
+    'In Complete': 'bg-blue-500/20 text-blue-400 border border-blue-500',
+    'Completed': 'bg-green-500/20 text-green-400 border border-green-500',
+    'Follow Me': 'bg-cyan-500/20 text-cyan-400 border border-cyan-500'
+  }
+  return classes[status] || 'bg-gray-500/20 text-gray-400'
+}
 </script>
