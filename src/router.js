@@ -9,6 +9,7 @@ import ProductList from './views/products/ProductList.vue';
 import AddProduct from './views/products/AddProduct.vue';
 import ProductSettings from './views/products/ProductSettings.vue';
 import BulkImportExport from './views/products/BulkImportExport.vue';
+import ThemeSwitcher from './views/ThemeSwitcher.vue';
 
 const routes = [
   { path: '/', component: Welcome },
@@ -26,6 +27,7 @@ const routes = [
   { path: '/customer-orders', component: CustomerOrders },
   { path: '/inventory', component: Inventory },
   { path: '/customers', component: Customers },
+    { path: '/themeswitch', component: ThemeSwitcher },
 ];
 
 const router = createRouter({

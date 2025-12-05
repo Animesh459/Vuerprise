@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-[#232a3b] rounded-xl p-6">
+  <div class="bg-default-table-row-even-bg data-[theme=bw]:bg-bw-table-row-even-bg rounded-xl p-6">
     <div class="flex items-center gap-2 mb-6">
-      <h2 class="text-lg font-semibold">Edens Created This Week</h2>
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <h2 class="text-lg font-semibold text-default-text-primary data-[theme=bw]:text-bw-text-primary">Edens Created This Week</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-default-text-primary data-[theme=bw]:text-bw-text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
       </svg>
     </div>
@@ -10,7 +10,7 @@
     <!-- Table -->
     <table class="w-full">
       <thead>
-      <tr class="text-gray-500 text-xs uppercase tracking-wider">
+      <tr class="text-default-table-header-text data-[theme=bw]:text-bw-table-header-text text-xs uppercase tracking-wider">
         <th class="text-left pb-4 font-medium">Name</th>
         <th class="text-left pb-4 font-medium">Group</th>
         <th class="text-left pb-4 font-medium">Status</th>
@@ -23,13 +23,13 @@
       <tr
           v-for="(item, index) in tableData"
           :key="index"
-          class="border-t border-gray-700/50"
+          class="border-t border-default-border-primary data-[theme=bw]:border-bw-border-primary"
       >
         <td class="py-5 pr-4">
-          <span class="text-sm text-gray-200">{{ item.name }}</span>
+          <span class="text-sm text-default-text-primary data-[theme=bw]:text-bw-text-primary">{{ item.name }}</span>
         </td>
         <td class="py-5 pr-4">
-          <span class="text-sm text-gray-400">{{ item.group }}</span>
+          <span class="text-sm text-default-text-primary data-[theme=bw]:text-bw-text-primary">{{ item.group }}</span>
         </td>
         <td class="py-5 pr-4">
             <span
@@ -40,13 +40,13 @@
             </span>
         </td>
         <td class="py-5 pr-4">
-          <span class="text-sm text-gray-400">{{ item.dueDate }}</span>
+          <span class="text-sm text-default-text-primary data-[theme=bw]:text-bw-text-primary">{{ item.dueDate }}</span>
         </td>
         <td class="py-5 pr-4">
-          <span class="text-sm text-gray-400">{{ item.complete }}</span>
+          <span class="text-sm text-default-text-primary data-[theme=bw]:text-bw-text-primary">{{ item.complete }}</span>
         </td>
         <td class="py-5">
-          <button class="flex items-center gap-1 text-gray-400 hover:text-white text-sm bg-[#2d3548] px-4 py-2 rounded-lg transition-colors">
+          <button class="flex items-center gap-1 text-default-button-secondary-text data-[theme=bw]:text-bw-button-secondary-text hover:text-white text-sm bg-default-button-secondary-bg data-[theme=bw]:bg-bw-button-secondary-bg px-4 py-2 rounded-lg transition-colors">
             Remind All
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -93,11 +93,11 @@ const tableData = [
 
 const getStatusClass = (status) => {
   const classes = {
-    'In Progress': 'bg-teal-500/20 text-teal-400 border border-teal-500',
-    'In Complete': 'bg-blue-500/20 text-blue-400 border border-blue-500',
-    'Completed': 'bg-green-500/20 text-green-400 border border-green-500',
-    'Follow Me': 'bg-cyan-500/20 text-cyan-400 border border-cyan-500'
+    'In Progress': 'bg-gray-700/20 text-gray-400 border border-gray-500',
+    'In Complete': 'bg-gray-700/20 text-gray-400 border border-gray-500',
+    'Completed': 'bg-gray-700/20 text-gray-400 border border-gray-500',
+    'Follow Me': 'bg-gray-700/20 text-gray-400 border border-gray-500'
   }
-  return classes[status] || 'bg-gray-500/20 text-gray-400'
+  return classes[status] || 'bg-gray-700/20 text-gray-400'
 }
 </script>

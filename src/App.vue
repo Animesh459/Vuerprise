@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen bg-[#1a1f2e] text-white font-sans">
-    <Header />
+  <div :class="currentTheme" class="min-h-screen font-sans">
+    <Header :toggleTheme="toggleTheme" />
     <main class="px-6 py-4 ">
       <router-view />
     </main>
@@ -9,4 +9,7 @@
 
 <script setup>
 import Header from './components/Header.vue'
+import { useTheme } from './components/themeswitch/useTheme.js'
+
+const { currentTheme, toggleTheme } = useTheme()
 </script>
