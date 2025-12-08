@@ -20,7 +20,7 @@
           </button>
 
           <!-- Products Dropdown Menu -->
-          <div v-if="activeDropdown === 'products'" class="absolute top-full left-0 mt-1 w-56 bg-default-bg-primary dark:bg-bw-bg-primary rounded-md shadow-lg py-2 z-50">
+          <div v-if="activeDropdown === 'products'" class="absolute top-full left-0 mt-1 w-56 bg-default-bg-primary rounded-md shadow-lg py-2 z-50">
             <!-- Product List with submenu -->
             <div>
               <router-link to="/products/list" @click="toggleSubmenu('productList')" class="flex items-center justify-between w-full px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">
@@ -30,7 +30,7 @@
                 </svg>
               </router-link>
 
-              <div v-if="openSubmenus.productList" class="pl-4 bg-default-bg-primary dark:bg-bw-bg-primary">
+              <div v-if="openSubmenus.productList" class="pl-4 bg-default-bg-primary">
                 <!-- Parent 1 -->
                 <button @click="toggleSubmenu('parent1')" class="flex items-center gap-1 w-full px-4 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white">
                   <span>{{ openSubmenus.parent1 ? '-' : '+' }}</span>
@@ -83,7 +83,7 @@
     <!-- Right Side Actions -->
     <div class="flex items-center gap-4">
 
-      <ThemeSwitch />
+<!--      <ThemeSwitch />-->
 
       <div class="relative" @mouseenter="openDropdown('mello')" @mouseleave="closeDropdown">
       <button class="flex items-center gap-2 bg-default-table-header-bg dark:bg-bw-table-header-bg rounded-full px-3 py-1.5">
@@ -93,7 +93,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-        <div v-if="activeDropdown === 'mello'" class="absolute top-full right-0 mt-1 w-56 bg-default-bg-primary dark:bg-bw-bg-primary rounded-md shadow-lg py-2 z-50">
+        <div v-if="activeDropdown === 'mello'" class="absolute top-full right-0 mt-1 w-56 bg-default-bg-primary rounded-md shadow-lg py-2 z-50">
           <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Profile</a>
           <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Settings</a>
           <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Logout</a>

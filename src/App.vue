@@ -1,5 +1,5 @@
 <template>
-  <div :class="currentTheme" class="min-h-screen font-sans">
+  <div :class="currentTheme" class="min-h-screen **font-dm**">
     <Header :toggleTheme="toggleTheme" />
     <main class="px-6 py-4 ">
       <router-view />

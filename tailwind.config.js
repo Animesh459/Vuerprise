@@ -1,3 +1,5 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
@@ -7,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+        fontFamily: {
+            dm: ['DM Sans', ...defaultTheme.fontFamily.sans],
+        },
       colors: {
         'bg-primary': '#ffffff',
         'text-primary': '#000000',
