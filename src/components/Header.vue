@@ -1,80 +1,52 @@
 <template>
-  <header class="flex items-center justify-between px-6 py-4 border-b bg-header-bg text-text-primary dark:bg-dark-header-bg dark:text-dark-text-primary border-border-primary dark:border-dark-border-primary">
+  <header class="flex items-center justify-between px-6 py-4 border-b bg-[#0D121C] text-white fixed w-full z-50   border-[#000000]">
     <!-- Logo and Main Nav -->
     <div class="flex items-center gap-8">
       <!-- Logo -->
       <div class="flex items-center gap-2">
-
-        <a href="/" class="text-xl font-semibold"><img src="/vendor-logo.png" alt="" srcset=""></a>
+        <router-link to="/" class="block pr-4 py-2 text-sm text-white"><img src="/vendor-logo.png" alt="" srcset=""></router-link>
       </div>
 
       <!-- Main Navigation Menu -->
       <nav class="flex items-center gap-1">
-        <!-- Products Dropdown -->
-        <div class="relative" @mouseenter="openDropdown('products')" @mouseleave="closeDropdown">
-          <button class="flex items-center gap-1 px-3 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white rounded hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">
-            Products
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
 
-          <!-- Products Dropdown Menu -->
-          <div v-if="activeDropdown === 'products'" class="absolute top-full left-0 mt-1 w-56 bg-default-bg-primary rounded-md shadow-lg py-2 z-50">
-            <!-- Product List with submenu -->
-            <div>
-              <router-link to="/products/list" @click="toggleSubmenu('productList')" class="flex items-center justify-between w-full px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">
-                Product List
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="openSubmenus.productList ? 'M19 9l-7 7-7-7' : 'M9 5l7 7-7 7'" />
-                </svg>
-              </router-link>
+        <Dropdown contentClasses="w-40 left-0 right-auto ml-4" class="ml-4">
+          <template #trigger>
+            <button
+                class="flex items-center gap-2pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
+            >
+              product
+            </button>
+          </template>
+          <template #content>
 
-              <div v-if="openSubmenus.productList" class="pl-4 bg-default-bg-primary">
-                <!-- Parent 1 -->
-                <button @click="toggleSubmenu('parent1')" class="flex items-center gap-1 w-full px-4 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white">
-                  <span>{{ openSubmenus.parent1 ? '-' : '+' }}</span>
-                  Parent 1
-                </button>
-
-                <!-- Parent 2 with Child -->
-                <button @click="toggleSubmenu('parent2')" class="flex items-center gap-1 w-full px-4 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white">
-                  <span>{{ openSubmenus.parent2 ? '-' : '+' }}</span>
-                  Parent 2
-                </button>
-                <div v-if="openSubmenus.parent2" class="pl-6">
-                  <a href="#" class="block px-4 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white">Child 1</a>
-                </div>
-              </div>
+            <div class="py-1">
+              <a
+                  v-for="item in productItems"
+                  :key="item.label"
+                  href="#"
+                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-150 group"
+              >
+                {{ item.label }}
+              </a>
             </div>
+          </template>
+        </Dropdown>
 
-            <router-link to="/products/add" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Add Product</router-link>
-            <router-link to="/products/settings" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Product Setting</router-link>
-            <router-link to="/products/import-export" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Bulk Import/Export</router-link>
-          </div>
-        </div>
-
-        <!-- Receiving -->
-        <router-link to="/receiving" class="px-3 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white rounded hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">
+        <router-link to="/receiving" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
           Receiving
         </router-link>
 
-        <!-- Customer Orders -->
-        <router-link to="/customer-orders" class="px-3 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white rounded hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">
+        <router-link to="/customer-orders" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
           Customer Orders
         </router-link>
 
-        <!-- Inventory -->
-        <router-link to="/inventory" class="px-3 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white rounded hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">
+        <router-link to="/inventory" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
           Inventory
         </router-link>
 
-        <!-- Customers -->
-        <router-link to="/customers" class="px-3 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white rounded hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">
+        <router-link to="/customers" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
           Customers
-        </router-link>
-        <router-link to="/themeswitch" class="px-3 py-2 text-sm text-default-text-primary dark:text-bw-text-primary hover:text-white rounded hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">
-          themeswitch
         </router-link>
 
       </nav>
@@ -83,52 +55,79 @@
     <!-- Right Side Actions -->
     <div class="flex items-center gap-4">
 
-<!--      <ThemeSwitch />-->
 
-      <div class="relative" @mouseenter="openDropdown('mello')" @mouseleave="closeDropdown">
-      <button class="flex items-center gap-2 bg-default-table-header-bg dark:bg-bw-table-header-bg rounded-full px-3 py-1.5">
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500"></div>
-        <span class="text-sm">Mello</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-        <div v-if="activeDropdown === 'mello'" class="absolute top-full right-0 mt-1 w-56 bg-default-bg-primary rounded-md shadow-lg py-2 z-50">
-          <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Profile</a>
-          <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Settings</a>
-          <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-default-table-header-bg dark:hover:bg-bw-table-header-bg">Logout</a>
-        </div>
-      </div>
+      <Dropdown>
+        <template #trigger>
+          <button
+              class="flex items-center gap-2 bg-slate-800/50 hover:bg-slate-700/50 rounded-full pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent hover:border-slate-600"
+          >
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500 ring-2 ring-white/10"></div>
+            <span class="text-sm text-white font-medium">Mello</span>
+            <svg
+                class="w-4 h-4 text-slate-400 transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </template>
+
+        <template #content>
+          <div class="px-4 py-3 border-b border-slate-700/50">
+            <p class="text-sm text-white font-medium">Mello</p>
+            <p class="text-xs text-slate-400">mello@example.com</p>
+          </div>
+
+          <div class="py-1">
+            <a
+                v-for="item in menuItems"
+                :key="item.label"
+                href="#"
+                class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-150 group"
+            >
+              <component :is="item.icon" class="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
+              {{ item.label }}
+            </a>
+          </div>
+
+          <div class="border-t border-slate-700/50 pt-1 mt-1">
+            <a
+                href="#"
+                class="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors duration-150 group"
+            >
+              <LogOut class="w-4 h-4" />
+              Logout
+            </a>
+          </div>
+        </template>
+      </Dropdown>
+
 
     </div>
   </header>
 </template>
 
 <script setup>
- import ThemeSwitch from './themeswitch/ThemeSwitch.vue'
-  import { ref, reactive } from 'vue'
 
-  const props = defineProps({
-    toggleTheme: Function
-  })
+ import { h } from 'vue'
+ import { User, Settings, LogOut } from 'lucide-vue-next'
 
-  const activeDropdown = ref(null)
-  const openSubmenus = reactive({
-    productList: false,
-    parent1: false,
-    parent2: false
-  })
+ import Dropdown from "@/components/Dropdown.vue";
 
-  const openDropdown = (name) => {
-    activeDropdown.value = name
-  }
 
-  const closeDropdown = () => {
-    activeDropdown.value = null
-  }
 
-  const toggleSubmenu = (name) => {
-    openSubmenus[name] = !openSubmenus[name]
-  }
+ const menuItems = [
+   { label: 'Profile', icon: User },
+   { label: 'Settings', icon: Settings },
+ ]
+
+ const productItems = [
+   { label: 'Product List'},
+   { label: 'Add Product'},
+   { label: 'Product Setting'},
+   { label: 'Bulk Import/Export'},
+ ]
 
 </script>

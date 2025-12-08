@@ -23,7 +23,7 @@
       <tr
           v-for="(item, index) in tableData"
           :key="index"
-          class="border-t border-default-border-primary data-[theme=bw]:border-bw-border-primary"
+          class=""
       >
         <td class="py-5 pr-4">
           <span class="text-sm text-default-text-primary data-[theme=bw]:text-bw-text-primary">{{ item.name }}</span>

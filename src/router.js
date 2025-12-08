@@ -10,6 +10,7 @@ import AddProduct from './views/products/AddProduct.vue';
 import ProductSettings from './views/products/ProductSettings.vue';
 import BulkImportExport from './views/products/BulkImportExport.vue';
 import ThemeSwitcher from './views/ThemeSwitcher.vue';
+import Utilities from './views/Utilities.vue';
 
 const routes = [
   { path: '/', component: Welcome },
@@ -27,6 +28,7 @@ const routes = [
   { path: '/customer-orders', component: CustomerOrders },
   { path: '/inventory', component: Inventory },
   { path: '/customers', component: Customers },
+    { path: '/utilities', component: Utilities },
     { path: '/themeswitch', component: ThemeSwitcher },
 ];
 
