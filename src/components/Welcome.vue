@@ -14,7 +14,27 @@
         Create Item
       </button>
     </div>
-    <Table />
+    <CustomTable :headers="tableHeaders" :data="tableData">
+
+      <template #cell-status="{ item }">
+        <span
+            :class="{
+            'px-2 inline-flex text-xs leading-5 font-semibold rounded-full': true,
+            'btn-success': item.status === 'Complete',
+            'btn-primary': item.status === 'In Progress',
+            'btn-danger': item.status === 'Blocked',
+          }"
+        >
+          {{ item.status }}
+        </span>
+      </template>
+
+      <template #cell-actions="{ item }">
+        <button  class="btn-secondary">
+          View
+        </button>
+      </template>
+    </CustomTable>
   </div>
 
 </template>
@@ -22,5 +42,23 @@
 
 <script setup>
     import Table from "@/components/Table.vue";
+    import CustomTable from "@/components/CustomTable.vue";
+    import {ref} from "vue";
+
+    const tableHeaders = ref([
+      { key: 'id', label: 'ID' },
+      { key: 'title', label: 'Project Title' },
+      { key: 'owner', label: 'Owner' },
+      { key: 'status', label: 'Status' },
+      { key: 'actions', label: 'Actions' },
+    ]);
+
+    const tableData = ref([
+      { id: 101, title: 'API Refactor', owner: 'Alice', status: 'Complete' },
+      { id: 102, title: 'UX Redesign', owner: 'Bob', status: 'In Progress' },
+      { id: 103, title: 'DB Migration', owner: 'Charlie', status: 'Blocked' },
+      { id: 104, title: 'New Feature X', owner: 'Dave', status: 'In Progress' },
+    ]);
+
 </script>
 

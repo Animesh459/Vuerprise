@@ -11,8 +11,15 @@ import ProductSettings from './views/products/ProductSettings.vue';
 import BulkImportExport from './views/products/BulkImportExport.vue';
 import ThemeSwitcher from './views/ThemeSwitcher.vue';
 import Utilities from './views/Utilities.vue';
+import Login from "@/views/Login.vue";
 
 const routes = [
+    { path: '/login',
+        component: Login,
+        meta: {
+            hideHeader: true
+        }
+    },
   { path: '/', component: Welcome },
   {
     path: '/products',

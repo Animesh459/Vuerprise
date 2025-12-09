@@ -1,9 +1,10 @@
 <template>
-  <div class="p-6">
+  <div class="common-card">
     <h1 class="text-2xl font-bold">Product List</h1>
-    <p class="mt-4">This is the product list page.</p>
+    <ProductItems />
   </div>
 </template>
 
 <script setup>
+import ProductItems from "@/components/product/ProductItems.vue";
 </script>

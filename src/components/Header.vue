@@ -15,7 +15,7 @@
             <button
                 class="flex items-center gap-2 pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
             >
-              product
+              Product <ChevronDown :size="16" class="text-slate-500 group-hover:text-white transition-colors"/>
             </button>
           </template>
 
@@ -110,7 +110,7 @@
 <script setup>
 
  import { h } from 'vue'
- import { User, Settings, LogOut } from 'lucide-vue-next'
+ import {User, Settings, LogOut, ChevronDown} from 'lucide-vue-next'
 
  import Dropdown from "@/components/Dropdown.vue";
  import DropdownItem from "@/components/DropdownItem.vue";
@@ -122,7 +122,8 @@
  ]
 
  const productItems = [
-   { label: 'Product List',
+   { label: 'Product List' , href: '/products/list' },
+   { label: 'Dress',
      children: [
        { label: 'Parent 1',
          children: [

@@ -9,13 +9,15 @@ body {
     --font-dm: "DM Sans", sans-serif;
 
     --main-bg : #0D121C;
-    --text-primary: #ffffff;
+    --text-primary: #7B7B7D;
 
 }
 @layer components {
     .common-card {
         @apply bg-[#0D121C] backdrop-blur-md rounded-lg p-6;
     }
+
+    /*button*/
     .btn-primary {
         @apply cursor-pointer px-6 py-1 rounded-full border border-orange-500 text-orange-500 bg-transparent hover:bg-orange-500/10 transition-colors;
     }
@@ -34,4 +36,47 @@ body {
     .btn-danger {
         @apply cursor-pointer px-6 py-1 rounded-full border border-b-red-800 text-red-800 bg-transparent hover:bg-red-800/10 transition-colors
     }
+
+    /*input*/
+    .label {
+        @apply block mb-1 text-sm text-gray-300;
+    }
+
+    .input {
+        @apply w-full bg-[#0D121C] border border-gray-700 rounded-md px-3 py-2
+        focus:ring-2 focus:ring-blue-500 outline-none transition;
+    }
+
+    .radio {
+        @apply h-4 w-4 text-blue-500 focus:ring-blue-500;
+    }
+}
+
+
+/* -------------------------------------- */
+/* 1. Modal Overlay Fade Effect */
+/* -------------------------------------- */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+    opacity: 0;
+}
+
+/* -------------------------------------- */
+/* 2. Modal Content Slide/Scale Effect */
+/* -------------------------------------- */
+.modal-slide-enter-active,
+.modal-slide-leave-active {
+    transition: all 0.3s cubic-bezier(0.5, 0, 0.5, 1); /* Custom, smooth ease */
+}
+.modal-slide-enter-from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+}
+.modal-slide-leave-to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
 }
