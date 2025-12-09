@@ -17,21 +17,21 @@ body {
         @apply bg-[#0D121C] backdrop-blur-md rounded-lg p-6;
     }
     .btn-primary {
-        @apply px-6 py-1 rounded-full border border-orange-500 text-orange-500 bg-transparent hover:bg-orange-500/10 transition-colors;
+        @apply cursor-pointer px-6 py-1 rounded-full border border-orange-500 text-orange-500 bg-transparent hover:bg-orange-500/10 transition-colors;
     }
     .btn-secondary {
-        @apply px-6 py-1 rounded-full border border-gray-500 text-gray-400 bg-transparent hover:bg-gray-500/10 transition-colors
+        @apply cursor-pointer px-6 py-1 rounded-full border border-gray-500 text-gray-400 bg-transparent hover:bg-gray-500/10 transition-colors
     }
     .btn-success {
-        @apply px-6 py-1 rounded-full border border-emerald-500 text-emerald-500 bg-transparent hover:bg-emerald-500/10 transition-colors
+        @apply cursor-pointer px-6 py-1 rounded-full border border-emerald-500 text-emerald-500 bg-transparent hover:bg-emerald-500/10 transition-colors
     }
     .btn-info {
-        @apply px-6 py-1 rounded-full border border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-400/10 transition-colors
+        @apply cursor-pointer px-6 py-1 rounded-full border border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-400/10 transition-colors
     }
     .btn-default {
-        @apply px-6 py-1 rounded-full border border-blue-500 text-blue-500 bg-transparent hover:bg-blue-500/10 transition-colors
+        @apply cursor-pointer px-6 py-1 rounded-full border border-blue-500 text-blue-500 bg-transparent hover:bg-blue-500/10 transition-colors
     }
     .btn-danger {
-        @apply px-6 py-1 rounded-full border border-b-red-800 text-red-800 bg-transparent hover:bg-red-800/10 transition-colors
+        @apply cursor-pointer px-6 py-1 rounded-full border border-b-red-800 text-red-800 bg-transparent hover:bg-red-800/10 transition-colors
     }
 }

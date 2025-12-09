@@ -10,28 +10,26 @@
       <!-- Main Navigation Menu -->
       <nav class="flex items-center gap-1">
 
-        <Dropdown contentClasses="w-40 left-0 right-auto ml-4" class="ml-4">
+        <Dropdown contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="flex items-center gap-2pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
+                class="flex items-center gap-2 pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
             >
               product
             </button>
           </template>
-          <template #content>
 
+          <template #content>
             <div class="py-1">
-              <a
+              <DropdownItem
                   v-for="item in productItems"
                   :key="item.label"
-                  href="#"
-                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-150 group"
-              >
-                {{ item.label }}
-              </a>
+                  :item="item"
+              />
             </div>
           </template>
         </Dropdown>
+
 
         <router-link to="/receiving" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
           Receiving
@@ -115,7 +113,7 @@
  import { User, Settings, LogOut } from 'lucide-vue-next'
 
  import Dropdown from "@/components/Dropdown.vue";
-
+ import DropdownItem from "@/components/DropdownItem.vue";
 
 
  const menuItems = [
@@ -124,7 +122,23 @@
  ]
 
  const productItems = [
-   { label: 'Product List'},
+   { label: 'Product List',
+     children: [
+       { label: 'Parent 1',
+         children: [
+           { label: 'Child 1' },
+           { label: 'Child 1' },
+         ]
+       },
+       { label: 'Parent 2',
+         children: [
+           { label: 'Child 1' },
+           { label: 'Child 1' },
+         ]},
+       { label: 'Parent 3'},
+
+     ]
+   },
    { label: 'Add Product'},
    { label: 'Product Setting'},
    { label: 'Bulk Import/Export'},
