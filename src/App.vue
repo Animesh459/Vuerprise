@@ -2,7 +2,7 @@
   <div  class="min-h-screen font-dm bg-[#0D121C]">
     <Header v-if="!shouldHideHeader" />
     <main
-          class="px-6 py-4 bg-[#070B11]"
+          class="px-6 py-4 bg-[#070B11] main-wrapper"
           :class="{
         'pt-[140px]': !shouldHideHeader,
         '!p-0': shouldHideHeader

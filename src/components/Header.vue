@@ -122,7 +122,7 @@
  ]
 
  const productItems = [
-   { label: 'Product List' , href: '/products/list' },
+   { label: 'Product List' , to: '/products/list' },
    { label: 'Dress',
      children: [
        { label: 'Parent 1',

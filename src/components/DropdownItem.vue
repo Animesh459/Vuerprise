@@ -1,6 +1,8 @@
 <script setup>
 import Dropdown from './Dropdown.vue';
+import DropdownItem from './DropdownItem.vue'; // Self-import for recursion
 import { ChevronRight } from 'lucide-vue-next';
+import { RouterLink } from 'vue-router'; // <-- Import RouterLink
 
 defineProps({
   item: {
@@ -8,16 +10,33 @@ defineProps({
     required: true,
   },
 });
+
+const getLinkComponent = (item) => {
+
+  if (item.to) {
+    return RouterLink;
+  }
+  return 'a';
+};
+
+const getLinkProps = (item) => {
+  if (item.to) {
+    return { to: item.to };
+  }
+  return { href: item.href || '#' };
+};
+
 </script>
 
 <template>
   <div v-if="!item.children">
-    <a
-        :href="item.href || '#'"
+    <component
+        :is="getLinkComponent(item)"
+        v-bind="getLinkProps(item)"
         class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-150 group"
     >
       {{ item.label }}
-    </a>
+    </component>
   </div>
 
   <div v-else>
