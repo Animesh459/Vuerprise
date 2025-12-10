@@ -9,13 +9,11 @@
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         class="w-full px-4 py-3 border rounded-lg shadow-sm
-             bg-gray-800 border-gray-700 text-white
+             bg-[#10161F] border-gray-700 text-white
              placeholder-gray-500
              focus:outline-none
 
-             /* NICE EFFECT: Transition classes for focus/hover */
-             focus:ring-2 focus:ring-indigo-500
-             focus:border-indigo-500
+             focus:border-gray-800
              shadow-none hover:shadow-md hover:shadow-gray-800/50
 
              transition duration-200 ease-in-out resize-y"

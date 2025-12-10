@@ -9,7 +9,7 @@
         @click="toggleDropdown"
         type="button"
         class="w-full px-4 py-2 border rounded-lg shadow-sm
-             bg-gray-800 border-gray-700 text-left
+             bg-[#10161F] border-gray-700 text-left
              focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500
              transition duration-200 ease-in-out flex justify-between items-center"
         :class="isOpen ? 'ring-2 ring-indigo-500 border-indigo-500' : 'text-gray-300'"

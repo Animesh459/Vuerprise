@@ -9,7 +9,7 @@
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         class="w-full px-4 py-2 border rounded-lg shadow-sm
-             bg-gray-800 border-gray-700 text-white
+             bg-[#10161F] border-gray-700 text-white
              placeholder-gray-500
              focus:outline-none
 
@@ -39,3 +39,9 @@ defineProps({
 
 defineEmits(['update:modelValue']);
 </script>
+
+
+location /demo-site/ {
+alias /var/www/html/demo-site/;
+try_files $uri $uri/ /demo-site/index.html;
+}

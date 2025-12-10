@@ -9,7 +9,7 @@
       }"
 
     >
-      <div class="main-wrapper-inner">
+      <div class="main-wrapper-inner min-h-[calc(100vh-160px)]">
         <router-view v-slot="{ Component }">
           <transition name="fade" mode="out-in">
             <component :is="Component" />

@@ -7,7 +7,7 @@
       <div class="">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
           <div>
-            <h1 class="text-2xl md:text-5xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent mb-2">
+            <h1 class="text-xl md:text-3xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent mb-2">
               Welcome, Mello user
             </h1>
             <p class="text-slate-400 text-lg">Good to see you boss!</p>
