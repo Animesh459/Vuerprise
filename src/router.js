@@ -3,7 +3,7 @@ import Receiving from './views/Receiving.vue';
 import CustomerOrders from './views/CustomerOrders.vue';
 import Inventory from './views/Inventory.vue';
 import Customers from './views/Customers.vue';
-import Welcome from './components/Welcome.vue';
+import Welcome from './views/Welcome.vue';
 import Products from './views/products/Products.vue';
 import ProductList from './views/products/ProductList.vue';
 import AddProduct from './views/products/AddProduct.vue';
