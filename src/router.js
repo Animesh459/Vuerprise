@@ -12,6 +12,7 @@ import BulkImportExport from './views/products/BulkImportExport.vue';
 import ThemeSwitcher from './views/ThemeSwitcher.vue';
 import Utilities from './views/Utilities.vue';
 import Login from "@/views/Login.vue";
+import ProductDetail from "@/views/products/ProductDetail.vue";
 
 const routes = [
     { path: '/login',
@@ -30,6 +31,7 @@ const routes = [
       { path: 'add', component: AddProduct },
       { path: 'settings', component: ProductSettings },
       { path: 'import-export', component: BulkImportExport },
+        { path: ':id', component: ProductDetail, name: 'ProductDetail' },
     ],
   },
   { path: '/receiving', component: Receiving },

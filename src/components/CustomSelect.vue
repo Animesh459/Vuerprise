@@ -44,7 +44,7 @@
             @click="selectOption(option)"
             class="px-4 py-2 text-sm cursor-pointer transition-colors duration-150"
             :class="{
-            'bg-indigo-600 text-white': modelValue === option.value,
+            'bg-[#0284C7] text-white': modelValue === option.value,
             'text-gray-300 hover:bg-gray-700': modelValue !== option.value
           }"
             role="option"

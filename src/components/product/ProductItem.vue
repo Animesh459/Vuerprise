@@ -6,7 +6,7 @@
           <div class="flex flex-col gap-6">
             <div class="flex items-center justify-between">
               <div class="flex-1">
-                <h1 class="text-3xl font-bold text-white">Product Catalog</h1>
+                <h1 class="text-2xl font-bold text-white">Product Catalog</h1>
                 <p class="text-slate-400 text-sm mt-1">{{ filteredProducts.length }} items available</p>
               </div>
               <div class="px-4 py-2 bg-indigo-900/30 border border-indigo-700/50 rounded-lg text-indigo-300 text-sm font-semibold">
@@ -61,16 +61,17 @@
         <p class="text-slate-400 text-lg">No products found matching your search.</p>
       </div>
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-6">
-        <div
+        <router-link
             v-for="product in filteredProducts"
             :key="product.id"
+            :to="{ name: 'ProductDetail', params: { id: product.id } }"
             class="cursor-pointer transition-all relative"
         >
           <div class="absolute top-3 left-3 z-10">
             <CustomCheckbox
                 :id="`product-${product.id}`"
                 :isChecked="selectedProducts.has(product.id)"
-                @toggle="toggleSelection(product.id)"
+                @toggle.prevent="toggleSelection(product.id)"
             />
 
           </div>
@@ -110,7 +111,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
