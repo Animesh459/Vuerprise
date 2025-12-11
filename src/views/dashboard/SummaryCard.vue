@@ -1,9 +1,12 @@
 <template>
-  <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-5">
+  <div :class="['bg-white/5 backdrop-blur-xl rounded-xl p-5 border-t-4', borderClass || 'border-white/10']">
 
-    <h3 class="text-sm font-medium text-gray-300 mb-4">
-      {{ title }}
-    </h3>
+    <div class="flex items-center gap-x-2 mb-4">
+      <div v-if="icon" v-html="icon"></div>
+      <h3 class="text-sm font-medium text-gray-300">
+        {{ title }}
+      </h3>
+    </div>
 
     <div class="grid grid-cols-2 gap-4">
       <div
@@ -23,7 +26,9 @@
 export default {
   props: {
     title: String,
-    items: Array
+    items: Array,
+    borderClass: String,
+    icon: String,
   }
 }
 </script>
