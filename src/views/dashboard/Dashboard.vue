@@ -5,22 +5,26 @@
     <div class="grid grid-cols-4 gap-6">
       <SummaryCard title="Delivery" :items="[
         { label: 'New', value: 0 },
-        { label: 'Processed', value: 0 }
+        { label: 'Processed', value: 0 },
+        {borderClass: 'border-blue-500'}
       ]" />
 
       <SummaryCard title="Payment" :items="[
         { label: 'Waiting', value: 0 },
-        { label: 'Promo', value: 0 }
+        { label: 'Promo', value: 0 },
+        {borderClass: 'border-green-500' }
       ]" />
 
       <SummaryCard title="Items Uploaded" :items="[
         { label: 'This Month', value: 0 },
-        { label: 'Last Month', value: 0 }
+        { label: 'Last Month', value: 0 },
+        {borderClass: 'border-yellow-500' }
       ]" />
 
       <SummaryCard title="Response" :items="[
         { label: 'Cancellation', value: 2 },
-        { label: 'Return', value: 4 }
+        { label: 'Return', value: 4 },
+        { borderClass: 'border-red-500' }
       ]" />
     </div>
 
