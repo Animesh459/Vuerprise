@@ -11,7 +11,7 @@
     <label
         :for="id"
         class="flex items-center cursor-pointer text-sm text-gray-300 select-none
-             transition duration-200 ease-in-out hover:text-indigo-400"
+             transition duration-200 ease-in-out "
     >
       <div
           class="w-5 h-5 mr-3 rounded-md border flex items-center justify-center flex-shrink-0

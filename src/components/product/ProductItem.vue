@@ -64,7 +64,7 @@
         <div
             v-for="product in filteredProducts"
             :key="product.id"
-            class="group cursor-pointer relative"
+            class="cursor-pointer transition-all relative"
         >
           <div class="absolute top-3 left-3 z-10">
             <CustomCheckbox
@@ -76,19 +76,19 @@
           </div>
 
           <div
-              :class="['bg-slate-800 rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border', selectedProducts.has(product.id) ? 'border-[#0284C7]' : 'border-slate-700 hover:border-[#0284C7]']"
+              :class="['bg-slate-800 group shadow-[0_4px_10px_rgba(0,0,0,0.25),0_8px_25px_-6px_rgba(2,132,199,0.45)] hover:shadow-[0_6px_30px_-4px_rgba(2,132,199,0.6)] rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border', selectedProducts.has(product.id) ? 'border-[#0284C7]' : 'border-slate-700 hover:border-[#0284C7]']"
           >
-            <div class="relative overflow-hidden bg-slate-700 h-64">
+            <div class="relative group transition-all overflow-hidden bg-slate-700 h-64">
+              <div class="pt-2 flex gap-2 absolute top-1 right-1 z-10" v-if="product.inStock">
+                <span class="text-[14px] cursor-pointer px-4 py-1 rounded-full !bg-[#0284C7] text-white">
+                  In Stock
+                </span>
+              </div>
               <img
                   :src="getProductImage(product.image)"
                   :alt="product.name"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform will-change-transform duration-300"
+                  class="w-full h-full object-cover  transition-transform will-change-transform duration-300"
               />
-<!--              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">-->
-<!--                <button class="w-full py-3 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors">-->
-<!--                  View Details-->
-<!--                </button>-->
-<!--              </div>-->
             </div>
 
             <div class="p-5 space-y-3">
@@ -107,12 +107,6 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span class="text-slate-400 text-xs">{{ formatDate(product.timestamp) }}</span>
-              </div>
-
-              <div class="pt-2 flex gap-2">
-                <span class="inline-block px-3 py-1 bg-green-900/30 text-green-400 text-xs font-semibold rounded-full border border-green-800">
-                  In Stock
-                </span>
               </div>
             </div>
           </div>
@@ -197,7 +191,8 @@ const products = ref([
     name: 'MJI0240',
     sku: '$DT43088-BLACK',
     timestamp: '2025-12-02T06:32:05Z',
-    image: '1.jpg'
+    image: '1.jpg',
+    inStock: true
   },
   {
     id: 2,
@@ -211,7 +206,8 @@ const products = ref([
     name: 'AX9900',
     sku: '$DT43089-RED',
     timestamp: '2025-12-02T06:31:59Z',
-    image: '2.jpg'
+    image: '2.jpg',
+    inStock: true
   },
   {
     id: 4,
@@ -232,7 +228,8 @@ const products = ref([
     name: 'MJI0240-Clone',
     sku: '$DT43088-BLACK',
     timestamp: '2025-12-02T06:31:50Z',
-    image: '1.jpg'
+    image: '1.jpg',
+    inStock: true
   },
   {
     id: 7,
@@ -281,7 +278,8 @@ const products = ref([
     name: 'AX9900',
     sku: '$DT43089-RED',
     timestamp: '2025-12-02T06:31:29Z',
-    image: '2.jpg'
+    image: '2.jpg',
+    inStock: true
   },
   {
     id: 14,
@@ -295,7 +293,8 @@ const products = ref([
     name: 'Zenith-X Edition',
     sku: '$DT43091-GREEN',
     timestamp: '2025-12-02T06:31:23Z',
-    image: '4.jpg'
+    image: '4.jpg',
+    inStock: true
   },
   {
     id: 16,
@@ -330,7 +329,8 @@ const products = ref([
     name: 'Zenith-X-Clone Edition',
     sku: '$DT43091-GREEN',
     timestamp: '2025-12-02T06:31:08Z',
-    image: '4.jpg'
+    image: '4.jpg',
+    inStock: true
   },
   {
     id: 21,
@@ -527,21 +527,8 @@ const products = ref([
     sku: '$DT43089-RED',
     timestamp: '2025-12-02T06:29:44Z',
     image: '2.jpg'
-  },
-  {
-    id: 49,
-    name: 'BTR-250',
-    sku: '$DT43090-BLUE',
-    timestamp: '2025-12-02T06:29:41Z',
-    image: '3.jpg'
-  },
-  {
-    id: 50,
-    name: 'Zenith-X-Clone Edition',
-    sku: '$DT43091-GREEN',
-    timestamp: '2025-12-02T06:29:38Z',
-    image: '4.jpg'
-  },
+  }
+
 ]);
 
 
