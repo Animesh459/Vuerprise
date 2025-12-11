@@ -36,8 +36,8 @@ const routes = [
   { path: '/customer-orders', component: CustomerOrders },
   { path: '/inventory', component: Inventory },
   { path: '/customers', component: Customers },
-    { path: '/utilities', component: Utilities },
-    { path: '/themeswitch', component: ThemeSwitcher },
+  { path: '/utilities', component: Utilities },
+  { path: '/themeswitch', component: ThemeSwitcher },
 ];
 
 const router = createRouter({

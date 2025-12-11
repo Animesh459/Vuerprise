@@ -1,28 +1,9 @@
 <template>
-  <div class="common-card">
-    <h1 class="text-2xl font-bold">Product List</h1>
-    <ProductItems />
+  <div class="common-card p-0">
+    <ProductItem />
   </div>
 </template>
 
 <script setup>
-import ProductItems from "@/components/product/ProductItems.vue";
+  import ProductItem from "@/components/product/ProductItem.vue";
 </script>
-
-<style scoped>
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-* {
-  animation: fadeIn 0.6s ease-out;
-}
-</style>

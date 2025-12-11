@@ -2,8 +2,8 @@
   <div class="flex items-center">
     <input
         :id="id"
-        :checked="modelValue"
-        @change="$emit('update:modelValue', $event.target.checked)"
+        :checked="isChecked"
+        @change="$emit('toggle')"
         type="checkbox"
         class="hidden"
     />
@@ -14,15 +14,15 @@
              transition duration-200 ease-in-out hover:text-indigo-400"
     >
       <div
-          class="w-5 h-5 mr-3 rounded-md border-2 flex items-center justify-center flex-shrink-0
+          class="w-5 h-5 mr-3 rounded-md border flex items-center justify-center flex-shrink-0
                transition duration-300 ease-in-out"
-          :class="modelValue
-          ? 'border-indigo-500 bg-indigo-500 shadow-lg shadow-indigo-500/30' 
-          : 'border-gray-600 bg-gray-800 hover:border-indigo-500'"
+          :class="isChecked
+          ? 'border-[#0284C7] bg-[#0284C7] shadow-lg shadow-[#0284C7]'
+          : 'border-gray-600 bg-gray-800 hover:border-[#0284C7]'"
       >
         <svg
             class="w-3 h-3 text-white transform transition-transform duration-300 ease-in-out"
-            :class="{ 'scale-100 opacity-100': modelValue, 'scale-0 opacity-0': !modelValue }"
+            :class="{ 'scale-100 opacity-100': isChecked, 'scale-0 opacity-0': !isChecked }"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -42,8 +42,8 @@ import { defineProps, defineEmits } from 'vue';
 defineProps({
   id: { type: String, required: true },
   label: { type: String, default: '' },
-  modelValue: { type: Boolean, default: false },
+  // Changed prop name for clarity
+  isChecked: { type: Boolean, default: false },
 });
-
-defineEmits(['update:modelValue']);
+defineEmits(['toggle']);
 </script>
