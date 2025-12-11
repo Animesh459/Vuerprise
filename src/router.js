@@ -42,6 +42,8 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
+    // history: createWebHistory('/vlan24-erp-admin-front/'),
+
   routes,
 });
 

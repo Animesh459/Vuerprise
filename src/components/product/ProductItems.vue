@@ -30,7 +30,7 @@
         <!-- Product Image -->
         <div class="aspect-square  overflow-hidden">
           <img
-              :src="product.image"
+              :src=" getProductImage(product.image)"
               :alt="product.name"
               class="w-full h-full object-cover"
           />
@@ -56,6 +56,7 @@
 <script setup>
 import { ref } from 'vue'
 import CustomCheckbox from "@/components/CustomCheckbox.vue";
+import {getProductImage} from "@/utils/helper.js";
 const formData = ref({
   newsletter: false,
   terms: false,
@@ -66,7 +67,7 @@ const products = ref([
     category: 'Dress',
     name: 'MJ10240..-Clone-Clone-Clone-Clone',
     price: 15.00,
-    image: '/product/1.jpg',
+    image: '1.jpg',
     timestamp: '2025-12-02 06:32:08 AM'
   },
   {
@@ -74,7 +75,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone-Clone-Clone',
     price: 15.00,
-    image: '/product/2.jpg',
+    image: '2.jpg',
     timestamp: '2025-12-02 06:32:06 AM'
   },
   {
@@ -82,7 +83,7 @@ const products = ref([
     category: 'Dress',
     name: 'MJ10240..-Clone-Clone-Clone',
     price: 15.00,
-    image: '/product/1.jpg',
+    image: '1.jpg',
     timestamp: '2025-12-02 06:32:03 AM'
   },
   {
@@ -90,7 +91,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone-Clone-Clone',
     price: 15.00,
-    image: '/product/2.jpg',
+    image: '2.jpg',
     timestamp: '2025-12-02 06:32:01 AM'
   },
   {
@@ -98,7 +99,7 @@ const products = ref([
     category: 'Dress',
     name: 'MJ10240..-Clone-Clone-Clone',
     price: 15.00,
-    image: '/product/1.jpg',
+    image: '1.jpg',
     timestamp: '2025-12-02 06:31:57 AM'
   },
   {
@@ -106,7 +107,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone-Clone-Clone',
     price: 15.00,
-    image: '/product/2.jpg',
+    image: '2.jpg',
     timestamp: '2025-12-02 06:31:55 AM'
   },
   {
@@ -114,7 +115,7 @@ const products = ref([
     category: 'Dress',
     name: 'MJ10240..-Clone-Clone',
     price: 15.00,
-    image: '/product/1.jpg',
+    image: '1.jpg',
     timestamp: '2025-12-02 06:31:52 AM'
   },
   {
@@ -122,7 +123,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone',
     price: 15.00,
-    image: '/product/2.jpg',
+    image: '2.jpg',
     timestamp: '2025-12-02 06:31:49 AM'
   },
   {
@@ -130,7 +131,7 @@ const products = ref([
     category: 'Dress',
     name: 'MJ10240..-Clone-Clone',
     price: 15.00,
-    image: '/product/1.jpg',
+    image: '1.jpg',
     timestamp: '2025-12-02 06:31:46 AM'
   },
   {
@@ -138,7 +139,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone',
     price: 15.00,
-    image: '/product/2.jpg',
+    image: '2.jpg',
     timestamp: '2025-12-02 06:31:44 AM'
   },
   {
@@ -146,7 +147,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone',
     price: 15.00,
-    image: '/product/1.jpg',
+    image: '1.jpg',
     timestamp: '2025-12-02 06:31:40 AM'
   },
   {
@@ -154,7 +155,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone',
     price: 15.00,
-    image: '/product/2.jpg',
+    image: '2.jpg',
     timestamp: '2025-12-02 06:31:32 AM'
   },
   {
@@ -162,7 +163,7 @@ const products = ref([
     category: 'Dress',
     name: 'MJ10240..-Clone-Clone',
     price: 15.00,
-    image: '/product/1.jpg',
+    image: '1.jpg',
     timestamp: '2025-12-02 06:31:46 AM'
   },
   {
@@ -170,7 +171,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone',
     price: 15.00,
-    image: '/product/2.jpg',
+    image: '2.jpg',
     timestamp: '2025-12-02 06:31:44 AM'
   },
   {
@@ -178,7 +179,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone',
     price: 15.00,
-    image: '/product/1.jpg',
+    image: '1.jpg',
     timestamp: '2025-12-02 06:31:40 AM'
   },
   {
@@ -186,7 +187,7 @@ const products = ref([
     category: 'Dress',
     name: 'MT40162-Clone-Clone',
     price: 15.00,
-    image: '/product/2.jpg',
+    image: '2.jpg',
     timestamp: '2025-12-02 06:31:32 AM'
   },
 ])
