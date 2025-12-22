@@ -3,9 +3,6 @@
   <ProductInfo />
   <Inventory />
 
-<!--  <Demo2 />-->
-
-<!--  <Demo />-->
 
   <UploadImageVideo />
 </template>
