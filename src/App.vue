@@ -1,5 +1,5 @@
 <template>
-  <div  class="min-h-screen font-dm bg-[#0D121C]">
+  <div  class="min-h-screen font-dm bg-[#0D121C] min-w-[1300px]">
     <Header v-if="!shouldHideHeader" />
     <main
           class="px-6 py-4 bg-[#070B11] "

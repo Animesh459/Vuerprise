@@ -1,5 +1,5 @@
 <template>
-  <div class="relative z-30">
+  <div class="relative" :class="isOpen ? 'z-50' : 'z-30'" ref="selectRef">
     <label :for="id" class="block text-sm font-medium text-gray-400 mb-1">
       {{ label }}
     </label>
@@ -8,10 +8,7 @@
         :id="id"
         @click="toggleDropdown"
         type="button"
-        class="w-full px-4 py-2 border rounded-lg shadow-sm
-             bg-[#10161F] border-gray-800 text-left
-             focus:outline-none   focus::border-gray-700
-             transition duration-200 ease-in-out flex justify-between items-center"
+        class="w-full flex justify-between bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none"
         :class="isOpen ? 'focus:border-gray-700' : 'text-gray-300'"
         aria-haspopup="listbox"
         :aria-expanded="isOpen"
@@ -58,7 +55,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, computed } from 'vue';
+import { ref, defineProps, defineEmits, computed, onMounted, onBeforeUnmount } from 'vue';
 
 const props = defineProps({
   id: { type: String, required: true },
@@ -71,6 +68,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const isOpen = ref(false);
+const selectRef = ref(null); // Ref for the root element
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
@@ -85,6 +83,21 @@ const selectOption = (option) => {
 const selectedOptionText = computed(() => {
   const selected = props.options.find(opt => opt.value === props.modelValue);
   return selected ? selected.text : null;
+});
+
+// Close dropdown on outside click
+const handleClickOutside = (event) => {
+  if (selectRef.value && !selectRef.value.contains(event.target)) {
+    isOpen.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside);
 });
 </script>
 

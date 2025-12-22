@@ -67,6 +67,10 @@ body {
     .radio {
         @apply h-4 w-4 text-blue-500 focus:ring-blue-500;
     }
+
+    .common-card {
+        @apply  p-6 bg-slate-900/40 rounded-3xl border border-slate-800 backdrop-blur-sm shadow-2xl mb-10;
+    }
 }
 
 

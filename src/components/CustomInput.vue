@@ -8,15 +8,7 @@
         :type="type"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        class="w-full px-4 py-2 border rounded-lg shadow-sm
-             bg-[#10161F] border-gray-800 text-white
-             placeholder-gray-500
-             focus:outline-none
-
-             focus:border-gray-700
-             shadow-none hover:shadow-md hover:shadow-gray-800/50
-
-             transition duration-200 ease-in-out"
+        class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:border-cyan-500/50 transition-all outline-none"
         :placeholder="placeholder"
         :required="required"
     />

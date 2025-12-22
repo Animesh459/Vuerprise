@@ -1,5 +1,5 @@
 <template>
-  <header class="flex items-center justify-between px-6 py-4 border-b bg-[#0D121C] text-white fixed w-full z-50   border-[#000000]">
+  <header class="flex items-center justify-between px-6 py-4 border-b bg-[#0D121C] text-white fixed w-full z-50   border-[#000000] min-w-[1300px]">
     <!-- Logo and Main Nav -->
     <div class="flex items-center gap-8">
       <!-- Logo -->
@@ -10,7 +10,7 @@
       <!-- Main Navigation Menu -->
       <nav class="flex items-center gap-1">
 
-        <Dropdown contentClasses="w-56 left-0 right-auto">
+        <Dropdown ref="productDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
                 class="flex items-center gap-2 pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
@@ -54,7 +54,7 @@
     <div class="flex items-center gap-4">
 
 
-      <Dropdown>
+      <Dropdown ref="userDropdown">
         <template #trigger>
           <button
               class="flex items-center gap-2 bg-slate-800/50 hover:bg-slate-700/50 rounded-full pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent hover:border-slate-600"
@@ -109,11 +109,12 @@
 
 <script setup>
 
- import { h } from 'vue'
+ import {h, ref, watch} from 'vue'
  import {User, Settings, LogOut, ChevronDown} from 'lucide-vue-next'
 
  import Dropdown from "@/components/Dropdown.vue";
  import DropdownItem from "@/components/DropdownItem.vue";
+ import {useRoute} from "vue-router";
 
 
  const menuItems = [
@@ -145,4 +146,16 @@
    { label: 'Bulk Import/Export'},
  ]
 
+ const productDropdown = ref(null);
+ const userDropdown = ref(null);
+ const route = useRoute();
+
+ watch(route, () => {
+   if (productDropdown.value) {
+     productDropdown.value.close();
+   }
+   if (userDropdown.value) {
+     userDropdown.value.close();
+   }
+ });
 </script>
