@@ -75,7 +75,7 @@ const stats = [
           <input
               type="text"
               placeholder="Search colors, variants, stock codes..."
-              class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-12 pr-4 py-3.5 text-sm focus:border-cyan-500/50 focus:bg-slate-950 transition-all outline-none shadow-inner shadow-black/40"
+              class="w-full bg-slate-950 border rounded-xl border-slate-800 pl-12 pr-4 py-3 text-sm focus:border-cyan-500/50 focus:bg-slate-950 transition-all outline-none shadow-inner shadow-black/40"
           />
         </div>
       </div>

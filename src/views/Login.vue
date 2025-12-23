@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center p-4 sm:p-6" style="background-color: #0D121C;">
+  <div class="min-h-screen bg-[#0D121C] bg-[image:radial-gradient(at_left_top,rgba(22,189,202,0.15),transparent_50%)] flex items-center justify-center p-4 sm:p-6" style="background-color: #0D121C;">
 
     <div
         class="w-full max-w-md p-8 sm:p-10 rounded-3xl backdrop-filter backdrop-blur-md
@@ -48,7 +48,7 @@
 
         <div class="flex items-center justify-between text-sm">
           <CustomCheckbox id="terms-check" >
-            Checkbox 2
+            Remember Me
           </CustomCheckbox>
 
           <a href="#" class="text-[#0284C7]  transition duration-200">
@@ -67,12 +67,6 @@
         </button>
       </form>
 
-      <div class="mt-8 text-center text-gray-400 text-sm">
-        Don't have an account?
-        <a href="#" class="text-[#0284C7] transition duration-200 underline">
-          Sign up
-        </a>
-      </div>
 
     </div>
   </div>
