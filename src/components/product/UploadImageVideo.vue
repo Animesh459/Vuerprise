@@ -30,7 +30,7 @@
             <!-- Image Card -->
             <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 group-hover:border-cyan-500/50 transition-all duration-300 shadow-2xl shadow-black/60 group-hover:-translate-y-1">
               <img
-                  :src="item.image"
+                  :src="getProductImage(item.image)"
                   :alt="`Product model ${index + 1}`"
                   class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -134,6 +134,7 @@ import {
   AlertTriangleIcon, PlusIcon
 } from 'lucide-vue-next'
 import CustomSelect from "@/components/CustomSelect.vue";
+import {getProductImage} from "@/utils/helper.js";
 
 const isDragging = ref(false)
 const status = ref('active')
@@ -174,13 +175,13 @@ const stats = [
 ]
 
 const items = ref([
-  { image: '/product/1.jpg', color: 'Default', isPlus: false },
-  { image: '/product/1.jpg', color: 'Default', isPlus: false },
-  { image: '/product/1.jpg', color: 'Default', isPlus: true },
-  { image: '/product/1.jpg', color: 'Default', isPlus: false },
-  { image: '/product/1.jpg', color: 'Default', isPlus: false },
-  { image: '/product/1.jpg', color: 'Default', isPlus: false },
-  { image: '/product/1.jpg', color: 'Default', isPlus: true },
+  { image: '1.jpg', color: 'Default', isPlus: false },
+  { image: '2.jpg', color: 'Default', isPlus: false },
+  { image: '3.jpg', color: 'Default', isPlus: true },
+  { image: '4.jpg', color: 'Default', isPlus: false },
+  { image: '5.jpg', color: 'Default', isPlus: false },
+  { image: '1.jpg', color: 'Default', isPlus: false },
+  { image: '2.jpg', color: 'Default', isPlus: true },
 ])
 
 const handleDrop = (e) => {
