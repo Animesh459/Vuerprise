@@ -23,7 +23,7 @@
                     v-model="searchQuery"
                     type="text"
                     placeholder="Search products by name or SKU..."
-                    class="w-full pl-10 pr-4 py-2.5 bg-[#10161F] text-white placeholder-slate-500 rounded-lg border border-gray-800 focus:border-gray-700 transition-all outline-none text-sm"
+                    class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none"
                 />
               </div>
 

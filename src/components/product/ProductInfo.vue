@@ -192,7 +192,7 @@
             <PackageIcon class="text-cyan-400" :size="24" />
             Edit Item
           </h1>
-          <div class="flex items-center gap-4 bg-slate-900/50 p-1.5 rounded-full border border-slate-800">
+          <div class="flex items-center gap-4 bg-slate-900/20 p-1.5 rounded-full border border-slate-800">
             <button
                 @click="status = 'active'"
                 :class="[
@@ -217,7 +217,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-5 p-6 bg-slate-900/40 rounded-3xl border border-slate-800 backdrop-blur-sm shadow-2xl">
+          <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-5 p-6 bg-slate-900/20 rounded-3xl border border-slate-800 backdrop-blur-sm shadow-2xl">
             <h2 class="col-span-full text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Product Essentials</h2>
             <div class="space-y-2">
               <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Style No</label>
