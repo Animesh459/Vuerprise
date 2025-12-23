@@ -141,6 +141,7 @@
 
      ]
    },
+   { label: 'Add Category', to: '/category' },
    { label: 'Add Product'},
    { label: 'Product Setting'},
    { label: 'Bulk Import/Export'},
@@ -159,3 +160,8 @@
    }
  });
 </script>
+<style scoped>
+.router-link-active {
+  color: #00b8db;
+}
+</style>

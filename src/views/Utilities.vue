@@ -2,6 +2,7 @@
 
   <div class="common-card flex flex-col gap-3 mb-3">
     <h2>Button</h2>
+
       <div class="flex gap-2 ">
         <button class="btn-primary">
           In Progress
@@ -28,6 +29,36 @@
         </button>
 
       </div>
+
+      <div class="flex gap-2 ">
+        <button class="btn-primary-transparent">
+          In Progress
+        </button>
+
+        <button class="btn-secondary-transparent">
+          In Complete
+        </button>
+
+        <button class="btn-success-transparent">
+          Completed
+        </button>
+
+        <button class="btn-info-transparent">
+          Info
+        </button>
+
+        <button class="btn-default-transparent">
+          In Complete
+        </button>
+
+        <button class="btn-danger-transparent">
+          Danger
+        </button>
+        <button class="btn-custom-transparent">
+          transparent
+        </button>
+      </div>
+
   </div>
 
   <div class="common-card flex flex-col gap-3 mb-3">

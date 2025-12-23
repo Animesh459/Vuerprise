@@ -80,10 +80,10 @@ const stats = [
         </div>
       </div>
       <div class="flex gap-3">
-        <button class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 uppercase tracking-[0.2em]">
+        <button class="btn-common">
           <PlusIcon :size="16" /> Add New Color
         </button>
-        <button class="px-6 py-3 bg-slate-800/50 hover:bg-slate-800 text-rose-400 text-[10px] font-black rounded-xl transition-all border border-rose-500/20 uppercase tracking-[0.2em]">
+        <button class="btn-danger-transparent">
           X Close Color Panel
         </button>
       </div>

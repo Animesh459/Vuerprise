@@ -105,10 +105,10 @@
             Back To List
           </button>
           <div class="flex gap-4">
-            <button class="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-[10px] font-black rounded-xl transition-all border border-slate-700 uppercase tracking-widest active:scale-95">
+            <button class="btn-secondary-transparent">
               Previous
             </button>
-            <button class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 uppercase tracking-[0.2em]">
+            <button class="btn-common">
               Save Item
             </button>
           </div>

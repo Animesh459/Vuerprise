@@ -13,6 +13,7 @@ import ThemeSwitcher from './views/ThemeSwitcher.vue';
 import Utilities from './views/Utilities.vue';
 import Login from "@/views/Login.vue";
 import ProductDetail from "@/views/products/ProductDetail.vue";
+import AddCategory from "@/views/AddCategory.vue";
 
 const routes = [
     { path: '/login',
@@ -40,6 +41,7 @@ const routes = [
   { path: '/customers', component: Customers },
   { path: '/utilities', component: Utilities },
   { path: '/themeswitch', component: ThemeSwitcher },
+  { path: '/category', component: AddCategory },
 ];
 
 const router = createRouter({
