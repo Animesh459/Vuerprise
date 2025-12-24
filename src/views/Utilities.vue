@@ -54,7 +54,10 @@
         <button class="btn-danger-transparent">
           Danger
         </button>
-        <button class="btn-custom-transparent">
+        <button class="btn-secondary-transparent">
+          transparent
+        </button>
+        <button class="btn-common">
           transparent
         </button>
       </div>

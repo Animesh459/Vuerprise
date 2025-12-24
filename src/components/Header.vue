@@ -13,7 +13,7 @@
         <Dropdown ref="productDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="flex items-center gap-2 pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
+                class="flex items-center text-[#b0b8c4] font-[14px] gap-2 pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
             >
               Product <ChevronDown :size="16" class="text-slate-500 group-hover:text-white transition-colors"/>
             </button>
@@ -30,20 +30,39 @@
           </template>
         </Dropdown>
 
+        <Dropdown ref="productSettingDropdown" contentClasses="w-56 left-0 right-auto">
+          <template #trigger>
+            <button
+                class="flex text-[#b0b8c4] font-[14px] items-center gap-2 pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
+            >
+              Product Setting <ChevronDown :size="16" class="text-slate-500 group-hover:text-white transition-colors"/>
+            </button>
+          </template>
 
-        <router-link to="/receiving" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
+          <template #content>
+            <div class="py-1">
+              <DropdownItem
+                  v-for="item in productSettingItems"
+                  :key="item.label"
+                  :item="item"
+              />
+            </div>
+          </template>
+        </Dropdown>
+
+        <router-link to="/receiving" class="px-3 py-2 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out py-2 border-b-2 border-transparent">
           Receiving
         </router-link>
 
-        <router-link to="/customer-orders" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
+        <router-link to="/customer-orders" class="px-3 py-2 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out py-2 border-b-2 border-transparent">
           Customer Orders
         </router-link>
 
-        <router-link to="/inventory" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
+        <router-link to="/inventory" class="px-3 py-2 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out py-2 border-b-2 border-transparent">
           Inventory
         </router-link>
 
-        <router-link to="/customers" class="px-3 py-2 font-16 text-white hover:text-shadow-white rounded">
+        <router-link to="/customers" class="px-3 py-2 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out py-2 border-b-2 border-transparent">
           Customers
         </router-link>
 
@@ -147,7 +166,14 @@
    { label: 'Bulk Import/Export'},
  ]
 
+ const productSettingItems = [
+   { label: 'Category' , to: '/category' },
+   { label: 'Color', to: '/colors' },
+   { label: 'Pack'}
+ ]
+
  const productDropdown = ref(null);
+ const productSettingDropdown = ref(null);
  const userDropdown = ref(null);
  const route = useRoute();
 

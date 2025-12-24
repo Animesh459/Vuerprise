@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 bg-slate-900/40 rounded-xl border border-slate-800 shadow-2xl mb-10">
+  <div class="p-6 bg-slate-900/40 rounded-xl border border-cyan-500/20 shadow-2xl mb-10">
     <!-- Header -->
     <header class="">
       <div class="mb-12">
@@ -15,7 +15,7 @@
 
         <!-- Left Panel - Categories List with Collapsible -->
         <div class="lg:col-span-1">
-          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto">
+          <div class="bg-slate-900/50 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto">
             <div class="flex items-center gap-2 mb-6">
               <h2 class="text-xl font-bold">Categories</h2>
             </div>

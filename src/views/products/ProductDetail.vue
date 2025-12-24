@@ -2,8 +2,8 @@
 
   <ProductInfo />
   <Inventory />
-
   <UploadImageVideo />
+
 </template>
 
 <script setup>

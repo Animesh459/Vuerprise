@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import "tailwindcss";
 body {
-    color: #ffffff;
+    color: #b0b8c4;
     font-size: 16px;
 }
 
@@ -35,7 +35,7 @@ body {
     }
 
     .btn-common {
-        @apply px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-[10px] font-black rounded-md transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 uppercase tracking-[0.2em]
+        @apply px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 uppercase
     }
     /*button*/
     .btn-primary {
@@ -90,6 +90,10 @@ body {
         @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-[#00b8db]/20 to-[#00d4ff]/20 border border-[#00b8db]/30 rounded-md text-sm font-medium text-[#00b8db] transition-all duration-300 hover:bg-[#00b8db]/30;
     }
 
+    .btn-common {
+        @apply px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 uppercase
+    }
+
     /*input*/
     .label {
         @apply block mb-1 text-sm text-gray-300;
@@ -105,7 +109,7 @@ body {
     }
 
     .common-card {
-        @apply  p-6 bg-slate-900/40 rounded-xl border border-slate-800 backdrop-blur-sm shadow-2xl mb-10 overflow-hidden;
+        @apply  p-6 bg-slate-900/40 rounded-xl border border-cyan-500/20 backdrop-blur-sm shadow-2xl mb-10 overflow-hidden;
     }
 }
 
