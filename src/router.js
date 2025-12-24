@@ -15,6 +15,7 @@ import Login from "@/views/Login.vue";
 import ProductDetail from "@/views/products/ProductDetail.vue";
 import AddCategory from "@/views/AddCategory.vue";
 import ColorsCategory from "@/views/ColorsCategory.vue";
+import PacksCategory from "@/views/PacksCategory.vue";
 
 const routes = [
     { path: '/login',
@@ -44,6 +45,7 @@ const routes = [
   { path: '/themeswitch', component: ThemeSwitcher },
   { path: '/category', component: AddCategory },
   { path: '/colors', component: ColorsCategory },
+    { path: '/packs', component: PacksCategory },
 ];
 
 const router = createRouter({

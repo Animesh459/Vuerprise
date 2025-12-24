@@ -169,7 +169,7 @@
  const productSettingItems = [
    { label: 'Category' , to: '/category' },
    { label: 'Color', to: '/colors' },
-   { label: 'Pack'}
+   { label: 'Pack', to: '/packs'}
  ]
 
  const productDropdown = ref(null);
