@@ -53,8 +53,8 @@
               <span>Add More</span>
             </button>
             <div class="flex gap-4">
-              <button @click="resetForm" class="px-8 py-2 bg-gray-950/80 border border-cyan-500/20 text-gray-400 rounded-lg font-semibold hover:border-cyan-400 hover:text-cyan-400 transition-all">Cancel</button>
-              <button @click="savePack" class="px-8 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-semibold rounded-lg shadow-lg shadow-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/50 transition-all">Save</button>
+              <button @click="resetForm" class="btn-transparent-default">Cancel</button>
+              <button @click="savePack" class="btn-common">Save</button>
             </div>
           </div>
         </div>
@@ -69,13 +69,13 @@
                 v-model="searchQuery"
                 type="text"
                 placeholder="Search"
-                class="w-full bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-500/30 transition-all"
+                class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none"
             />
           </div>
 
           <!-- Sort -->
           <div class="w-48">
-            <select v-model="sortBy" class="w-full bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400 transition-all">
+            <select v-model="sortBy" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none">
               <option value="name">Name A-Z</option>
               <option value="date">Date</option>
               <option value="size">Size</option>
@@ -84,7 +84,7 @@
 
           <!-- Filter -->
           <div class="w-32">
-            <select v-model="filterCategory" class="w-full bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400 transition-all">
+            <select v-model="filterCategory" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none">
               <option value="">All</option>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
@@ -93,7 +93,7 @@
 
           <!-- Items Per Page -->
           <div class="w-32">
-            <select v-model.number="itemsPerPage" class="w-full bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400 transition-all">
+            <select v-model.number="itemsPerPage" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none">
               <option value="10">10</option>
               <option value="20">20</option>
               <option value="50">50</option>
@@ -147,7 +147,7 @@
             <button v-for="page in totalPages" :key="page" @click="currentPage = page" :class="['px-3 py-1 rounded font-semibold transition-all', currentPage === page ? 'bg-cyan-400 text-black' : 'bg-gray-950/80 border border-cyan-500/20 text-gray-400 hover:border-cyan-400']">
               {{ page }}
             </button>
-            <button @click="nextPage" class="px-3 py-1 bg-gray-950/80 border border-cyan-500/20 text-gray-400 rounded hover:border-cyan-400 hover:text-cyan-400 transition-all">→</button>
+            <button @click="nextPage" class="btn-common">→</button>
           </div>
           <span class="text-sm text-gray-400">{{ totalPages }}</span>
         </div>

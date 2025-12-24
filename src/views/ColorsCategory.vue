@@ -38,18 +38,18 @@
             <!-- Color Name -->
             <div>
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Color Name</label>
-              <input type="text" placeholder="Enter color name" class="w-full bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-500/30 transition-all" />
+              <input type="text" placeholder="Enter color name" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
             </div>
 
             <!-- Master Color -->
             <div>
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Master Color</label>
-              <select class="w-full bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-500/30 transition-all">
-                <option>Select Master Color</option>
-                <option>Red</option>
-                <option>Blue</option>
-                <option>Green</option>
-              </select>
+              <div class="relative">
+                <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                  <option>Select Size</option>
+                </select>
+                <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+              </div>
             </div>
           </div>
 
@@ -59,14 +59,14 @@
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Color Code</label>
               <div class="flex gap-3">
                 <input type="color" v-model="selectedColor" class="w-20 h-12 border border-cyan-500/20 rounded-lg cursor-pointer" />
-                <input type="text" v-model="selectedColor" placeholder="#000000" class="flex-1 bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-500/30 transition-all font-mono" />
+                <input type="text" v-model="selectedColor" placeholder="#000000" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
               </div>
             </div>
 
             <!-- Upload Color Image -->
             <div>
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Upload Color Image</label>
-              <input type="file" class="w-full bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-3 text-gray-400 focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-500/30 transition-all" />
+              <input type="file" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none" />
             </div>
           </div>
         </div>
@@ -80,22 +80,27 @@
 
     <div class="space-y-4">
       <div class="flex items-center justify-between gap-4">
-        <input type="text" v-model="searchQuery" placeholder="Search colors, variants, stock codes..." class="flex-1 bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-500/30 transition-all" />
-
+        <input type="text" v-model="searchQuery" placeholder="Search colors, variants, stock codes..." class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none" />
         <div class="flex gap-3">
-          <select v-model="sortBy" class="bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 text-sm">
-            <option value="name">Name A-Z</option>
-            <option value="recent">Recently Added</option>
-            <option value="popular">Popular</option>
-          </select>
 
-          <select v-model="itemsPerPage" class="bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 text-sm w-20">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-          </select>
+          <div class="relative">
+            <select v-model="sortBy" class="w-full min-w-[100px] bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+              <option>Name A-Z</option>
+              <option>Recently Added</option>
+              <option>Popular</option>
+            </select>
+            <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+          </div>
+          <div class="relative">
+            <select v-model="itemsPerPage" class="w-full min-w-[100px] bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+            </select>
+            <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+          </div>
 
-          <button class="px-4 py-2 text-cyan-400 hover:text-cyan-300 font-semibold text-sm">Reset All</button>
+          <button class="px-4 py-2 whitespace-nowrap text-cyan-400 hover:text-cyan-300 font-semibold text-sm">Reset All</button>
         </div>
       </div>
 
@@ -127,6 +132,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import {ChevronDownIcon} from "lucide-vue-next";
 
 const selectedColor = ref('#000000')
 const selectedColorCard = ref(null)

@@ -222,16 +222,16 @@
             <div class="space-y-2">
               <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Style No</label>
 
-              <input type="text" value="MJ10240..-Clone-Clone-Clone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none" />
+              <input type="text" value="MJ10240..-Clone-Clone-Clone" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none" />
             </div>
             <div class="space-y-2">
               <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">SKU</label>
-              <input type="text" placeholder="SKU" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
+              <input type="text" placeholder="SKU" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
             </div>
             <div class="space-y-2">
               <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Select Size</label>
               <div class="relative">
-                <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
                   <option>Select Size</option>
                 </select>
                 <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
@@ -239,20 +239,20 @@
             </div>
             <div class="space-y-2">
               <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Product Name</label>
-              <input type="text" value="Short Sleeve Knit Top with Daisy Patch" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
+              <input type="text" value="Short Sleeve Knit Top with Daisy Patch" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
             </div>
             <div class="space-y-2">
               <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">FOB Price</label>
               <div class="relative">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">$</span>
-                <input type="text" value="15.00" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
+                <input type="text" value="15.00" class="w-full bg-gray-950/80 border border-slate-800 rounded-md pl-8 pr-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
               </div>
             </div>
             <div class="space-y-2">
               <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Price</label>
               <div class="relative">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">$</span>
-                <input type="text" value="22.90" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
+                <input type="text" value="22.90" class="w-full bg-gray-950/80 border border-slate-800 rounded-md pl-8 pr-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
               </div>
             </div>
           </div>
@@ -261,7 +261,7 @@
             <h2 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Detailed Feedback</h2>
             <textarea
                 placeholder="Enter internal description or feedback..."
-                class="flex-1 w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-4 text-sm resize-none focus:border-cyan-500/50 transition-all outline-none min-h-[150px]"
+                class="flex-1 w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-4 text-sm resize-none focus:border-cyan-500/50 transition-all outline-none min-h-[150px]"
             ></textarea>
           </div>
         </div>

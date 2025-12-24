@@ -44,7 +44,7 @@ const products = ref([
               <h1 class="text-2xl font-bold text-white">Product Catalog</h1>
               <p class="text-slate-400 text-sm mt-1"> items available</p>
             </div>
-            <div class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-[10px] font-black rounded-xl transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 uppercase tracking-[0.2em]">
+            <div class="btn-common">
               10 of 50 selected
             </div>
           </div>
@@ -63,7 +63,7 @@ const products = ref([
 
             <div class="flex flex-wrap gap-2">
               <button
-                  class="btn-success-transparent"
+                  class="btn-info-transparent"
               >
                 Select All
               </button>

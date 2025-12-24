@@ -50,19 +50,19 @@
           </template>
         </Dropdown>
 
-        <router-link to="/receiving" class="px-3 py-2 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out py-2 border-b-2 border-transparent">
+        <router-link to="/receiving" class="px-3 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out border-b-2 border-transparent">
           Receiving
         </router-link>
 
-        <router-link to="/customer-orders" class="px-3 py-2 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out py-2 border-b-2 border-transparent">
+        <router-link to="/customer-orders" class="px-3 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out border-b-2 border-transparent">
           Customer Orders
         </router-link>
 
-        <router-link to="/inventory" class="px-3 py-2 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out py-2 border-b-2 border-transparent">
+        <router-link to="/inventory" class="px-3 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out border-b-2 border-transparent">
           Inventory
         </router-link>
 
-        <router-link to="/customers" class="px-3 py-2 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out py-2 border-b-2 border-transparent">
+        <router-link to="/customers" class="px-3 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out border-b-2 border-transparent">
           Customers
         </router-link>
 
@@ -160,16 +160,14 @@
 
      ]
    },
-   { label: 'Add Category', to: '/category' },
    { label: 'Add Product'},
-   { label: 'Product Setting'},
    { label: 'Bulk Import/Export'},
  ]
 
  const productSettingItems = [
-   { label: 'Category' , to: '/category' },
-   { label: 'Color', to: '/colors' },
-   { label: 'Pack', to: '/packs'}
+   { label: 'Add Category' , to: '/category' },
+   { label: 'Add Color', to: '/colors' },
+   { label: 'Add Pack', to: '/packs'}
  ]
 
  const productDropdown = ref(null);
@@ -177,9 +175,12 @@
  const userDropdown = ref(null);
  const route = useRoute();
 
- watch(route, () => {
+ watch(() => route.fullPath, () => {
    if (productDropdown.value) {
      productDropdown.value.close();
+   }
+   if (productSettingDropdown.value) {
+     productSettingDropdown.value.close();
    }
    if (userDropdown.value) {
      userDropdown.value.close();
