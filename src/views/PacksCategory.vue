@@ -1,44 +1,61 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-[#0D121C] to-[#1a2332] text-white font-sans">
+  <div class="common-card p-0">
+
+    <div class="sticky top-0 z-50 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-md">
+      <div class="w-full px-6 md:px-8 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center text-white font-bold text-lg">
+            📦
+          </div>
+          <h1 class="text-2xl font-bold text-white">Packs Manager</h1>
+        </div>
+        <div class="text-sm text-slate-400">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">
+            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+            Active
+          </span>
+        </div>
+      </div>
+    </div>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-8 py-8">
-      <!-- Header -->
-      <div class="flex items-center gap-4 mb-8">
-        <span class="text-4xl">📦</span>
-        <h1 class="text-3xl font-bold text-white">Packs</h1>
-      </div>
+    <main class="w-full px-6 md:px-8 py-8 max-w-full">
+      <!-- Add Pack Form Card -->
+      <div class="mb-8 rounded-2xl border border-slate-800/50 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-xl shadow-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-b border-slate-800/50 px-8 py-6">
+          <h2 class="text-xl font-semibold text-white flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400">+</span>
+            Create New Pack
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">Configure size options and pack specifications</p>
+        </div>
 
-      <!-- Add Pack Form -->
-      <div class="bg-gradient-to-br from-gray-900/50 to-gray-900/30 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-8 mb-8 shadow-2xl shadow-black/30">
-        <h2 class="text-xl font-bold text-white mb-6 pb-4 border-b border-cyan-500/20">Add a New Pack</h2>
-
-        <div class="space-y-6">
-          <!-- Size Dropdown -->
+        <div class="p-8 space-y-6">
           <div>
-            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Size</label>
-            <select v-model="newPack.size" class="w-full bg-gray-950/80 border border-cyan-500/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-500/30 transition-all">
-              <option value="">Select a Size</option>
-              <option value="S-M-L">S-M-L</option>
-              <option value="S-M-L-XL">S-M-L-XL</option>
-              <option value="XS-S-M-L-XL">XS-S-M-L-XL</option>
-              <option value="M-L-XL-XXL">M-L-XL-XXL</option>
-            </select>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Size Configuration</label>
+            <div class="relative">
+              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                <option>Select a size preset...</option>
+                <option>Small, Medium, Large</option>
+                <option>Small to Extra Large</option>
+                <option>Medium to 2XL</option>
+              </select>
+              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+            </div>
           </div>
-
-          <!-- Pack Selection Grid -->
+          <!-- Pack Grid -->
           <div>
-            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Pack</label>
-            <div class="grid grid-cols-10 gap-2">
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Select Packs</label>
+            <div class="grid grid-cols-5 md:grid-cols-10 gap-3">
               <button
                   v-for="i in 10"
                   :key="i"
                   @click="togglePack(`P${i}`)"
                   :class="[
-                  'py-2 px-3 border rounded-lg text-sm font-semibold transition-all',
+                  '',
                   newPack.packs.includes(`P${i}`)
-                    ? 'bg-cyan-400 border-cyan-300 text-black shadow-lg shadow-cyan-500/50'
-                    : 'bg-gray-950/80 border-cyan-500/20 text-gray-300 hover:border-cyan-400 hover:text-cyan-300'
+                    ? 'btn-common'
+                    : 'btn-secondary-transparent'
                 ]"
               >
                 P{{ i }}
@@ -46,110 +63,176 @@
             </div>
           </div>
 
-          <!-- Add More & Action Buttons -->
-          <div class="flex justify-between items-center pt-4">
-            <button class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
-              <span class="text-2xl">+</span>
-              <span>Add More</span>
+          <!-- Action Buttons -->
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-6 border-t border-slate-700/30">
+            <button class="text-cyan-400 hover:text-cyan-300 font-medium text-sm flex items-center gap-2 transition-colors">
+              <span class="text-lg">+</span>
+              <span>Add More Options</span>
             </button>
-            <div class="flex gap-4">
-              <button @click="resetForm" class="btn-transparent-default">Cancel</button>
-              <button @click="savePack" class="btn-common">Save</button>
+            <div class="flex gap-3 w-full md:w-auto">
+              <button
+                  @click="resetForm"
+                  class="btn-secondary-transparent"
+              >
+                Cancel
+              </button>
+              <button
+                  @click="savePack"
+                  class="btn-common"
+              >
+                Save Pack
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Search & Filter Bar -->
-      <div class="bg-gradient-to-br from-gray-900/50 to-gray-900/30 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-6 mb-8 shadow-2xl shadow-black/30">
-        <div class="flex gap-4 items-end">
-          <!-- Search -->
-          <div class="flex-1">
+      <!-- Search & Controls Bar -->
+      <div class="mb-8 rounded-2xl border border-slate-800/50 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-xl p-6 shadow-2xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Search Input -->
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Search</label>
             <input
                 v-model="searchQuery"
                 type="text"
-                placeholder="Search"
-                class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none"
+                placeholder="Search packs..."
+                class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none"
             />
           </div>
 
-          <!-- Sort -->
-          <div class="w-48">
-            <select v-model="sortBy" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none">
-              <option value="name">Name A-Z</option>
-              <option value="date">Date</option>
-              <option value="size">Size</option>
-            </select>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Sort By</label>
+            <div class="relative">
+              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                <option>Name (A-Z)</option>
+                <option>Date Added</option>
+                <option>Size</option>
+              </select>
+              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+            </div>
           </div>
-
           <!-- Filter -->
-          <div class="w-32">
-            <select v-model="filterCategory" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none">
-              <option value="">All</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Status</label>
+            <div class="relative">
+              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                <option>All Packs</option>
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+            </div>
           </div>
 
           <!-- Items Per Page -->
-          <div class="w-32">
-            <select v-model.number="itemsPerPage" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none">
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-            </select>
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Per Page</label>
+            <div class="relative">
+              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                <option>10 items</option>
+                <option>20 items</option>
+                <option>50 items</option>
+              </select>
+              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Data Table -->
-      <div class="bg-gradient-to-br from-gray-900/50 to-gray-900/30 backdrop-blur-xl border border-cyan-500/20 rounded-2xl overflow-hidden shadow-2xl shadow-black/30">
+      <!-- Data Table Card -->
+      <div class="rounded-2xl border border-slate-800/50 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-xl shadow-2xl overflow-hidden">
         <!-- Table Header -->
-        <div class="bg-black/40 border-b border-cyan-500/20 grid grid-cols-12 gap-4 px-8 py-4">
-          <div class="col-span-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Size Name</div>
-          <div class="col-span-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Size Details</div>
-          <div class="col-span-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Pack</div>
-          <div class="col-span-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Status</div>
-          <div class="col-span-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Action</div>
-        </div>
-
-        <!-- Table Body -->
-        <div class="divide-y divide-cyan-500/10">
-          <div v-for="pack in paginatedPacks" :key="pack.id" class="grid grid-cols-12 gap-4 px-8 py-4 hover:bg-gray-900/30 transition-colors">
-            <div class="col-span-3">
-              <span class="text-white font-medium">{{ pack.sizeName }}</span>
-            </div>
-            <div class="col-span-3">
-              <span class="text-gray-300">{{ pack.sizeDetails }}</span>
-            </div>
-            <div class="col-span-2">
-              <span class="bg-gray-800 text-white px-3 py-1 rounded text-sm font-semibold">{{ pack.pack }}</span>
-            </div>
-            <div class="col-span-2">
-              <span class="text-cyan-400">✓</span>
-            </div>
-            <div class="col-span-2 flex gap-3">
-              <button class="text-cyan-400 hover:text-cyan-300 transition-colors">
-                <span class="text-lg">✏️</span>
-              </button>
-              <button @click="deletePack(pack.id)" class="text-red-400 hover:text-red-300 transition-colors">
-                <span class="text-lg">🗑️</span>
-              </button>
-            </div>
+        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-b border-slate-800/50 px-8 py-4">
+          <div class="grid grid-cols-12 gap-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            <div class="col-span-3">Size Name</div>
+            <div class="col-span-3">Size Details</div>
+            <div class="col-span-2">Pack Config</div>
+            <div class="col-span-2">Status</div>
+            <div class="col-span-2">Actions</div>
           </div>
         </div>
 
-        <!-- Pagination -->
-        <div class="bg-black/40 border-t border-cyan-500/20 px-8 py-4 flex items-center justify-between">
-          <span class="text-sm text-gray-400">{{ startItem }}-{{ endItem }} of {{ filteredPacks.length }}</span>
-          <div class="flex gap-2">
-            <button @click="previousPage" class="px-3 py-1 bg-gray-950/80 border border-cyan-500/20 text-gray-400 rounded hover:border-cyan-400 hover:text-cyan-400 transition-all">←</button>
-            <button v-for="page in totalPages" :key="page" @click="currentPage = page" :class="['px-3 py-1 rounded font-semibold transition-all', currentPage === page ? 'bg-cyan-400 text-black' : 'bg-gray-950/80 border border-cyan-500/20 text-gray-400 hover:border-cyan-400']">
-              {{ page }}
+        <!-- Table Rows -->
+        <div class="divide-y divide-slate-800/30">
+          <div
+              v-for="pack in paginatedPacks"
+              :key="pack.id"
+              class="grid grid-cols-12 gap-4 px-8 py-4 hover:bg-slate-800/20 transition-colors duration-200 group"
+          >
+            <div class="col-span-3">
+              <span class="font-medium text-white">{{ pack.sizeName }}</span>
+            </div>
+            <div class="col-span-3">
+              <span class="text-slate-400">{{ pack.sizeDetails }}</span>
+            </div>
+            <div class="col-span-2">
+              <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-sm font-medium text-cyan-400">
+                {{ pack.pack }}
+              </span>
+            </div>
+            <div class="col-span-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                <span class="text-sm text-emerald-400 font-medium">Active</span>
+              </div>
+            </div>
+            <div class="col-span-2 flex gap-2">
+              <button class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:bg-slate-700/50 hover:border-cyan-400/30 transition-all opacity-0 group-hover:opacity-100">
+                ✎
+              </button>
+              <button
+                  @click="deletePack(pack.id)"
+                  class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-400/30 transition-all opacity-0 group-hover:opacity-100"
+              >
+                🗑
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div v-if="paginatedPacks.length === 0" class="px-8 py-12 text-center">
+            <p class="text-slate-400 text-sm">No packs found. Create one to get started!</p>
+          </div>
+        </div>
+
+        <!-- Footer with Pagination -->
+        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-t border-slate-800/50 px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <span class="text-sm text-slate-400">
+            Showing <span class="font-semibold text-white">{{ startItem }}-{{ endItem }}</span> of <span class="font-semibold text-white">{{ filteredPacks.length }}</span>
+          </span>
+          <div class="flex gap-2 items-center">
+            <button
+                @click="previousPage"
+                :disabled="currentPage === 1"
+                class="p-2 rounded-lg border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              ←
             </button>
-            <button @click="nextPage" class="btn-common">→</button>
+            <div class="flex gap-1">
+              <button
+                  v-for="page in totalPages"
+                  :key="page"
+                  @click="currentPage = page"
+                  :class="[
+                  'px-3 py-1 rounded-lg text-sm font-medium transition-all',
+                  currentPage === page
+                    ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30'
+                    : 'bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:border-slate-600/50'
+                ]"
+              >
+                {{ page }}
+              </button>
+            </div>
+            <button
+                @click="nextPage"
+                :disabled="currentPage === totalPages"
+                class="p-2 rounded-lg border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              →
+            </button>
           </div>
-          <span class="text-sm text-gray-400">{{ totalPages }}</span>
         </div>
       </div>
     </main>
@@ -158,6 +241,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import {ChevronDownIcon} from "lucide-vue-next";
 
 // Form data
 const newPack = ref({
@@ -167,11 +251,11 @@ const newPack = ref({
 
 // Data
 const packs = ref([
-  { id: 1, sizeName: 'S-M-L', sizeDetails: 'S-M-L', pack: '2-2-2', status: 'active' },
-  { id: 2, sizeName: 'S-M-L-XL', sizeDetails: 'S-M-L-XL', pack: '1-2-2-1', status: 'active' },
-  { id: 3, sizeName: 'M-L-XL', sizeDetails: 'M-L-XL', pack: '3-2-1', status: 'active' },
-  { id: 4, sizeName: 'XS-S-M', sizeDetails: 'XS-S-M', pack: '2-3-2', status: 'active' },
-  { id: 5, sizeName: 'L-XL-XXL', sizeDetails: 'L-XL-XXL', pack: '1-2-3', status: 'active' },
+  { id: 1, sizeName: 'S-M-L', sizeDetails: 'Small, Medium, Large', pack: '2-2-2', status: 'active' },
+  { id: 2, sizeName: 'S-M-L-XL', sizeDetails: 'Small to Extra Large', pack: '1-2-2-1', status: 'active' },
+  { id: 3, sizeName: 'M-L-XL', sizeDetails: 'Medium to Extra Large', pack: '3-2-1', status: 'active' },
+  { id: 4, sizeName: 'XS-S-M', sizeDetails: 'Extra Small to Medium', pack: '2-3-2', status: 'active' },
+  { id: 5, sizeName: 'L-XL-XXL', sizeDetails: 'Large to 2XL', pack: '1-2-3', status: 'active' },
 ])
 
 // Filters & Search
