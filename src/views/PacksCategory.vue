@@ -1,7 +1,7 @@
 <template>
   <div class="common-card p-0">
 
-    <div class="sticky top-0 z-50 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-md">
+    <div class="">
       <div class="w-full px-6 md:px-8 py-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center text-white font-bold text-lg">
@@ -9,12 +9,12 @@
           </div>
           <h1 class="text-2xl font-bold text-white">Packs Manager</h1>
         </div>
-        <div class="text-sm text-slate-400">
-          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">
-            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-            Active
-          </span>
-        </div>
+<!--        <div class="text-sm text-slate-400">-->
+<!--          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">-->
+<!--            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>-->
+<!--            Active-->
+<!--          </span>-->
+<!--        </div>-->
       </div>
     </div>
 
