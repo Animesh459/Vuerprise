@@ -123,7 +123,7 @@ const stats = [
         <table class="w-full text-left border-collapse min-w-[1000px]">
           <thead>
           <tr class="border-b border-slate-800 bg-slate-900/40">
-            <th v-for="header in tableHeaders" :key="header" class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
+            <th v-for="header in tableHeaders" :key="header" class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">
               {{ header }}
             </th>
           </tr>

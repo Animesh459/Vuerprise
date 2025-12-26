@@ -34,9 +34,9 @@ body {
         @apply bg-[#0D121C] backdrop-blur-md rounded-md p-6;
     }
 
-    .btn-common {
-        @apply px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 uppercase
-    }
+    /*.btn-common {*/
+    /*    @apply px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 */
+    /*}*/
     /*button*/
     .btn-primary {
         @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-orange-500 text-orange-500 bg-transparent hover:bg-orange-500/10 shadow-lg hover:shadow-orange-500/50 hover:shadow-lg transition-all duration-300;
@@ -91,7 +91,7 @@ body {
     }
 
     .btn-common {
-        @apply px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 uppercase
+        @apply flex items-center justify-center px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20  gap-2
     }
 
     /*input*/

@@ -3,7 +3,7 @@
     <!-- Add New Color Form Section -->
     <div class="common-card">
       <div class="flex justify-between mb-8">
-        <h2 class="flex items-center gap-3 text-sm font-bold text-gray-400 uppercase tracking-wide">
+        <h2 class="text-xl md:text-3xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent mb-2">
           <span class="text-xl">🎨</span>
           Add a New Color
         </h2>
