@@ -51,7 +51,7 @@
         </Dropdown>
 
 
-        <Dropdown ref="receiving" contentClasses="w-56 left-0 right-auto">
+        <Dropdown ref="receivingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
                 class="flex text-[#b0b8c4] font-[14px] items-center gap-2 pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
@@ -192,11 +192,11 @@
  ]
 
  const receivingItems = [
-   { label: 'Purchase Orders' , to: '/category' },
-   { label: 'Vendor Shipments', to: '/colors' },
-   { label: 'Warehouse Receiving', to: '/packs'},
-   { label: 'Vendor', to: '/packs'},
-   { label: 'Return to Vendor', to: '/packs'},
+   { label: 'Purchase Orders' , to: '/purchase-order' },
+   { label: 'Vendor Shipments', to: '/vendor-shipment' },
+   { label: 'Warehouse Receiving', to: '/warehouse-receiving'},
+   // { label: 'Vendor', to: '/packs'},
+   // { label: 'Return to Vendor', to: '/packs'},
  ]
 
  const productDropdown = ref(null);

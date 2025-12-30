@@ -239,33 +239,86 @@
 
   <div class="common-card flex flex-col gap-3 mb-3">
     <h2>Table </h2>
-    <CustomTable :headers="tableHeaders" :data="tableData">
+<!--    <CustomTable :headers="tableHeaders" :data="tableData">-->
 
-      <template #cell-status="{ item }">
-        <span
-            :class="{
-            'px-2 inline-flex text-xs leading-5 font-semibold rounded-full': true,
-            'btn-success': item.status === 'Complete',
-            'btn-primary': item.status === 'In Progress',
-            'btn-danger': item.status === 'Blocked',
-          }"
-        >
-          {{ item.status }}
-        </span>
-      </template>
+<!--      <template #cell-status="{ item }">-->
+<!--        <span-->
+<!--            :class="{-->
+<!--            'px-2 inline-flex text-xs leading-5 font-semibold rounded-full': true,-->
+<!--            'btn-success': item.status === 'Complete',-->
+<!--            'btn-primary': item.status === 'In Progress',-->
+<!--            'btn-danger': item.status === 'Blocked',-->
+<!--          }"-->
+<!--        >-->
+<!--          {{ item.status }}-->
+<!--        </span>-->
+<!--      </template>-->
 
-      <template #cell-actions="{ item }">
-        <button  class="btn-secondary">
-          View
-        </button>
-      </template>
-    </CustomTable>
-    <CustomPagination
-        :currentPage="pageData.current"
-        :totalPages="pageData.total"
-        :maxVisibleButtons="7"
-        @update:currentPage="updatePage"
-    />
+<!--      <template #cell-actions="{ item }">-->
+<!--        <button  class="btn-secondary">-->
+<!--          View-->
+<!--        </button>-->
+<!--      </template>-->
+<!--    </CustomTable>-->
+<!--    <CustomPagination-->
+<!--        :currentPage="pageData.current"-->
+<!--        :totalPages="pageData.total"-->
+<!--        :maxVisibleButtons="7"-->
+<!--        @update:currentPage="updatePage"-->
+<!--    />-->
+
+    <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/20 backdrop-blur-md shadow-2xl">
+      <table class="w-full text-left border-collapse min-w-[1000px]">
+        <thead>
+        <tr class="border-b border-slate-800 bg-slate-900/40">
+          <th v-for="header in tableHeaders" :key="header" class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">
+            {{ header }}
+          </th>
+        </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800/50">
+        <tr v-for="row in inventoryData" :key="row.color" class="group hover:bg-slate-800/20 transition-colors">
+          <td class="px-6 py-4">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-white uppercase tracking-wider">{{ row.color }}</span>
+          </td>
+          <td class="px-6 py-4">
+            <input type="text" v-model="row.physical" class="w-20 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-center font-bold focus:border-cyan-500/50 outline-none transition-all" />
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center gap-2 text-cyan-400 font-black text-sm">{{ row.incoming }} <ZapIcon :size="14" class="animate-pulse" /></div>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center gap-2 text-amber-400 font-black text-sm">{{ row.outgoing }} <ArrowDownCircleIcon :size="14" /></div>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center gap-2 text-rose-400 font-black text-sm">{{ row.projected }} <AlertCircleIcon :size="14" /></div>
+          </td>
+          <td class="px-6 py-4">
+            <div class="relative min-w-[140px]">
+              <select v-model="row.status" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs font-bold text-slate-400 appearance-none outline-none focus:border-cyan-500/50 transition-all uppercase tracking-widest cursor-pointer">
+                <option>Out of Stock</option>
+                <option>In Stock</option>
+                <option>Low Stock</option>
+              </select>
+              <ChevronDownIcon class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600" :size="12" />
+            </div>
+          </td>
+          <td class="px-6 py-4 text-center">
+            <input type="text" v-model="row.reorder" class="w-16 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-center font-bold outline-none" />
+          </td>
+          <td class="px-6 py-4">
+            <div class="relative">
+              <input type="text" placeholder="YYYY-MM-DD" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs font-mono text-slate-500 outline-none focus:border-cyan-500/50 transition-all" />
+              <CalendarIcon class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" :size="14" />
+            </div>
+          </td>
+          <td class="px-6 py-4 text-center">
+            <button class="text-rose-500/50 hover:text-rose-500 font-black text-[10px] uppercase tracking-widest transition-all hover:scale-110 active:scale-95">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="common-card flex flex-col gap-3 mb-3">
@@ -318,6 +371,7 @@
   import CustomTable from "@/components/CustomTable.vue";
   import CustomTabs from "@/components/CustomTabs.vue";
   import CustomPagination from "@/components/CustomPagination.vue";
+  import {AlertCircleIcon, ArrowDownCircleIcon, CalendarIcon, ChevronDownIcon, ZapIcon} from "lucide-vue-next";
 
   const isModalOpen = ref(false);
 
@@ -344,20 +398,14 @@
     feedback: '',
   });
 
-  const tableHeaders = ref([
-    { key: 'id', label: 'ID' },
-    { key: 'title', label: 'Project Title' },
-    { key: 'owner', label: 'Owner' },
-    { key: 'status', label: 'Status' },
-    { key: 'actions', label: 'Actions' },
-  ]);
+  const tableHeaders = [
+    'Color', 'Physical Qty', 'Incoming Qty', 'Outgoing Qty', 'Projected Qty', 'Stock Status', 'Reorder Level', 'Expected Arrival', 'Action'
+  ]
 
-  const tableData = ref([
-    { id: 101, title: 'API Refactor', owner: 'Alice', status: 'Complete' },
-    { id: 102, title: 'UX Redesign', owner: 'Bob', status: 'In Progress' },
-    { id: 103, title: 'DB Migration', owner: 'Charlie', status: 'Blocked' },
-    { id: 104, title: 'New Feature X', owner: 'Dave', status: 'In Progress' },
-  ]);
+  const inventoryData = ref([
+    { color: 'Green', physical: 0, incoming: 0, outgoing: 0, projected: 0, status: 'Out of Stock', reorder: 0 },
+    { color: 'Ivory', physical: 0, incoming: 0, outgoing: 0, projected: 0, status: 'Out of Stock', reorder: 0 },
+  ])
 
   const pageData = ref({
     current: 1,

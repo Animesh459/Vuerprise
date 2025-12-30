@@ -174,7 +174,7 @@
         <!-- Modal Content -->
         <div class="px-8 py-8 space-y-3">
           <!-- Status -->
-          <div class="space-y-2">
+          <div class="space-y-4">
             <label class="block text-sm font-medium text-gray-400 mb-1">
               Status
             </label>
@@ -192,7 +192,7 @@
           </div>
 
           <!-- Category Name -->
-          <div class="space-y-2">
+          <div class="space-y-4">
             <label class="block text-sm font-medium text-gray-400 mb-1">
               Category Name
             </label>
@@ -204,7 +204,7 @@
             />
           </div>
 
-          <div class="space-y-2">
+          <div class="space-y-4">
             <label class="block text-sm font-medium text-gray-400 mb-1">Parent Category</label>
             <div class="relative">
               <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
@@ -217,7 +217,7 @@
           </div>
 
           <!-- Secondary Parent -->
-          <div class="space-y-2">
+          <div class="space-y-4">
             <label class="block text-sm font-medium text-gray-400 mb-1">Parent Category</label>
             <div class="relative">
               <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
@@ -230,7 +230,7 @@
           </div>
 
           <!-- Description -->
-          <div class="space-y-2">
+          <div class="space-y-4">
             <label class="block text-sm font-medium text-gray-400 mb-1">
               Description
             </label>
@@ -243,7 +243,7 @@
           </div>
 
           <!-- Image Upload -->
-          <div class="space-y-3">
+          <div class="space-y-4">
             <label class="block text-sm font-medium text-gray-400 mb-1">
               Category Image
             </label>

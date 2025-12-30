@@ -36,7 +36,7 @@ const products = ref([
 <template>
   <div>
 
-    <div class="sticky py-6 px-4 top-0 z-20 backdrop-blur-md bg-[#0D121C] border-b border-slate-700/30 shadow-xl">
+    <div class="sticky py-6 px-4 top-0 z-20 backdrop-blur-md  border-b border-slate-700/30 shadow-xl">
       <div class="">
         <div class="flex flex-col gap-6">
           <div class="flex items-center justify-between">
@@ -86,9 +86,9 @@ const products = ref([
       </div>
     </div>
 
-    <div class="bg-[#05070a] text-slate-200 selection:bg-indigo-500/30 font-sans py-8 px-4 relative overflow-hidden">
-    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full"></div>
-    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full"></div>
+    <div class=" text-slate-200 selection:bg-indigo-500/30 font-sans py-8 px-4 relative overflow-hidden">
+<!--    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full"></div>-->
+<!--    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full"></div>-->
     <div class="relative z-10 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-4">
         <router-link
             v-for="product in products"

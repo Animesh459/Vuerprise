@@ -5,6 +5,7 @@ import {
   AlertCircleIcon, CalendarIcon, BoxIcon, ActivityIcon, AlertTriangleIcon
 } from 'lucide-vue-next'
 import { ref } from 'vue'
+import Pagination from "@/components/Pagination.vue";
 
 const colorVariants = ref([
   { name: 'Beige/Dust Green', selected: true },
@@ -109,14 +110,7 @@ const stats = [
           <h2 class="text-xl font-bold text-white tracking-tight uppercase">Inventory Management</h2>
           <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Manage stock levels for each color variant</p>
         </div>
-        <div class="flex items-center gap-4 text-xs font-bold text-slate-500">
-          <span class="uppercase tracking-widest">1-6 off 6</span>
-          <div class="flex bg-slate-900/50 rounded-lg p-1 border border-slate-800">
-            <button class="p-1.5 hover:bg-slate-800 rounded-md transition-colors"><ChevronLeftIcon :size="14" /></button>
-            <button class="px-3 py-1 bg-slate-800 rounded-md text-white border border-slate-700">1</button>
-            <button class="p-1.5 hover:bg-slate-800 rounded-md transition-colors"><ChevronRightIcon :size="14" /></button>
-          </div>
-        </div>
+         <Pagination />
       </div>
 
       <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/20 backdrop-blur-md shadow-2xl">

@@ -16,6 +16,9 @@ import ProductDetail from "@/views/products/ProductDetail.vue";
 import AddCategory from "@/views/AddCategory.vue";
 import ColorsCategory from "@/views/ColorsCategory.vue";
 import PacksCategory from "@/views/PacksCategory.vue";
+import PurchangeOrders from "@/views/receiving/PurchangeOrders.vue";
+import VendorShipments from "@/views/receiving/VendorShipments.vue";
+import WarehouseReceiving from "@/views/receiving/WarehouseReceiving.vue";
 
 const routes = [
     { path: '/login',
@@ -43,9 +46,12 @@ const routes = [
   { path: '/customers', component: Customers },
   { path: '/utilities', component: Utilities },
   { path: '/themeswitch', component: ThemeSwitcher },
-  { path: '/category', component: AddCategory },
+    { path: '/category', component: AddCategory },
   { path: '/colors', component: ColorsCategory },
-    { path: '/packs', component: PacksCategory },
+  { path: '/packs', component: PacksCategory },
+  { path: '/purchase-order', component: PurchangeOrders },
+    { path: '/vendor-shipment', component: VendorShipments },
+    { path: '/warehouse-receiving', component: WarehouseReceiving },
 ];
 
 const router = createRouter({

@@ -142,107 +142,169 @@
       </div>
 
       <!-- Data Table Card -->
-      <div class="rounded-2xl border border-slate-800/50 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-xl shadow-2xl overflow-hidden">
-        <!-- Table Header -->
-        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-b border-slate-800/50 px-8 py-4">
-          <div class="grid grid-cols-12 gap-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-            <div class="col-span-3">Size Name</div>
-            <div class="col-span-3">Size Details</div>
-            <div class="col-span-2">Pack Config</div>
-            <div class="col-span-2">Status</div>
-            <div class="col-span-2">Actions</div>
-          </div>
-        </div>
+<!--      <div class="rounded-2xl border border-slate-800/50 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-xl shadow-2xl overflow-hidden">-->
+<!--        &lt;!&ndash; Table Header &ndash;&gt;-->
+<!--        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-b border-slate-800/50 px-8 py-4">-->
+<!--          <div class="grid grid-cols-12 gap-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">-->
+<!--            <div class="col-span-3">Size Name</div>-->
+<!--            <div class="col-span-3">Size Details</div>-->
+<!--            <div class="col-span-2">Pack Config</div>-->
+<!--            <div class="col-span-2">Status</div>-->
+<!--            <div class="col-span-2">Actions</div>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <!-- Table Rows -->
-        <div class="divide-y divide-slate-800/30">
-          <div
-              v-for="pack in paginatedPacks"
-              :key="pack.id"
-              class="grid grid-cols-12 gap-4 px-8 py-4 hover:bg-slate-800/20 transition-colors duration-200 group"
-          >
-            <div class="col-span-3">
-              <span class="font-medium text-white">{{ pack.sizeName }}</span>
-            </div>
-            <div class="col-span-3">
-              <span class="text-slate-400">{{ pack.sizeDetails }}</span>
-            </div>
-            <div class="col-span-2">
-              <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-sm font-medium text-cyan-400">
-                {{ pack.pack }}
-              </span>
-            </div>
-            <div class="col-span-2">
-              <div class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
-                <span class="text-sm text-emerald-400 font-medium">Active</span>
-              </div>
-            </div>
-            <div class="col-span-2 flex gap-2">
-              <button class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:bg-slate-700/50 hover:border-cyan-400/30 transition-all opacity-0 group-hover:opacity-100">
-                ✎
-              </button>
-              <button
-                  @click="deletePack(pack.id)"
-                  class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-400/30 transition-all opacity-0 group-hover:opacity-100"
-              >
-                🗑
-              </button>
-            </div>
-          </div>
+<!--        &lt;!&ndash; Table Rows &ndash;&gt;-->
+<!--        <div class="divide-y divide-slate-800/30">-->
+<!--          <div-->
+<!--              v-for="pack in paginatedPacks"-->
+<!--              :key="pack.id"-->
+<!--              class="grid grid-cols-12 gap-4 px-8 py-4 hover:bg-slate-800/20 transition-colors duration-200 group"-->
+<!--          >-->
+<!--            <div class="col-span-3">-->
+<!--              <span class="font-medium text-white">{{ pack.sizeName }}</span>-->
+<!--            </div>-->
+<!--            <div class="col-span-3">-->
+<!--              <span class="text-slate-400">{{ pack.sizeDetails }}</span>-->
+<!--            </div>-->
+<!--            <div class="col-span-2">-->
+<!--              <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-sm font-medium text-cyan-400">-->
+<!--                {{ pack.pack }}-->
+<!--              </span>-->
+<!--            </div>-->
+<!--            <div class="col-span-2">-->
+<!--              <div class="flex items-center gap-2">-->
+<!--                <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>-->
+<!--                <span class="text-sm text-emerald-400 font-medium">Active</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-span-2 flex gap-2">-->
+<!--              <button class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:bg-slate-700/50 hover:border-cyan-400/30 transition-all opacity-0 group-hover:opacity-100">-->
+<!--                ✎-->
+<!--              </button>-->
+<!--              <button-->
+<!--                  @click="deletePack(pack.id)"-->
+<!--                  class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-400/30 transition-all opacity-0 group-hover:opacity-100"-->
+<!--              >-->
+<!--                🗑-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
 
-          <!-- Empty State -->
-          <div v-if="paginatedPacks.length === 0" class="px-8 py-12 text-center">
-            <p class="text-slate-400 text-sm">No packs found. Create one to get started!</p>
-          </div>
-        </div>
+<!--          &lt;!&ndash; Empty State &ndash;&gt;-->
+<!--          <div v-if="paginatedPacks.length === 0" class="px-8 py-12 text-center">-->
+<!--            <p class="text-slate-400 text-sm">No packs found. Create one to get started!</p>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <!-- Footer with Pagination -->
-        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-t border-slate-800/50 px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span class="text-sm text-slate-400">
-            Showing <span class="font-semibold text-white">{{ startItem }}-{{ endItem }}</span> of <span class="font-semibold text-white">{{ filteredPacks.length }}</span>
+<!--        &lt;!&ndash; Footer with Pagination &ndash;&gt;-->
+<!--        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-t border-slate-800/50 px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">-->
+<!--          <span class="text-sm text-slate-400">-->
+<!--            Showing <span class="font-semibold text-white">{{ startItem }}-{{ endItem }}</span> of <span class="font-semibold text-white">{{ filteredPacks.length }}</span>-->
+<!--          </span>-->
+<!--          <div class="flex gap-2 items-center">-->
+<!--            <button-->
+<!--                @click="previousPage"-->
+<!--                :disabled="currentPage === 1"-->
+<!--                class="p-2 rounded-lg border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"-->
+<!--            >-->
+<!--              ←-->
+<!--            </button>-->
+<!--            <div class="flex gap-1">-->
+<!--              <button-->
+<!--                  v-for="page in totalPages"-->
+<!--                  :key="page"-->
+<!--                  @click="currentPage = page"-->
+<!--                  :class="[-->
+<!--                  'px-3 py-1 rounded-lg text-sm font-medium transition-all',-->
+<!--                  currentPage === page-->
+<!--                    ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30'-->
+<!--                    : 'bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:border-slate-600/50'-->
+<!--                ]"-->
+<!--              >-->
+<!--                {{ page }}-->
+<!--              </button>-->
+<!--            </div>-->
+<!--            <button-->
+<!--                @click="nextPage"-->
+<!--                :disabled="currentPage === totalPages"-->
+<!--                class="p-2 rounded-lg border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"-->
+<!--            >-->
+<!--              →-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      -->
+
+      <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950 shadow-2xl">
+        <table class="w-full text-left border-collapse min-w-[800px]">
+          <thead>
+          <tr class="border-b border-slate-800 bg-slate-900/40">
+            <th v-for="header in tableHeaders" :key="header" class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-widest">
+              {{ header }}
+            </th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/50">
+          <tr v-for="(row, index) in inventoryData" :key="index" class="group hover:bg-slate-900/50 transition-colors">
+            <td class="px-6 py-5">
+          <span class="text-sm font-bold text-slate-200 tracking-tight">
+            {{ row.sizeName }}
           </span>
-          <div class="flex gap-2 items-center">
-            <button
-                @click="previousPage"
-                :disabled="currentPage === 1"
-                class="p-2 rounded-lg border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-            >
-              ←
-            </button>
-            <div class="flex gap-1">
-              <button
-                  v-for="page in totalPages"
-                  :key="page"
-                  @click="currentPage = page"
-                  :class="[
-                  'px-3 py-1 rounded-lg text-sm font-medium transition-all',
-                  currentPage === page
-                    ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30'
-                    : 'bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:border-slate-600/50'
-                ]"
-              >
-                {{ page }}
-              </button>
-            </div>
-            <button
-                @click="nextPage"
-                :disabled="currentPage === totalPages"
-                class="p-2 rounded-lg border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-            >
-              →
-            </button>
-          </div>
-        </div>
+            </td>
+
+            <td class="px-6 py-5">
+          <span class="text-sm text-slate-400 font-medium">
+            {{ row.details }}
+          </span>
+            </td>
+
+            <td class="px-6 py-5">
+              <div class="inline-block px-3 py-1 bg-cyan-950/30 border border-cyan-800/30 rounded-full text-xs font-mono text-cyan-400">
+                {{ row.packConfig }}
+              </div>
+            </td>
+
+            <td class="px-6 py-5">
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></div>
+                <span :class="statusColor(row.status)" class="text-xs font-bold tracking-wide">
+              {{ row.status }}
+            </span>
+              </div>
+            </td>
+
+            <td class="px-6 py-5">
+              <div class="flex items-center gap-2">
+                <button class="p-2 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-all">
+                  <EditIcon :size="16" />
+                </button>
+                <button @click="deleteRow(index)" class="p-2 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-rose-500 transition-all">
+                  <TrashIcon :size="16" />
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
+      <div class="flex flex-end justify-end mt-3">
+        <Pagination />
+      </div>
+
     </main>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import {ChevronDownIcon} from "lucide-vue-next";
 
+import {
+  ZapIcon, ArrowDownCircleIcon, AlertCircleIcon,
+  ChevronDownIcon, TrashIcon, EditIcon, CalendarIcon
+} from 'lucide-vue-next';
+import Pagination from "@/components/Pagination.vue";
 // Form data
 const newPack = ref({
   size: '',
@@ -336,4 +398,51 @@ const previousPage = () => {
 const nextPage = () => {
   if (currentPage.value < totalPages.value) currentPage.value++
 }
+
+const tableHeaders = [
+  'Size Name', 'Size Details', 'Pack Config', 'Status', 'Actions'
+];
+
+const inventoryData = ref([
+  {
+    sizeName: 'L-XL-XXL',
+    details: 'Large to 2XL',
+    packConfig: '1-2-3',
+    status: 'Active'
+  },
+  {
+    sizeName: 'M-L-XL',
+    details: 'Medium to Extra Large',
+    packConfig: '3-2-1',
+    status: 'Active'
+  },
+  {
+    sizeName: 'S-M-L',
+    details: 'Small, Medium, Large',
+    packConfig: '2-2-2',
+    status: 'Active'
+  },
+  {
+    sizeName: 'S-M-L-XL',
+    details: 'Small to Extra Large',
+    packConfig: '1-2-2-1',
+    status: 'Active'
+  },
+  {
+    sizeName: 'XS-S-M',
+    details: 'Extra Small to Medium',
+    packConfig: '2-3-2',
+    status: 'Active'
+  }
+]);
+
+const statusColor = (status) => {
+  return status === 'Active' ? 'text-emerald-400' : 'text-slate-400';
+};
+
+const deleteRow = (index) => {
+  inventoryData.value.splice(index, 1);
+};
+
+
 </script>
