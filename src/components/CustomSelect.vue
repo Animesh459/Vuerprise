@@ -8,17 +8,17 @@
         :id="id"
         @click="toggleDropdown"
         type="button"
-        class="w-full flex justify-between bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none"
+        class="w-full flex relative bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer"
         :class="isOpen ? 'focus:border-gray-700' : 'text-gray-300'"
         aria-haspopup="listbox"
         :aria-expanded="isOpen"
     >
-      <span :class="modelValue ? 'text-white' : 'text-gray-500'">
+      <span :class="modelValue ? 'text-white' : 'text-gray-500 '">
         {{ selectedOptionText || placeholder }}
       </span>
 
       <svg
-          class="w-4 h-4 text-gray-400 transform transition-transform duration-300 ease-in-out"
+          class="w-4 h-4 absolute right-2 -translate-y-1/2 top-1/2 text-gray-400 transform transition-transform duration-300 ease-in-out"
           :class="{ 'rotate-180': isOpen }"
           fill="none"
           stroke="currentColor"

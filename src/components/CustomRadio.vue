@@ -24,11 +24,11 @@
               class="w-5 h-5 mr-3 rounded-full border flex items-center justify-center flex-shrink-0
                    transition duration-300 ease-in-out"
               :class="modelValue === option.value
-              ? 'border-[#0284C7] shadow-md shadow-[#0284C7]'
-              : 'border-gray-600 bg-gray-800 hover:border-[#0284C7]'"
+              ? 'border-cyan-600 shadow-cyan-600'
+              : 'border-gray-600 bg-gray-800 hover:border-cyan-600'"
           >
             <div
-                class="w-2.5 h-2.5 rounded-full bg-[#0284C7]
+                class="w-2.5 h-2.5 rounded-full bg-cyan-600
                      transition-transform duration-300 ease-in-out"
                 :class="{ 'scale-100 opacity-100': modelValue === option.value, 'scale-0 opacity-0': modelValue !== option.value }"
             ></div>

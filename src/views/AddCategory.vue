@@ -172,77 +172,79 @@
         </div>
 
         <!-- Modal Content -->
-        <div class="px-8 py-8 space-y-8">
+        <div class="px-8 py-8 space-y-3">
           <!-- Status -->
-          <div class="space-y-3">
-            <label class="text-sm font-semibold text-slate-300 flex items-center gap-2">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-400 mb-1">
               Status
             </label>
             <div class="flex gap-6">
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input v-model="editFormData.status" type="radio" value="active" class="w-4 h-4 accent-cyan-500" />
-                <span class="text-sm font-medium">Active</span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input v-model="editFormData.status" type="radio" value="inactive" class="w-4 h-4 accent-slate-600" />
-                <span class="text-sm font-medium">Inactive</span>
-              </label>
+              <CustomRadio
+                  id="delivery-method"
+                  label="Radio"
+                  v-model="orderData.speed"
+                  :options="[
+                  { value: 'standard', text: 'Active' },
+                  { value: 'express', text: 'Inactive' },
+                ]"
+              />
             </div>
           </div>
 
           <!-- Category Name -->
-          <div class="space-y-3">
-            <label class="text-sm font-semibold text-slate-300 flex items-center gap-2">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-400 mb-1">
               Category Name
             </label>
             <input
                 v-model="editFormData.name"
                 type="text"
-                class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 outline-none transition-all text-white placeholder-slate-500"
+                class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none"
                 placeholder="Enter category name"
             />
           </div>
 
-          <!-- Parent Category -->
-          <div class="space-y-3">
-            <label class="text-sm font-semibold text-slate-300 flex items-center gap-2">
-              Parent Category
-            </label>
-            <select v-model="editFormData.parent" class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 outline-none transition-all text-white">
-              <option value="">Select Parent</option>
-              <option value="apparel">Apparel</option>
-              <option value="accessories">Accessories</option>
-            </select>
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-400 mb-1">Parent Category</label>
+            <div class="relative">
+              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                <option value="">Select Parent</option>
+                <option value="apparel">Apparel</option>
+                <option value="accessories">Accessories</option>
+              </select>
+              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+            </div>
           </div>
 
           <!-- Secondary Parent -->
-          <div class="space-y-3">
-            <label class="text-sm font-semibold text-slate-300 flex items-center gap-2">
-              Secondary Parent
-            </label>
-            <select v-model="editFormData.secondary" class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 outline-none transition-all text-white">
-              <option value="">Select Secondary Parent</option>
-              <option value="mens">Men's</option>
-              <option value="womens">Women's</option>
-            </select>
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-400 mb-1">Parent Category</label>
+            <div class="relative">
+              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                <option value="">Select Secondary Parent</option>
+                <option value="mens">Men's</option>
+                <option value="womens">Women's</option>
+              </select>
+              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+            </div>
           </div>
 
           <!-- Description -->
-          <div class="space-y-3">
-            <label class="text-sm font-semibold text-slate-300 flex items-center gap-2">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-400 mb-1">
               Description
             </label>
             <textarea
                 v-model="editFormData.description"
                 rows="5"
-                class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 outline-none transition-all text-white placeholder-slate-500 resize-none"
+                class="flex-1 w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-4 text-sm resize-none focus:border-cyan-500/50 transition-all outline-none min-h-[150px]"
                 placeholder="Enter category description..."
             ></textarea>
           </div>
 
           <!-- Image Upload -->
           <div class="space-y-3">
-            <label class="text-sm font-semibold text-slate-300 flex items-center gap-2">
+            <label class="block text-sm font-medium text-gray-400 mb-1">
               Category Image
             </label>
             <div class="relative">
@@ -287,6 +289,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import {ChevronDownIcon} from "lucide-vue-next";
+import CustomRadio from "@/components/CustomRadio.vue";
 
 const selectedCategory = ref(0)
 const showEditModal = ref(false)
@@ -310,6 +314,10 @@ const editFormData = ref({
   secondary: '',
   description: ''
 })
+
+const orderData = ref({
+  speed: 'standard',
+});
 
 const dragStart = (e, index) => {
   draggedIndex.value = index

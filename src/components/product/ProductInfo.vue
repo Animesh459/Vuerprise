@@ -220,16 +220,16 @@
           <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-5 p-6 bg-slate-900/20 rounded-3xl border border-slate-800 backdrop-blur-sm shadow-2xl">
             <h2 class="col-span-full text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Product Essentials</h2>
             <div class="space-y-2">
-              <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Style No</label>
+              <label class="block text-sm font-medium text-gray-400 mb-1">Style No</label>
 
               <input type="text" value="MJ10240..-Clone-Clone-Clone" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none" />
             </div>
             <div class="space-y-2">
-              <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">SKU</label>
+              <label class="block text-sm font-medium text-gray-400 mb-1">SKU</label>
               <input type="text" placeholder="SKU" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
             </div>
             <div class="space-y-2">
-              <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Select Size</label>
+              <label class="block text-sm font-medium text-gray-400 mb-1">Select Size</label>
               <div class="relative">
                 <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
                   <option>Select Size</option>
@@ -238,18 +238,18 @@
               </div>
             </div>
             <div class="space-y-2">
-              <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Product Name</label>
+              <label class="block text-sm font-medium text-gray-400 mb-1">Product Name</label>
               <input type="text" value="Short Sleeve Knit Top with Daisy Patch" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
             </div>
             <div class="space-y-2">
-              <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">FOB Price</label>
+              <label class="block text-sm font-medium text-gray-400 mb-1">FOB Price</label>
               <div class="relative">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">$</span>
                 <input type="text" value="15.00" class="w-full bg-gray-950/80 border border-slate-800 rounded-md pl-8 pr-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
               </div>
             </div>
             <div class="space-y-2">
-              <label class="text-[11px] font-bold text-slate-500 uppercase ml-1">Price</label>
+              <label class="block text-sm font-medium text-gray-400 mb-1">Price</label>
               <div class="relative">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 font-bold">$</span>
                 <input type="text" value="22.90" class="w-full bg-gray-950/80 border border-slate-800 rounded-md pl-8 pr-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
@@ -257,8 +257,8 @@
             </div>
           </div>
 
-          <div class="space-y-5 p-6 bg-slate-900/40 rounded-3xl border border-slate-800 backdrop-blur-sm shadow-2xl flex flex-col">
-            <h2 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Detailed Feedback</h2>
+          <div class="space-y-2 p-6 bg-slate-900/40 rounded-3xl border border-slate-800 backdrop-blur-sm shadow-2xl flex flex-col">
+            <h2 class="block text-sm font-medium text-gray-400 mb-1">Detailed Feedback</h2>
             <textarea
                 placeholder="Enter internal description or feedback..."
                 class="flex-1 w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-4 text-sm resize-none focus:border-cyan-500/50 transition-all outline-none min-h-[150px]"

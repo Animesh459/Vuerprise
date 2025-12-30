@@ -50,9 +50,30 @@
           </template>
         </Dropdown>
 
-        <router-link to="/receiving" class="px-3 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out border-b-2 border-transparent">
-          Receiving
-        </router-link>
+
+        <Dropdown ref="receiving" contentClasses="w-56 left-0 right-auto">
+          <template #trigger>
+            <button
+                class="flex text-[#b0b8c4] font-[14px] items-center gap-2 pl-2 pr-3 py-1.5 transition-all duration-200 border border-transparent cursor-pointer"
+            >
+              Receiving <ChevronDown :size="16" class="text-slate-500 group-hover:text-white transition-colors"/>
+            </button>
+          </template>
+
+          <template #content>
+            <div class="py-1">
+              <DropdownItem
+                  v-for="item in receivingItems"
+                  :key="item.label"
+                  :item="item"
+              />
+            </div>
+          </template>
+        </Dropdown>
+
+<!--        <router-link to="/receiving" class="px-3 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out border-b-2 border-transparent">-->
+<!--          Receiving-->
+<!--        </router-link>-->
 
         <router-link to="/customer-orders" class="px-3 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out border-b-2 border-transparent">
           Customer Orders
@@ -170,8 +191,17 @@
    { label: 'Add Pack', to: '/packs'}
  ]
 
+ const receivingItems = [
+   { label: 'Purchase Orders' , to: '/category' },
+   { label: 'Vendor Shipments', to: '/colors' },
+   { label: 'Warehouse Receiving', to: '/packs'},
+   { label: 'Vendor', to: '/packs'},
+   { label: 'Return to Vendor', to: '/packs'},
+ ]
+
  const productDropdown = ref(null);
  const productSettingDropdown = ref(null);
+  const receivingDropdown = ref(null);
  const userDropdown = ref(null);
  const route = useRoute();
 
@@ -181,6 +211,9 @@
    }
    if (productSettingDropdown.value) {
      productSettingDropdown.value.close();
+   }
+   if (receivingDropdown.value) {
+     receivingDropdown.value.close();
    }
    if (userDropdown.value) {
      userDropdown.value.close();

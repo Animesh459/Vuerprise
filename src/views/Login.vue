@@ -76,10 +76,11 @@
 
             <!-- Remember me and forgot password options -->
             <div class="flex items-center justify-between text-sm">
-              <label class="flex items-center gap-2 text-slate-400 hover:text-slate-300 cursor-pointer transition duration-300">
-                <input v-model="rememberMe" type="checkbox" class="w-4 h-4 rounded accent-cyan-500 bg-slate-900/50 border-slate-700/50" />
-                <span>Remember me</span>
-              </label>
+              <CustomCheckbox
+                  id="news-check"
+                  label="Remember me"
+                  v-model="formData.newsletter"
+              />
               <a href="#" class="text-cyan-400 hover:text-cyan-300 font-medium transition duration-300">
                 Forgot password?
               </a>
@@ -110,6 +111,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import CustomCheckbox from "@/components/CustomCheckbox.vue";
 
 const email = ref('')
 const password = ref('')
@@ -124,6 +126,11 @@ const handleLogin = async () => {
   isLoading.value = false
   console.log('Login attempt with:', { email: email.value, rememberMe: rememberMe.value })
 }
+
+const formData = ref({
+  newsletter: false,
+  terms: true,
+});
 </script>
 
 <style scoped>

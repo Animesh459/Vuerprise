@@ -94,7 +94,7 @@ const products = ref([
             v-for="product in products"
             :key="product.id"
             :to="{ name: 'ProductDetail', params: { id: product.id } }"
-            class="group relative bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-md p-2 transition-all duration-500 hover:bg-white/[0.07] hover:-translate-y-2 hover:border-white/20"
+            class="group relative bg-white/[0.03] backdrop-blur-xl border-2 border-white/20 hover:border-cyan-500/20 rounded-md p-2 transition-all duration-500 hover:bg-white/[0.07] hover:-translate-y-2 hover:shadow-lg hover:shadow-cyan-500/20"
         >
         <div class="relative aspect-square mb-6 overflow-hidden rounded-sm shadow-2xl">
           <img
