@@ -19,6 +19,7 @@ import PacksCategory from "@/views/PacksCategory.vue";
 import PurchangeOrders from "@/views/receiving/PurchangeOrders.vue";
 import VendorShipments from "@/views/receiving/VendorShipments.vue";
 import WarehouseReceiving from "@/views/receiving/WarehouseReceiving.vue";
+import CreateOrders from "@/views/receiving/CreateOrders.vue";
 
 const routes = [
     { path: '/login',
@@ -50,6 +51,7 @@ const routes = [
   { path: '/colors', component: ColorsCategory },
   { path: '/packs', component: PacksCategory },
   { path: '/purchase-order', component: PurchangeOrders },
+    { path: '/create-orders', component: CreateOrders },
     { path: '/vendor-shipment', component: VendorShipments },
     { path: '/warehouse-receiving', component: WarehouseReceiving },
 ];

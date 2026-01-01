@@ -90,9 +90,15 @@ const deleteRow = (index) => {
 
 <template>
   <div class="common-card">
-    <h1 class="text-2xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent mb-8">
-      Purchase Orders
-    </h1>
+    <div class="flex items-center justify-between">
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent mb-8">
+        Purchase Orders
+      </h1>
+      <router-link to="/create-orders" class="px-3 bg-none border-none text-[#b0b8c4] cursor-pointer text-[0.95rem] transition-all duration-300 ease-in-out border-b-2 border-transparent">
+        Customer Orders
+      </router-link>
+    </div>
+
     <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950 shadow-2xl">
       <table class="w-full text-left border-collapse min-w-[1200px]">
         <thead>
