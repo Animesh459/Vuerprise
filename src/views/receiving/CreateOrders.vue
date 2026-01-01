@@ -29,36 +29,34 @@
 
               <!-- Create New Vendor Button -->
               <div class="flex items-end">
-                <button class="w-full bg-cyan-600 hover:bg-cyan-500 text-black font-semibold py-2.5 rounded-lg transition-all duration-200 transform hover:scale-105">
+                <button class="btn-common w-full">
                   Create New Vendor
                 </button>
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Shipping Method -->
-              <div>
-                <label class="block text-sm font-semibold text-zinc-300 mb-2">
-                  Shipping Method
-                </label>
-                <select v-model="form.shippingMethod" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 transition-all">
-                  <option>Sea Freight / Air</option>
-                  <option>Ground</option>
-                </select>
-              </div>
 
-              <!-- Status -->
-              <div>
-                <label class="block text-sm font-semibold text-zinc-300 mb-2">
-                  Status
-                </label>
-                <select v-model="form.status" class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 transition-all">
-                  <option>Draft</option>
-                  <option>Confirmed</option>
-                  <option>Shipped</option>
-                  <option>Received</option>
-                  <option>Closed</option>
-                </select>
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Shipping Method</label>
+                <div class="relative">
+                  <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                    <option>Sea Freight / Air</option>
+                    <option>Ground</option>
+                  </select>
+                  <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-400 mb-1">Status</label>
+                <div class="relative">
+                  <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
+                    <option>Draft</option>
+                    <option>Confirmed</option>
+                    <option>Shipped</option>
+                  </select>
+                  <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+                </div>
               </div>
             </div>
           </div>
