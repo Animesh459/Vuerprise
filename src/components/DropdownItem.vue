@@ -33,7 +33,7 @@ const getLinkProps = (item) => {
     <component
         :is="getLinkComponent(item)"
         v-bind="getLinkProps(item)"
-        class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-150 group"
+        class="flex items-center gap-3 px-4 py-2.5 text-sm text-black hover:text-white hover:bg-slate-700/50 transition-colors duration-150 group"
     >
       {{ item.label }}
     </component>
@@ -43,7 +43,7 @@ const getLinkProps = (item) => {
     <Dropdown isSubmenu>
       <template #trigger>
         <div
-            class="flex items-center justify-between gap-3 px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors duration-150 group cursor-pointer w-full"
+            class="flex items-center justify-between gap-3 px-4 py-2.5 text-sm text-black hover:text-white hover:bg-slate-700/50 transition-colors duration-150 group cursor-pointer w-full"
         >
           <span>{{ item.label }}</span>
           <ChevronRight :size="16" class="text-slate-500 group-hover:text-white transition-colors"/>

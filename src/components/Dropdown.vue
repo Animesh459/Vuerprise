@@ -15,7 +15,7 @@
     >
       <div
           v-if="isOpen"
-          class="absolute mt-[20px] w-56 bg-slate-900/95 backdrop-blur-xl rounded-lg shadow-2xl shadow-black/50 py-2 z-50 border border-slate-700/50"
+          class="absolute mt-[20px] w-56 bg-white backdrop-blur-xl rounded-lg shadow-2xl shadow-black/50 py-2 z-50 border border-border"
           :class="[
               // Check for the 'is-submenu' prop to determine positioning
               isSubmenu

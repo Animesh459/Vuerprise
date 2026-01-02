@@ -3,9 +3,8 @@
 <!--    <ProductItem />-->
 
     <ProductItemsTest />
-    <div class="flex flex-end justify-end px-4 pb-4">
-      <Pagination />
-    </div>
+    <Pagination />
+
   </div>
 </template>
 

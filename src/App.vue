@@ -1,10 +1,10 @@
 <template>
-  <div  class="min-h-screen font-dm bg-[#0D121C] min-w-[1300px]">
+  <div  class="flex min-h-screen flex-col bg-background font-sans selection:bg-foreground selection:text-background">
     <Header v-if="!shouldHideHeader" />
     <main
-          class="px-6 py-4 bg-[#070B11] "
+          class="px-6 py-4"
           :class="{
-        'pt-[140px]': !shouldHideHeader,
+        'pt-[40px]': !shouldHideHeader,
         '!p-0': shouldHideHeader
       }"
 
