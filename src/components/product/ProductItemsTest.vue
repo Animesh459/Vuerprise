@@ -3,10 +3,10 @@
 
     <main class="flex-1">
 
-      <div class="flex flex-col justify-between gap-5 border-b border-border pb-5">
+      <div class="flex flex-col justify-between gap-5 border-b border-border pb-5 mb-5">
         <div class="flex items-center justify-between">
           <h1 class="text-3xl font-bold tracking-tighter uppercase">Product Catalog</h1>
-          <p class="mt-2 text-[11px] font-black text-neutral-400 uppercase">10 of 50 items selected</p>
+          <p class="mt-2 text-[11px] font-semibold text-neutral-400 uppercase">10 of 50 items selected</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <div class="flex flex-1">
@@ -20,13 +20,13 @@
               </div>
           </div>
           <div class="flex gap-2">
-            <button class="h-9 border border-black px-5 text-[11px] font-black uppercase transition-all hover:bg-black hover:text-white">
+            <button class="h-9 border border-black px-5 text-[11px] font-semibold uppercase transition-all hover:bg-black hover:text-white">
               Select All
             </button>
-            <button class="h-9 border border-black px-5 text-[11px] font-black uppercase transition-all hover:bg-black hover:text-white">
+            <button class="h-9 border border-black px-5 text-[11px] font-semibold uppercase transition-all hover:bg-black hover:text-white">
               Unselect All
             </button>
-            <button class="h-9 bg-black px-6 text-[11px] font-black uppercase text-white transition-all hover:bg-neutral-800">
+            <button class="h-9 bg-black px-6 text-[11px] font-semibold uppercase text-white transition-all hover:bg-neutral-800">
               Clone Selected
             </button>
           </div>

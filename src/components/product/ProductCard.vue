@@ -1,5 +1,5 @@
 <template>
-  <div class="group relative flex flex-col border border-neutral-200 bg-white transition-all hover:border-black">
+  <div class="group relative flex flex-col border border-neutral-200 bg-white transition-all hover:border-gray-900">
     <div class="relative aspect-[4/5] overflow-hidden bg-neutral-100">
       <img
           :src="getProductImage(product.image) || '/placeholder.svg'"
@@ -15,14 +15,17 @@
       <div class="absolute bottom-2 left-2">
         <input
             type="checkbox"
-            class="h-4 w-4 appearance-none border border-black/20 bg-white/50 checked:bg-black checked:after:content-['✓'] checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-[10px] checked:after:text-white"
+            class="h-4 w-4 appearance-none border border-black/20 bg-white/50
+           checked:bg-black
+           checked:after:content-['✓'] checked:after:flex checked:after:items-center checked:after:justify-center
+           checked:after:text-[10px] checked:after:text-white checked:after:leading-none"
         />
       </div>
     </div>
     <div class="flex flex-col p-3">
-      <h3 class="text-xs font-black tracking-tight uppercase text-black">{{ product.name }}</h3>
-      <p class="mt-1 text-[10px] font-bold text-neutral-500 uppercase">{{ product.sku }}</p>
-      <p class="mt-4 text-[9px] font-medium text-neutral-400 tabular-nums uppercase">{{ product.date }}</p>
+      <h3 class="text-sm font-medium tracking-tight  text-gray-900">{{ product.name }}</h3>
+      <p class="mt-1 text-xs font-medium text-gray-600 ">{{ product.sku }}</p>
+      <p class="mt-3 text-[11px] font-medium text-gray-400 tabular-nums ">{{ product.date }}</p>
     </div>
   </div>
 </template>

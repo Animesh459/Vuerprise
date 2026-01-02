@@ -8,7 +8,7 @@
         <section>
           <div class="flex justify-between items-end mb-1">
             <h1 class="text-3xl font-bold tracking-tighter uppercase">Welcome, Mello User</h1>
-            <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">LAST SYNC: {{ currentTime }}</p>
+            <p class="text-xs font-mono text-zinc-500 uppercase tracking-widest">LAST SYNC: {{ currentTime }}</p>
           </div>
           <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest">
             Good to see you boss! System status: Nominal.
@@ -19,10 +19,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div v-for="metric in mainMetrics" :key="metric.label" class="p-6 border border-zinc-200 bg-white hover:border-zinc-400 transition-colors group">
             <div class="flex justify-between items-start mb-4">
-              <div class="p-2 bg-zinc-50 group-hover:bg-zinc-100 transition-colors">
-                <component :is="metric.icon" class="w-4 h-4 text-zinc-400 group-hover:text-black" />
+              <div class="p-2 bg-zinc-100 group-hover:bg-zinc-100 transition-colors">
+                <component :is="metric.icon" class="w-4 h-4 text-text-black group-hover:text-black" />
               </div>
-              <div :class="['flex items-center gap-1 text-[10px] font-mono', metric.trend > 0 ? 'text-black' : 'text-zinc-400']">
+              <div :class="['flex items-center gap-1 text-xs font-mono', metric.trend > 0 ? 'text-black' : 'text-black']">
                 <span>{{ metric.trend > 0 ? '+' : '' }}{{ metric.trend }}%</span>
                 <TrendingUp v-if="metric.trend > 0" class="w-3 h-3" />
                 <TrendingDown v-else class="w-3 h-3" />
@@ -31,7 +31,7 @@
             <p class="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-1">{{ metric.label }}</p>
             <div class="flex items-baseline gap-2">
               <h3 class="text-2xl font-bold tracking-tight">{{ metric.value }}</h3>
-              <span class="text-[10px] text-zinc-600 font-mono">{{ metric.subValue }}</span>
+              <span class="text-xs text-zinc-600 font-mono">{{ metric.subValue }}</span>
             </div>
           </div>
         </div>
@@ -47,11 +47,11 @@
               <div class="flex items-center gap-2">
                 <div class="flex items-center gap-1.5">
                   <span class="w-2 h-2 bg-black"></span>
-                  <span class="text-[10px] text-zinc-500 uppercase">Sales</span>
+                  <span class="text-xs text-zinc-500 uppercase">Sales</span>
                 </div>
                 <div class="flex items-center gap-1.5 ml-4">
                   <span class="w-2 h-2 bg-zinc-100 border border-zinc-200"></span>
-                  <span class="text-[10px] text-zinc-500 uppercase">Target</span>
+                  <span class="text-xs text-zinc-500 uppercase">Target</span>
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@
                   <div class="w-full bg-zinc-100 transition-all duration-500 group-hover:bg-zinc-200" :style="{ height: `${day.target}%` }"></div>
                   <div class="w-full bg-black transition-all duration-500 group-hover:opacity-80" :style="{ height: `${day.actual}%` }"></div>
                 </div>
-                <span class="text-[10px] font-mono text-zinc-500 uppercase">{{ day.name }}</span>
+                <span class="text-xs font-mono text-zinc-500 uppercase">{{ day.name }}</span>
               </div>
             </div>
           </div>
@@ -73,8 +73,8 @@
           <div class="space-y-6">
             <div v-for="metric in sideMetrics" :key="metric.title" class="p-6 border border-zinc-200 bg-white group hover:bg-zinc-50 transition-colors">
               <div class="flex justify-between items-center mb-4">
-                <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{{ metric.title }}</span>
-                <span :class="['text-[10px] font-mono', metric.isPositive ? 'text-black' : 'text-zinc-400']">
+                <span class="text-xs font-bold text-zinc-500 uppercase tracking-widest">{{ metric.title }}</span>
+                <span :class="['text-xs font-mono', metric.isPositive ? 'text-black' : 'text-zinc-400']">
                   {{ metric.isPositive ? '↑' : '↓' }} {{ metric.percent }}%
                 </span>
               </div>
@@ -96,11 +96,11 @@
                 <component :is="item.icon" class="w-4 h-4 text-zinc-400 group-hover:text-black" />
               </div>
               <div>
-                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-0.5">{{ item.label }}</p>
+                <p class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-0.5">{{ item.label }}</p>
                 <p class="text-xl font-bold tracking-tight">{{ item.value }}</p>
               </div>
             </div>
-            <div class="text-[10px] font-mono text-zinc-600 group-hover:text-zinc-400">{{ item.change }}%</div>
+            <div class="text-xs font-mono text-zinc-600 group-hover:text-zinc-400">{{ item.change }}%</div>
           </div>
         </div>
       </div>

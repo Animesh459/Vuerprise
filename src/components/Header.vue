@@ -6,14 +6,14 @@
 
       <nav class="flex items-center gap-6">
         <div class="flex items-center gap-2">
-          <router-link to="/" class="block pr-4 py-2 text-sm text-black"><img src="/vendor-logo.png" class="w-[100px]" alt="" srcset=""></router-link>
+          <router-link to="/" class="block pr-4 py-2 text-sm text-zinc-500"><img src="/vendor-logo.png" class="w-[100px]" alt="" srcset=""></router-link>
         </div>
         <Dropdown ref="productDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium tracking-tight uppercase transition-colors text-black hover:text-neutral-400"
+                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
             >
-              Product <ChevronDown :size="16" class="text-black group-hover:text-black transition-colors"/>
+              Product <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
             </button>
           </template>
 
@@ -31,9 +31,9 @@
         <Dropdown ref="productSettingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium tracking-tight uppercase transition-colors text-black hover:text-neutral-400"
+                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
             >
-              Product Setting <ChevronDown :size="16" class="text-black group-hover:text-black transition-colors"/>
+              Product Setting <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
             </button>
           </template>
 
@@ -51,9 +51,9 @@
         <Dropdown ref="receivingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium tracking-tight uppercase transition-colors text-black hover:text-neutral-400"
+                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
             >
-              Receiving <ChevronDown :size="16" class="text-black group-hover:text-black transition-colors"/>
+              Receiving <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
             </button>
           </template>
 
@@ -68,15 +68,15 @@
           </template>
         </Dropdown>
 
-        <router-link to="/customer-orders" class="group relative flex items-center gap-1 text-sm font-medium tracking-tight uppercase transition-colors text-black hover:text-neutral-400">
+        <router-link to="/customer-orders" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
           Customer Orders
         </router-link>
 
-        <router-link to="/inventory" class="group relative flex items-center gap-1 text-sm font-medium tracking-tight uppercase transition-colors text-black hover:text-neutral-400">
+        <router-link to="/inventory" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
           Inventory
         </router-link>
 
-        <router-link to="/customers" class="group relative flex items-center gap-1 text-sm font-medium tracking-tight uppercase transition-colors text-black hover:text-neutral-400">
+        <router-link to="/customers" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
           Customers
         </router-link>
 
@@ -87,12 +87,12 @@
         <Dropdown ref="userDropdown">
           <template #trigger>
             <button
-                class="flex items-center gap-2 rounded-full pl-2 pr-3 py-0 transition-all duration-200 border border-transparent "
+                class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
             >
               <div class="w-7 h-7 rounded-full flex items-center justify-center bg-black">M</div>
-              <span class="text-sm text-black font-medium">Mello</span>
+              <span class="text-sm text-zinc-500 font-medium">Mello</span>
               <svg
-                  class="w-4 h-4 text-black transition-transform duration-300"
+                  class="w-4 h-4 text-zinc-500 transition-transform duration-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -104,8 +104,8 @@
 
           <template #content>
             <div class="px-4 py-3 border-b border-border">
-              <p class="text-sm text-black font-medium">Mello</p>
-              <p class="text-xs text-black">mello@example.com</p>
+              <p class="text-sm text-zinc-500 font-medium">Mello</p>
+              <p class="text-xs text-zinc-500">mello@example.com</p>
             </div>
 
             <div class="py-1">
@@ -113,9 +113,9 @@
                   v-for="item in menuItems"
                   :key="item.label"
                   href="#"
-                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-black hover:text-black hover:bg-zinc-50 transition-colors duration-150 group"
+                  class="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150 group"
               >
-                <component :is="item.icon" class="w-4 h-4 text-black group-hover:text-blue-400 transition-colors" />
+                <component :is="item.icon" class="w-4 h-4 text-zinc-500 group-hover:text-blue-400 transition-colors" />
                 {{ item.label }}
               </a>
             </div>
@@ -213,6 +213,6 @@
 </script>
 <style scoped>
 .router-link-active {
-  color: #00b8db;
+  color: #111827;
 }
 </style>
