@@ -39,8 +39,8 @@ const getLinkProps = (item) => {
     </component>
   </div>
 
-  <div v-else>
-    <Dropdown isSubmenu>
+  <div v-else class="">
+    <Dropdown isSubmenu alignSubmenuToParentTop>
       <template #trigger>
         <div
             class="flex items-center justify-between gap-3 px-4 py-2.5 text-sm text-black hover:text-black hover:bg-zinc-50 transition-colors duration-150 group cursor-pointer w-full"

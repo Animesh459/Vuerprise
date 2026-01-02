@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-white font-sans text-black selection:bg-black selection:text-white">
+  <div class="flex bg-white font-sans text-black selection:bg-black selection:text-white">
 
     <main class="flex-1 overflow-y-auto">
 
@@ -7,7 +7,7 @@
       <div class="space-y-8">
         <section>
           <div class="flex justify-between items-end mb-1">
-            <h1 class="text-4xl font-bold tracking-tighter uppercase">Welcome, Mello User</h1>
+            <h1 class="text-3xl font-bold tracking-tighter uppercase">Welcome, Mello User</h1>
             <p class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">LAST SYNC: {{ currentTime }}</p>
           </div>
           <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest">
