@@ -128,10 +128,10 @@ body {
 
     /*button new theme*/
     .btn-secondary-new {
-        @apply h-9 border border-black px-5 text-[11px] font-semibold uppercase transition-all hover:bg-black hover:text-white;
+        @apply h-9 border border-black px-5 text-sm font-medium  transition-all hover:bg-black hover:text-white;
     }
     .btn-primary-new {
-        @apply h-9 bg-black px-6 text-[11px] font-semibold uppercase text-white transition-all hover:bg-neutral-800
+        @apply h-9 bg-black px-6 text-sm font-medium  text-white transition-all hover:bg-neutral-800
     }
 
     /*button*/

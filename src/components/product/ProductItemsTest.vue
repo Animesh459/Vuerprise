@@ -12,7 +12,7 @@
           <div class="flex flex-1">
               <div class="relative flex-1 w-full">
                 <Search class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                <BaseInput />
+                <BaseInput customClass="pl-8" />
               </div>
           </div>
           <div class="flex gap-2">

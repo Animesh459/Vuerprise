@@ -2,7 +2,7 @@
 import {
   LayersIcon, SearchIcon, PlusIcon, ChevronDownIcon, CheckIcon,
   ChevronLeftIcon, ChevronRightIcon, ZapIcon, ArrowDownCircleIcon,
-  AlertCircleIcon, CalendarIcon, BoxIcon, ActivityIcon, AlertTriangleIcon
+  AlertCircleIcon, CalendarIcon, BoxIcon, ActivityIcon, AlertTriangleIcon, Search
 } from 'lucide-vue-next'
 import { ref } from 'vue'
 import Pagination from "@/components/Pagination.vue";
@@ -75,9 +75,9 @@ const stats = [
           </div>
           Colors & Inventory
         </h1>
-        <div class="relative max-w-xl group">
-<!--          <SearchIcon class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" :size="18" />-->
-          <BaseInput placeholder="Search colors, variants, stock codes..." />
+        <div class="relative flex-1 w-full">
+          <Search class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+          <BaseInput customClass="pl-8" />
         </div>
       </div>
       <div class="flex gap-3">
