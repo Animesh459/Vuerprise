@@ -15,10 +15,12 @@
       <div class="absolute bottom-2 left-2">
         <input
             type="checkbox"
-            class="h-4 w-4 appearance-none border border-black/20 bg-white/50
-           checked:bg-black
-           checked:after:content-['✓'] checked:after:flex checked:after:items-center checked:after:justify-center
-           checked:after:text-[10px] checked:after:text-white checked:after:leading-none"
+            class="relative h-4 w-4 appearance-none border border-black/20 bg-white/50 rounded-sm cursor-pointer
+    checked:bg-black checked:border-black
+    after:content-['✓'] after:absolute after:inset-0
+    after:flex after:items-center after:justify-center
+    after:text-[10px] after:text-white after:font-bold
+    after:opacity-0 checked:after:opacity-100"
         />
       </div>
     </div>

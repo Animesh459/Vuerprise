@@ -12,21 +12,17 @@
           <div class="flex flex-1">
               <div class="relative flex-1 w-full">
                 <Search class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-                <input
-                    type="text"
-                    placeholder="SEARCH PRODUCTS BY NAME OR SKU..."
-                    class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-10 pr-4 text-xs uppercase placeholder:text-neutral-300 focus:border-black focus:outline-none"
-                />
+                <BaseInput />
               </div>
           </div>
           <div class="flex gap-2">
-            <button class="h-9 border border-black px-5 text-[11px] font-semibold uppercase transition-all hover:bg-black hover:text-white">
+            <button class="btn-secondary-new">
               Select All
             </button>
-            <button class="h-9 border border-black px-5 text-[11px] font-semibold uppercase transition-all hover:bg-black hover:text-white">
+            <button class="btn-secondary-new">
               Unselect All
             </button>
-            <button class="h-9 bg-black px-6 text-[11px] font-semibold uppercase text-white transition-all hover:bg-neutral-800">
+            <button class="btn-primary-new">
               Clone Selected
             </button>
           </div>
@@ -52,6 +48,7 @@
 <script setup>
 import { ChevronDown, Search, Grid, List, Filter } from 'lucide-vue-next'
 import ProductCard from './ProductCard.vue'
+import BaseInput from "@/components/form/BaseInput.vue";
 
 const navItems = ["Product", "Product Setting", "Receiving", "Customer Orders", "Inventory", "Customers"]
 

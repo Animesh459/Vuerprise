@@ -121,9 +121,15 @@ body {
         @apply bg-white  rounded-md p-6;
     }
 
-    /*.btn-common {*/
-    /*    @apply px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20 flex items-center gap-2 */
-    /*}*/
+
+    /*button new theme*/
+    .btn-secondary-new {
+        @apply h-9 border border-black px-5 text-[11px] font-semibold uppercase transition-all hover:bg-black hover:text-white;
+    }
+    .btn-primary-new {
+        @apply h-9 bg-black px-6 text-[11px] font-semibold uppercase text-white transition-all hover:bg-neutral-800
+    }
+
     /*button*/
     .btn-primary {
         @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-orange-500 text-orange-500 bg-transparent hover:bg-orange-500/10 shadow-lg hover:shadow-orange-500/50 hover:shadow-lg transition-all duration-300;
