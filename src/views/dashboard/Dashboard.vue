@@ -73,7 +73,7 @@
           <div class="space-y-6">
             <div v-for="metric in sideMetrics" :key="metric.title" class="p-6 border border-zinc-200 bg-white group hover:bg-zinc-50 transition-colors">
               <div class="flex justify-between items-center mb-4">
-                <span class="text-xs font-bold text-zinc-500 uppercase tracking-widest">{{ metric.title }}</span>
+                <span class="text-xs font-medium text-zinc-500 uppercase tracking-widest">{{ metric.title }}</span>
                 <span :class="['text-xs font-mono', metric.isPositive ? 'text-black' : 'text-zinc-400']">
                   {{ metric.isPositive ? '↑' : '↓' }} {{ metric.percent }}%
                 </span>
@@ -96,7 +96,7 @@
                 <component :is="item.icon" class="w-4 h-4 text-zinc-400 group-hover:text-black" />
               </div>
               <div>
-                <p class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-0.5">{{ item.label }}</p>
+                <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest mb-0.5">{{ item.label }}</p>
                 <p class="text-xl font-bold tracking-tight">{{ item.value }}</p>
               </div>
             </div>
