@@ -1,19 +1,21 @@
 <template>
   <div class="space-y-6">
-    <!-- Add New Color Form Section -->
-    <div class="common-card">
+    <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
+      <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Add a New Color</h1>
+      <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Fill in the details below to add a New Color</p>
+    </div>
+    <div class="common-card-new">
       <div class="flex justify-between mb-8">
-        <h2 class="text-xl md:text-3xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent mb-2">
-          <span class="text-xl">🎨</span>
+        <h2 class="text-lg font-bold text-gray-900">
           Add a New Color
         </h2>
-        <div class="flex items-center gap-4 bg-slate-900/20 p-1.5 rounded-full border border-slate-800">
+        <div class="flex items-center gap-4  p-1.5 rounded-full border border-zinc-200">
           <button
               @click="status = 'active'"
               :class="[
-                'flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all',
-                status === 'active' ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/20' : 'text-slate-500 hover:text-slate-300'
-              ]"
+                    'flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all',
+                    status === 'active' ? 'bg-blue-500 text-white ' : 'text-slate-500 hover:text-slate-300'
+                  ]"
           >
             <div class="w-2 h-2 rounded-full" :class="status === 'active' ? 'bg-white' : 'bg-slate-600'"></div>
             ACTIVE
@@ -21,9 +23,9 @@
           <button
               @click="status = 'inactive'"
               :class="[
-                'flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all',
-                status === 'inactive' ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/20' : 'text-slate-500 hover:text-slate-300'
-              ]"
+                    'flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all',
+                    status === 'inactive' ? 'bg-rose-500 text-white ' : 'text-slate-500 hover:text-slate-300'
+                  ]"
           >
             <div class="w-2 h-2 rounded-full" :class="status === 'inactive' ? 'bg-white' : 'bg-slate-600'"></div>
             INACTIVE
@@ -35,22 +37,14 @@
       <div class="space-y-6">
         <div class="grid grid-cols-2 gap-8 lg:grid-cols-2">
           <div class="space-y-6">
-            <!-- Color Name -->
-            <div>
-              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Color Name</label>
-              <input type="text" placeholder="Enter color name" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
-            </div>
 
+            <BaseInput label="Color Name" placeholder="Enter color name" />
             <!-- Master Color -->
-            <div>
-              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Master Color</label>
-              <div class="relative">
-                <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
-                  <option>Select Size</option>
-                </select>
-                <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
-              </div>
-            </div>
+            <BaseSelect
+                label="Master Color"
+                :options="['Select Size', 'S', 'M']"
+            />
+
           </div>
 
           <div class="space-y-6">
@@ -58,49 +52,46 @@
             <div>
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Color Code</label>
               <div class="flex gap-3">
-                <input type="color" v-model="selectedColor" class="w-20 h-12 border border-cyan-500/20 rounded-lg cursor-pointer" />
-                <input type="text" v-model="selectedColor" placeholder="#000000" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none" />
+                <input type="color" v-model="selectedColor" class="w-20 h-9 border border-neutral-200 rounded-lg cursor-pointer" />
+                <input type="text" v-model="selectedColor" placeholder="#000000" class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors" />
               </div>
             </div>
 
             <!-- Upload Color Image -->
             <div>
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Upload Color Image</label>
-              <input type="file" class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none" />
+              <input type="file" class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors" />
             </div>
           </div>
         </div>
 
         <div class="flex justify-end gap-3 pt-4">
-          <button class="btn-secondary-transparent">Cancel</button>
-          <button class="btn-common">Save</button>
+          <button class="btn-secondary-new">Cancel</button>
+          <button class="btn-primary-new">Save</button>
         </div>
       </div>
     </div>
 
     <div class="space-y-4">
       <div class="flex items-center justify-between gap-4">
-        <input type="text" v-model="searchQuery" placeholder="Search colors, variants, stock codes..." class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 focus:ring-4 focus:ring-cyan-500/5 transition-all outline-none" />
+        <div class="relative flex-1 w-full">
+          <Search class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+          <BaseInput customClass="pl-8" />
+        </div>
         <div class="flex gap-3">
 
           <div class="relative">
-            <select v-model="sortBy" class="w-full min-w-[100px] bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
-              <option>Name A-Z</option>
-              <option>Recently Added</option>
-              <option>Popular</option>
-            </select>
-            <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+            <BaseSelect
+                :options="['Name A-Z', 'Recently Added', 'Popular']"
+            />
           </div>
           <div class="relative">
-            <select v-model="itemsPerPage" class="w-full min-w-[100px] bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
-              <option>10</option>
-              <option>20</option>
-              <option>50</option>
-            </select>
-            <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
+            <BaseSelect
+                :options="['10', '20', '30']"
+            />
           </div>
 
-          <button class="px-4 py-2 whitespace-nowrap text-cyan-400 hover:text-cyan-300 font-semibold text-sm">Reset All</button>
+          <button class="px-4 py-2 whitespace-nowrap text-gray-700 hover:text-gray-700 font-semibold text-sm">Reset All</button>
         </div>
       </div>
 
@@ -111,13 +102,13 @@
             :key="color.id"
             @click="selectedColorCard = color.id"
             :class="[
-            'bg-gray-950/80 border-2 rounded-xl p-4 cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/20',
-            selectedColorCard === color.id ? 'border-cyan-400 shadow-lg shadow-cyan-500/30 bg-cyan-500/10' : 'border-cyan-500/20'
+            'bg-white border-2 rounded-xl p-4 cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/20',
+            selectedColorCard === color.id ? 'border-border shadow-lg shadow-cyan-500/30 bg-white' : 'border-border'
           ]"
         >
           <div class="w-full h-20 rounded-lg mb-3 shadow-lg" :style="{ backgroundColor: color.code }"></div>
-          <span class="block text-xs font-semibold text-gray-300 text-center uppercase tracking-wider">{{ color.name }}</span>
-          <div class="flex justify-center gap-2 mt-3 pt-3 border-t border-cyan-500/10">
+          <span class="block text-xs font-semibold text-gray-700 text-center uppercase tracking-wider">{{ color.name }}</span>
+          <div class="flex justify-center gap-2 mt-3 pt-3 border-t border-border">
             <button class="text-xs text-gray-400 hover:text-cyan-400 font-semibold transition-colors">Edit</button>
             <span class="text-gray-600">|</span>
             <button class="text-xs text-red-400 hover:text-red-300 font-semibold transition-colors">Delete</button>
@@ -132,7 +123,9 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import {ChevronDownIcon} from "lucide-vue-next";
+import {ChevronDownIcon, Search} from "lucide-vue-next";
+import BaseInput from "@/components/form/BaseInput.vue";
+import BaseSelect from "@/components/form/BaseSelect.vue";
 
 const selectedColor = ref('#000000')
 const selectedColorCard = ref(null)
