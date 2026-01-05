@@ -28,14 +28,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Style No -->
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Style No</label>
-            <input type="text" value="MJ7024D. Clone Clone Clone" class="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+            <BaseInput label="Style No" placeholder="MJ7024D. Clone Clone Clone" />
           </div>
-
-          <!-- SKU -->
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">SKU</label>
-            <input type="text" placeholder="SKU" class="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+            <BaseInput label="SKU" placeholder="SKU" />
           </div>
 
           <!-- Select Size -->
@@ -341,6 +337,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import BaseInput from "@/components/form/BaseInput.vue";
 
 // Component is reactive with Vue 3 Composition API
 const activeTab = ref('essentials')
