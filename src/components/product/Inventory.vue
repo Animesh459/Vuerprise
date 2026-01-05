@@ -6,6 +6,8 @@ import {
 } from 'lucide-vue-next'
 import { ref } from 'vue'
 import Pagination from "@/components/Pagination.vue";
+import BaseInput from "@/components/form/BaseInput.vue";
+import BaseCheckbox from "@/components/form/BaseCheckbox.vue";
 
 const colorVariants = ref([
   { name: 'Beige/Dust Green', selected: true },
@@ -64,27 +66,25 @@ const stats = [
 </script>
 
 <template>
-  <div class="common-card flex flex-col gap-6">
+  <div class="flex flex-col gap-6 mb-8 p-4 border  border-zinc-200 bg-white  transition-colors group">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="space-y-4 flex-1">
-        <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-          <LayersIcon class="text-amber-400" :size="24" />
+        <h1 class="text-lg items-center flex gap-1 font-bold text-gray-900">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center">
+            <LayersIcon class="text-amber-400" :size="24" />
+          </div>
           Colors & Inventory
         </h1>
         <div class="relative max-w-xl group">
-          <SearchIcon class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" :size="18" />
-          <input
-              type="text"
-              placeholder="Search colors, variants, stock codes..."
-              class="w-full bg-slate-950 border rounded-md border-slate-800 pl-12 pr-4 py-3 text-sm focus:border-cyan-500/50 focus:bg-slate-950 transition-all outline-none shadow-inner shadow-black/40"
-          />
+<!--          <SearchIcon class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" :size="18" />-->
+          <BaseInput placeholder="Search colors, variants, stock codes..." />
         </div>
       </div>
       <div class="flex gap-3">
-        <button class="btn-common">
+        <button class="btn-primary-new flex gap-1 items-center">
           <PlusIcon :size="16" /> Add New Color
         </button>
-        <button class="btn-danger-transparent">
+        <button class="btn-secondary-new">
           X Close Color Panel
         </button>
       </div>
@@ -92,96 +92,136 @@ const stats = [
 
     <!-- Color Selection Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-      <label v-for="color in colorVariants" :key="color.name" class="flex items-center gap-3 p-3 bg-slate-900/40 border border-slate-800 rounded-xl cursor-pointer hover:border-slate-700 transition-all group">
-        <div class="relative flex items-center">
-          <input type="checkbox" v-model="color.selected" class="peer sr-only" />
-          <div class="w-5 h-5 border-2 border-slate-700 rounded-md peer-checked:bg-cyan-500 peer-checked:border-cyan-500 transition-all flex items-center justify-center">
-            <CheckIcon v-if="color.selected" :size="14" class="text-white" />
-          </div>
-        </div>
-        <span class="text-xs font-bold text-slate-400 group-hover:text-slate-200 transition-colors tracking-wide uppercase">{{ color.name }}</span>
-      </label>
-    </div>
 
-    <!-- Inventory Table -->
-    <div class="space-y-4 pt-4">
-      <div class="flex items-center justify-between">
-        <div class="space-y-1">
-          <h2 class="text-xl font-bold text-white tracking-tight uppercase">Inventory Management</h2>
-          <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Manage stock levels for each color variant</p>
-        </div>
-         <Pagination />
+      <div class="flex border-zinc-200 border p-2">
+        <BaseCheckbox label="Beige/Dust Green" customClass="border-zinc-200 border p-2"
+        />
+      </div>
+      <div class="flex border-zinc-200 border p-2">
+        <BaseCheckbox label="Cream/Red" customClass="border-zinc-200 border p-2"
+        />
+      </div>
+      <div class="flex border-zinc-200 border p-2">
+        <BaseCheckbox label="Dark Green/Red" customClass="border-zinc-200 border p-2"
+        />
+      </div>
+      <div class="flex border-zinc-200 border p-2">
+        <BaseCheckbox label="Denim-Red" customClass="border-zinc-200 border p-2"
+        />
+      </div>
+      <div class="flex border-zinc-200 border p-2">
+        <BaseCheckbox label="Green" customClass="border-zinc-200 border p-2"
+        />
+      </div>
+      <div class="flex border-zinc-200 border p-2">
+        <BaseCheckbox label="Ivory" customClass="border-zinc-200 border p-2"
+        />
       </div>
 
-      <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/20 backdrop-blur-md shadow-2xl">
-        <table class="w-full text-left border-collapse min-w-[1000px]">
+    </div>
+
+    <div class="common-card-new">
+      <h3 class="text-lg font-bold text-gray-900 mb-1">Inventory Management</h3>
+      <p class="text-sm text-gray-700 mb-6">Manage stock levels for each color variant</p>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
           <thead>
-          <tr class="border-b border-slate-800 bg-slate-900/40">
-            <th v-for="header in tableHeaders" :key="header" class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">
-              {{ header }}
-            </th>
+          <tr class="border-b border-t border-gray-200">
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Color</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Physical qty</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Incoming qty</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Outgoing qty</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Projected qty</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Stock status</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Reorder level</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Expected arrival</th>
+            <th class="px-4 py-3 text-left font-semibold text-gray-700">Action</th>
           </tr>
           </thead>
-          <tbody class="divide-y divide-slate-800/50">
-          <tr v-for="row in inventoryData" :key="row.color" class="group hover:bg-slate-800/20 transition-colors">
-            <td class="px-6 py-4">
-              <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-white uppercase tracking-wider">{{ row.color }}</span>
+          <tbody>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+            <td class="px-4 py-4 flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              <span class="font-medium text-gray-900">GREEN</span>
             </td>
-            <td class="px-6 py-4">
-              <input type="text" v-model="row.physical" class="w-20 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-center font-bold focus:border-cyan-500/50 outline-none transition-all" />
+            <td class="px-4 py-4 text-gray-600">0</td>
+            <td class="px-4 py-4"><span class="text-blue-600 font-semibold">0</span></td>
+            <td class="px-4 py-4"><span class="text-orange-600 font-semibold">0</span></td>
+            <td class="px-4 py-4"><span class="text-red-600 font-semibold">0</span></td>
+            <td class="px-4 py-4"><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
+            <td class="px-4 py-4 text-gray-600">0</td>
+            <td class="px-4 py-4 text-gray-400">yyyy-mm-dd</td>
+            <td class="px-4 py-4"><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
+          </tr>
+          <tr class="hover:bg-gray-50 transition border-b border-gray-100">
+            <td class="px-4 py-4 flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-yellow-200"></div>
+              <span class="font-medium text-gray-900">IVORY</span>
             </td>
-            <td class="px-6 py-4">
-              <div class="flex items-center gap-2 text-cyan-400 font-black text-sm">{{ row.incoming }} <ZapIcon :size="14" class="animate-pulse" /></div>
-            </td>
-            <td class="px-6 py-4">
-              <div class="flex items-center gap-2 text-amber-400 font-black text-sm">{{ row.outgoing }} <ArrowDownCircleIcon :size="14" /></div>
-            </td>
-            <td class="px-6 py-4">
-              <div class="flex items-center gap-2 text-rose-400 font-black text-sm">{{ row.projected }} <AlertCircleIcon :size="14" /></div>
-            </td>
-            <td class="px-6 py-4">
-              <div class="relative min-w-[140px]">
-                <select v-model="row.status" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs font-bold text-slate-400 appearance-none outline-none focus:border-cyan-500/50 transition-all uppercase tracking-widest cursor-pointer">
-                  <option>Out of Stock</option>
-                  <option>In Stock</option>
-                  <option>Low Stock</option>
-                </select>
-                <ChevronDownIcon class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600" :size="12" />
-              </div>
-            </td>
-            <td class="px-6 py-4 text-center">
-              <input type="text" v-model="row.reorder" class="w-16 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-center font-bold outline-none" />
-            </td>
-            <td class="px-6 py-4">
-              <div class="relative">
-                <input type="text" placeholder="YYYY-MM-DD" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs font-mono text-slate-500 outline-none focus:border-cyan-500/50 transition-all" />
-                <CalendarIcon class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" :size="14" />
-              </div>
-            </td>
-            <td class="px-6 py-4 text-center">
-              <button class="text-rose-500/50 hover:text-rose-500 font-black text-[10px] uppercase tracking-widest transition-all hover:scale-110 active:scale-95">Delete</button>
-            </td>
+            <td class="px-4 py-4 text-gray-600">0</td>
+            <td class="px-4 py-4"><span class="text-blue-600 font-semibold">0</span></td>
+            <td class="px-4 py-4"><span class="text-orange-600 font-semibold">0</span></td>
+            <td class="px-4 py-4"><span class="text-red-600 font-semibold">0</span></td>
+            <td class="px-4 py-4"><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
+            <td class="px-4 py-4 text-gray-600">0</td>
+            <td class="px-4 py-4 text-gray-400">yyyy-mm-dd</td>
+            <td class="px-4 py-4"><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
           </tr>
           </tbody>
         </table>
       </div>
-    </div>
 
-    <!-- Summary Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div
-          v-for="stat in stats"
-          :key="stat.label"
-          class="group relative overflow-hidden bg-slate-900/40 rounded-3xl border border-slate-800 p-6 backdrop-blur-sm hover:border-slate-700 transition-all duration-300"
-      >
-        <div :class="['absolute bottom-0 left-0 h-1 transition-all duration-500 group-hover:h-full group-hover:opacity-5', stat.colorClass]"></div>
-        <div class="flex items-center justify-between mb-4">
-          <div :class="['p-3 rounded-2xl border bg-slate-950 shadow-inner', stat.borderColorClass]">
-            <component :is="stat.icon" :size="20" :class="stat.textClass" />
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+        <div class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-blue-50 to-white">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold text-gray-600">TOTAL COLORS</h4>
+            <div class="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4z" />
+              </svg>
+            </div>
           </div>
-          <div class="text-2xl font-black text-white group-hover:scale-110 transition-transform">{{ stat.value }}</div>
+          <p class="text-3xl font-bold text-gray-900">2</p>
         </div>
-        <p class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">{{ stat.label }}</p>
+
+        <div class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-green-50 to-white">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold text-gray-600">TOTAL PHYSICAL STOCK</h4>
+            <div class="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.5 1.5H5.75A2.25 2.25 0 003.5 3.75v12.5A2.25 2.25 0 005.75 18.5h8.5a2.25 2.25 0 002.25-2.25V6.5" />
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-gray-900">0</p>
+        </div>
+
+        <div class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-amber-50 to-white">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold text-gray-600">TOTAL PROJECTED STOCK</h4>
+            <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.5 1.5H5.75A2.25 2.25 0 003.5 3.75v12.5A2.25 2.25 0 005.75 18.5h8.5a2.25 2.25 0 002.25-2.25V6.5" />
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-gray-900">0</p>
+        </div>
+
+        <div class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-red-50 to-white">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold text-gray-600">NEED REORDER</h4>
+            <div class="w-8 h-8 rounded-lg bg-red-500 flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-gray-900">2</p>
+        </div>
       </div>
     </div>
   </div>

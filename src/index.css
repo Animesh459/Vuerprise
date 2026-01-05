@@ -4,6 +4,7 @@
 body {
     color: #b0b8c4;
     font-size: 14px;
+    background: rgb(243, 244, 246);
 }
 
 
@@ -121,6 +122,9 @@ body {
         @apply bg-white  rounded-md p-6;
     }
 
+    .common-card-new {
+        @apply p-4 border  border-zinc-200 bg-white  transition-colors;
+    }
 
     /*button new theme*/
     .btn-secondary-new {
