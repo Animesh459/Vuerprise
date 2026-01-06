@@ -6,7 +6,7 @@
       <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Fill in the details below to add a New Color</p>
     </div>
     <div class="common-card-new">
-      <div class="flex justify-between mb-8">
+      <div class="flex justify-between mb-4">
         <h2 class="text-lg font-bold text-gray-900">
           Add a New Color
         </h2>
@@ -51,17 +51,17 @@
           <div class="space-y-6">
             <!-- Color Code -->
             <div>
-              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Color Code</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Color Code</label>
               <div class="flex gap-3">
                 <input type="color" v-model="selectedColor" class="w-20 h-9 border border-neutral-200 rounded-lg cursor-pointer" />
-                <input type="text" v-model="selectedColor" placeholder="#000000" class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors" />
+                <BaseInput  placeholder="#000000" />
+<!--                <input type="text" v-model="selectedColor" placeholder="#000000" class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors" />-->
               </div>
             </div>
 
-            <!-- Upload Color Image -->
             <div>
-              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Upload Color Image</label>
-              <input type="file" class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors" />
+              <label class="block text-sm font-medium text-gray-700 mb-2">Upload Color Image</label>
+              <input type="file" class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-black focus:outline-none" />
             </div>
           </div>
         </div>
@@ -80,7 +80,6 @@
           <BaseInput customClass="pl-8" />
         </div>
         <div class="flex gap-3">
-
           <div class="relative">
             <BaseSelect
                 :options="['Name A-Z', 'Recently Added', 'Popular']"
