@@ -6,7 +6,7 @@
           :checked="modelValue"
           @change="$emit('update:modelValue', $event.target.checked)"
           :class="[
-          'relative h-4 w-4 appearance-none border border-black/20 bg-white/50 rounded-sm cursor-pointer transition-all',
+          'relative h-5 w-5 appearance-none border border-black bg-white rounded-sm cursor-pointer transition-all',
           'checked:bg-black checked:border-black',
           'after:content-[\'✓\'] after:absolute after:inset-0 after:flex after:items-center after:justify-center',
           'after:text-[10px] after:text-white after:font-bold after:opacity-0 checked:after:opacity-100',

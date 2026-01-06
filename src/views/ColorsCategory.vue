@@ -35,7 +35,7 @@
 
 
       <div class="space-y-6">
-        <div class="grid grid-cols-2 gap-8 lg:grid-cols-2">
+        <div class="grid grid-cols-2 gap-6 lg:grid-cols-2">
           <div class="space-y-6">
 
             <BaseInput label="Color Name" placeholder="Enter color name" />
@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <div class="flex justify-end gap-3 pt-4">
+        <div class="flex justify-end gap-3">
           <button class="btn-secondary-new">Cancel</button>
           <button class="btn-primary-new">Save</button>
         </div>

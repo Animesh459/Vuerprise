@@ -61,7 +61,10 @@
           transparent
         </button>
       </div>
-
+    <div class="flex gap-2">
+      <button class="btn-secondary-new"> Unselect All </button>
+      <button class="btn-primary-new"> Clone Selected </button>
+    </div>
   </div>
 
   <div class="common-card flex flex-col gap-3 mb-3">
@@ -92,6 +95,9 @@
                       Checkbox 2
                     </CustomCheckbox>
                 </div>
+              <BaseCheckbox
+                  label="Checkbox 1"
+              />
                 <CustomSelect
                     id="project-select"
                     label="Select box"
@@ -267,58 +273,109 @@
 <!--        @update:currentPage="updatePage"-->
 <!--    />-->
 
-    <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/20 backdrop-blur-md shadow-2xl">
-      <table class="w-full text-left border-collapse min-w-[1000px]">
+<!--    <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/20 backdrop-blur-md shadow-2xl">-->
+<!--      <table class="w-full text-left border-collapse min-w-[1000px]">-->
+<!--        <thead>-->
+<!--        <tr class="border-b border-slate-800 bg-slate-900/40">-->
+<!--          <th v-for="header in tableHeaders" :key="header" class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">-->
+<!--            {{ header }}-->
+<!--          </th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody class="divide-y divide-slate-800/50">-->
+<!--        <tr v-for="row in inventoryData" :key="row.color" class="group hover:bg-slate-800/20 transition-colors">-->
+<!--          <td class="px-6 py-4">-->
+<!--            <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-white uppercase tracking-wider">{{ row.color }}</span>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4">-->
+<!--            <input type="text" v-model="row.physical" class="w-20 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-center font-bold focus:border-cyan-500/50 outline-none transition-all" />-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4">-->
+<!--            <div class="flex items-center gap-2 text-cyan-400 font-black text-sm">{{ row.incoming }} <ZapIcon :size="14" class="animate-pulse" /></div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4">-->
+<!--            <div class="flex items-center gap-2 text-amber-400 font-black text-sm">{{ row.outgoing }} <ArrowDownCircleIcon :size="14" /></div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4">-->
+<!--            <div class="flex items-center gap-2 text-rose-400 font-black text-sm">{{ row.projected }} <AlertCircleIcon :size="14" /></div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4">-->
+<!--            <div class="relative min-w-[140px]">-->
+<!--              <select v-model="row.status" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs font-bold text-slate-400 appearance-none outline-none focus:border-cyan-500/50 transition-all uppercase tracking-widest cursor-pointer">-->
+<!--                <option>Out of Stock</option>-->
+<!--                <option>In Stock</option>-->
+<!--                <option>Low Stock</option>-->
+<!--              </select>-->
+<!--              <ChevronDownIcon class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600" :size="12" />-->
+<!--            </div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4 text-center">-->
+<!--            <input type="text" v-model="row.reorder" class="w-16 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-center font-bold outline-none" />-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4">-->
+<!--            <div class="relative">-->
+<!--              <input type="text" placeholder="YYYY-MM-DD" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs font-mono text-slate-500 outline-none focus:border-cyan-500/50 transition-all" />-->
+<!--              <CalendarIcon class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" :size="14" />-->
+<!--            </div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4 text-center">-->
+<!--            <button class="text-rose-500/50 hover:text-rose-500 font-black text-[10px] uppercase tracking-widest transition-all hover:scale-110 active:scale-95">Delete</button>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+
+
+    <div class="overflow-x-auto border border-border">
+      <table class="w-full text-sm">
         <thead>
-        <tr class="border-b border-slate-800 bg-slate-900/40">
-          <th v-for="header in tableHeaders" :key="header" class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">
-            {{ header }}
-          </th>
+        <tr class="border-b border-gray-200">
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Color</th>
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Physical qty</th>
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Incoming qty</th>
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Outgoing qty</th>
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Projected qty</th>
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Stock status</th>
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Reorder level</th>
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Expected arrival</th>
+          <th class="px-4 py-3 text-left font-semibold text-gray-700">Action</th>
         </tr>
         </thead>
-        <tbody class="divide-y divide-slate-800/50">
-        <tr v-for="row in inventoryData" :key="row.color" class="group hover:bg-slate-800/20 transition-colors">
-          <td class="px-6 py-4">
-            <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs font-bold text-white uppercase tracking-wider">{{ row.color }}</span>
+        <tbody>
+        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+          <td class="px-4 py-4 flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            <span class="font-medium text-gray-900">GREEN</span>
           </td>
-          <td class="px-6 py-4">
-            <input type="text" v-model="row.physical" class="w-20 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-center font-bold focus:border-cyan-500/50 outline-none transition-all" />
+          <td class="px-4 py-4 text-gray-600">0</td>
+          <td class="px-4 py-4"><span class="text-blue-600 font-semibold">0</span></td>
+          <td class="px-4 py-4"><span class="text-orange-600 font-semibold">0</span></td>
+          <td class="px-4 py-4"><span class="text-red-600 font-semibold">0</span></td>
+          <td class="px-4 py-4"><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
+          <td class="px-4 py-4 text-gray-600">0</td>
+          <td class="px-4 py-4 text-gray-400">yyyy-mm-dd</td>
+          <td class="px-4 py-4"><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
+        </tr>
+        <tr class="hover:bg-gray-50 transition border-b border-gray-100">
+          <td class="px-4 py-4 flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-yellow-200"></div>
+            <span class="font-medium text-gray-900">IVORY</span>
           </td>
-          <td class="px-6 py-4">
-            <div class="flex items-center gap-2 text-cyan-400 font-black text-sm">{{ row.incoming }} <ZapIcon :size="14" class="animate-pulse" /></div>
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex items-center gap-2 text-amber-400 font-black text-sm">{{ row.outgoing }} <ArrowDownCircleIcon :size="14" /></div>
-          </td>
-          <td class="px-6 py-4">
-            <div class="flex items-center gap-2 text-rose-400 font-black text-sm">{{ row.projected }} <AlertCircleIcon :size="14" /></div>
-          </td>
-          <td class="px-6 py-4">
-            <div class="relative min-w-[140px]">
-              <select v-model="row.status" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs font-bold text-slate-400 appearance-none outline-none focus:border-cyan-500/50 transition-all uppercase tracking-widest cursor-pointer">
-                <option>Out of Stock</option>
-                <option>In Stock</option>
-                <option>Low Stock</option>
-              </select>
-              <ChevronDownIcon class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600" :size="12" />
-            </div>
-          </td>
-          <td class="px-6 py-4 text-center">
-            <input type="text" v-model="row.reorder" class="w-16 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-center font-bold outline-none" />
-          </td>
-          <td class="px-6 py-4">
-            <div class="relative">
-              <input type="text" placeholder="YYYY-MM-DD" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs font-mono text-slate-500 outline-none focus:border-cyan-500/50 transition-all" />
-              <CalendarIcon class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" :size="14" />
-            </div>
-          </td>
-          <td class="px-6 py-4 text-center">
-            <button class="text-rose-500/50 hover:text-rose-500 font-black text-[10px] uppercase tracking-widest transition-all hover:scale-110 active:scale-95">Delete</button>
-          </td>
+          <td class="px-4 py-4 text-gray-600">0</td>
+          <td class="px-4 py-4"><span class="text-blue-600 font-semibold">0</span></td>
+          <td class="px-4 py-4"><span class="text-orange-600 font-semibold">0</span></td>
+          <td class="px-4 py-4"><span class="text-red-600 font-semibold">0</span></td>
+          <td class="px-4 py-4"><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
+          <td class="px-4 py-4 text-gray-600">0</td>
+          <td class="px-4 py-4 text-gray-400">yyyy-mm-dd</td>
+          <td class="px-4 py-4"><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
         </tr>
         </tbody>
       </table>
     </div>
+
+
   </div>
 
   <div class="common-card flex flex-col gap-3 mb-3">
@@ -372,6 +429,7 @@
   import CustomTabs from "@/components/CustomTabs.vue";
   import CustomPagination from "@/components/CustomPagination.vue";
   import {AlertCircleIcon, ArrowDownCircleIcon, CalendarIcon, ChevronDownIcon, ZapIcon} from "lucide-vue-next";
+  import BaseCheckbox from "@/components/form/BaseCheckbox.vue";
 
   const isModalOpen = ref(false);
 

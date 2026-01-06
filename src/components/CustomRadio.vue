@@ -17,18 +17,18 @@
 
         <label
             :for="`${id}-${option.value}`"
-            class="flex items-center cursor-pointer text-sm text-gray-300 select-none
+            class="flex items-center cursor-pointer text-sm text-gray-700 select-none
                  transition duration-200 ease-in-out"
         >
           <div
-              class="w-5 h-5 mr-3 rounded-full border flex items-center justify-center flex-shrink-0
+              class="w-5 h-5 mr-2 rounded-full border flex items-center justify-center flex-shrink-0
                    transition duration-300 ease-in-out"
               :class="modelValue === option.value
-              ? 'border-gray-600 shadow-gray-600'
-              : 'border-gray-600 bg-white hover:border-gray-600'"
+              ? 'border-black shadow-black'
+              : 'border-black bg-white hover:border-black'"
           >
             <div
-                class="w-2.5 h-2.5 rounded-full bg-gray-600
+                class="w-2.5 h-2.5 rounded-full bg-black
                      transition-transform duration-300 ease-in-out"
                 :class="{ 'scale-100 opacity-100': modelValue === option.value, 'scale-0 opacity-0': modelValue !== option.value }"
             ></div>
