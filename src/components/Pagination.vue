@@ -12,7 +12,7 @@
 <!--  </div>-->
 
   <!-- Pagination -->
-  <div class="mt-6 flex flex-col items-center justify-between gap-6 border-t border-border pt-6 sm:flex-row">
+  <div class="mt-6 flex  items-center justify-between gap-6 border-t border-border pt-6 flex-row">
     <p class="text-xs font-semibold text-gray-600 uppercase tracking-widest">1-18 of 50 Results</p>
     <div class="flex items-center gap-1">
       <button class="h-9 border border-border px-4 text-xs font-semibold uppercase hover:border-black transition-colors">Prev</button>

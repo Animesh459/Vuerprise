@@ -5,8 +5,8 @@
 
       <div class="flex flex-col justify-between gap-5 border-b border-border pb-5 mb-5">
         <div class="flex items-center justify-between">
-          <h1 class="text-3xl font-bold tracking-tighter uppercase">Product Catalog</h1>
-          <p class="mt-2 text-[11px] font-semibold text-neutral-400 uppercase">10 of 50 items selected</p>
+          <h1 class="text-3xl font-bold tracking-tighter ">Product Catalog</h1>
+          <p class="mt-2 font-semibold text-gray-600 uppercase">10 of 50 items selected</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <div class="flex flex-1">

@@ -1,14 +1,18 @@
 <template>
+  <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
+    <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Category Manager</h1>
+    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product categories with drag and drop</p>
+  </div>
   <div class="common-card-new">
-    <!-- Header -->
-    <header class="">
-      <div class="mb-12">
-        <h1 class="text-xl md:text-3xl font-bold text-gray-900 mb-2">
-          Category Manager
-        </h1>
-        <p class="text-gray-600 text-sm mt-1">Organize your product categories with drag and drop</p>
-      </div>
-    </header>
+<!--    &lt;!&ndash; Header &ndash;&gt;-->
+<!--    <header class="">-->
+<!--      <div class="mb-12">-->
+<!--        <h1 class="text-xl md:text-3xl font-bold text-gray-900 mb-2">-->
+<!--          Category Manager-->
+<!--        </h1>-->
+<!--        <p class="text-gray-600 text-sm mt-1">Organize your product categories with drag and drop</p>-->
+<!--      </div>-->
+<!--    </header>-->
 
     <div class="">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">

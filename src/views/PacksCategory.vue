@@ -1,51 +1,31 @@
 <template>
-  <div class="common-card p-0">
 
-    <div class="">
-      <div class="w-full px-6 md:px-8 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center text-white font-bold text-lg">
-            📦
-          </div>
-          <h1 class="text-2xl font-bold text-white">Packs Manager</h1>
-        </div>
-<!--        <div class="text-sm text-slate-400">-->
-<!--          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">-->
-<!--            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>-->
-<!--            Active-->
-<!--          </span>-->
-<!--        </div>-->
-      </div>
-    </div>
+  <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
+    <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Packs Manager</h1>
+    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product Packs Here</p>
+  </div>
 
-    <!-- Main Content -->
-    <main class="w-full px-6 md:px-8 py-8 max-w-full">
-      <!-- Add Pack Form Card -->
-      <div class="mb-8 rounded-2xl border border-slate-800/50 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-xl shadow-2xl overflow-hidden">
-        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-b border-slate-800/50 px-8 py-6">
-          <h2 class="text-xl font-semibold text-white flex items-center gap-3">
-            <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400">+</span>
+    <main class="">
+
+      <div class="common-card-new mb-8">
+        <div class="mb-5">
+          <h2 class="text-xl font-semibold text-gray-700 flex items-center gap-2">
+            <span class="flex items-center justify-center ">+</span>
             Create New Pack
           </h2>
-          <p class="text-sm text-slate-400 mt-1">Configure size options and pack specifications</p>
+          <p class="text-sm text-gray-700 mt-1">Configure size options and pack specifications</p>
         </div>
 
-        <div class="p-8 space-y-6">
+        <div class="space-y-5">
           <div>
-            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Size Configuration</label>
-            <div class="relative">
-              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
-                <option>Select a size preset...</option>
-                <option>Small, Medium, Large</option>
-                <option>Small to Extra Large</option>
-                <option>Medium to 2XL</option>
-              </select>
-              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
-            </div>
+            <BaseSelect
+                label="Size Configuration"
+                :options="['Small, Medium, Large', 'Small to Extra Large', 'Medium to 2XL']"
+            />
           </div>
           <!-- Pack Grid -->
           <div>
-            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Select Packs</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Select Packs</label>
             <div class="grid grid-cols-5 md:grid-cols-10 gap-3">
               <button
                   v-for="i in 10"
@@ -54,8 +34,8 @@
                   :class="[
                   '',
                   newPack.packs.includes(`P${i}`)
-                    ? 'btn-common'
-                    : 'btn-secondary-transparent'
+                    ? 'btn-primary-new'
+                    : 'btn-secondary-new'
                 ]"
               >
                 P{{ i }}
@@ -63,22 +43,21 @@
             </div>
           </div>
 
-          <!-- Action Buttons -->
-          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-6 border-t border-slate-700/30">
-            <button class="text-cyan-400 hover:text-cyan-300 font-medium text-sm flex items-center gap-2 transition-colors">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-6 border-t border-border">
+            <button class="text-blue-500 font-medium text-sm flex items-center gap-2 transition-colors">
               <span class="text-lg">+</span>
               <span>Add More Options</span>
             </button>
             <div class="flex gap-3 w-full md:w-auto">
               <button
                   @click="resetForm"
-                  class="btn-secondary-transparent"
+                  class="btn-secondary-new"
               >
                 Cancel
               </button>
               <button
                   @click="savePack"
-                  class="btn-common"
+                  class="btn-primary-new"
               >
                 Save Pack
               </button>
@@ -87,181 +66,63 @@
         </div>
       </div>
 
-      <!-- Search & Controls Bar -->
-      <div class="mb-8 rounded-2xl border border-slate-800/50 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-xl p-6 shadow-2xl">
+      <div class="common-card-new mb-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <!-- Search Input -->
           <div>
-            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Search</label>
-            <input
-                v-model="searchQuery"
-                type="text"
-                placeholder="Search packs..."
-                class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm focus:border-cyan-500/50 transition-all outline-none"
+            <BaseInput label="Search" placeholder="Search" />
+          </div>
+
+          <div>
+            <BaseSelect
+                label="Sort By"
+                :options="['Name (A-Z)', 'Date Added', 'Size']"
             />
+
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Sort By</label>
-            <div class="relative">
-              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
-                <option>Name (A-Z)</option>
-                <option>Date Added</option>
-                <option>Size</option>
-              </select>
-              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
-            </div>
-          </div>
-          <!-- Filter -->
+            <BaseSelect
+                label="Status"
+                :options="['All Packs', 'Active', 'Inactive']"
+            />
 
-          <div>
-            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Status</label>
-            <div class="relative">
-              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
-                <option>All Packs</option>
-                <option>Active</option>
-                <option>Inactive</option>
-              </select>
-              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
-            </div>
           </div>
 
-          <!-- Items Per Page -->
           <div>
-            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Per Page</label>
-            <div class="relative">
-              <select class="w-full bg-gray-950/80 border border-slate-800 rounded-md px-4 py-3 text-sm appearance-none outline-none focus:border-cyan-500/50 transition-all cursor-pointer">
-                <option>10 items</option>
-                <option>20 items</option>
-                <option>50 items</option>
-              </select>
-              <ChevronDownIcon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600" :size="16" />
-            </div>
+            <BaseSelect
+                label="Per Page"
+                :options="['10 items', '20 items', '50 items']"
+            />
           </div>
         </div>
       </div>
 
-      <!-- Data Table Card -->
-<!--      <div class="rounded-2xl border border-slate-800/50 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-xl shadow-2xl overflow-hidden">-->
-<!--        &lt;!&ndash; Table Header &ndash;&gt;-->
-<!--        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-b border-slate-800/50 px-8 py-4">-->
-<!--          <div class="grid grid-cols-12 gap-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">-->
-<!--            <div class="col-span-3">Size Name</div>-->
-<!--            <div class="col-span-3">Size Details</div>-->
-<!--            <div class="col-span-2">Pack Config</div>-->
-<!--            <div class="col-span-2">Status</div>-->
-<!--            <div class="col-span-2">Actions</div>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Table Rows &ndash;&gt;-->
-<!--        <div class="divide-y divide-slate-800/30">-->
-<!--          <div-->
-<!--              v-for="pack in paginatedPacks"-->
-<!--              :key="pack.id"-->
-<!--              class="grid grid-cols-12 gap-4 px-8 py-4 hover:bg-slate-800/20 transition-colors duration-200 group"-->
-<!--          >-->
-<!--            <div class="col-span-3">-->
-<!--              <span class="font-medium text-white">{{ pack.sizeName }}</span>-->
-<!--            </div>-->
-<!--            <div class="col-span-3">-->
-<!--              <span class="text-slate-400">{{ pack.sizeDetails }}</span>-->
-<!--            </div>-->
-<!--            <div class="col-span-2">-->
-<!--              <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-sm font-medium text-cyan-400">-->
-<!--                {{ pack.pack }}-->
-<!--              </span>-->
-<!--            </div>-->
-<!--            <div class="col-span-2">-->
-<!--              <div class="flex items-center gap-2">-->
-<!--                <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>-->
-<!--                <span class="text-sm text-emerald-400 font-medium">Active</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="col-span-2 flex gap-2">-->
-<!--              <button class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:bg-slate-700/50 hover:border-cyan-400/30 transition-all opacity-0 group-hover:opacity-100">-->
-<!--                ✎-->
-<!--              </button>-->
-<!--              <button-->
-<!--                  @click="deletePack(pack.id)"-->
-<!--                  class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-400/30 transition-all opacity-0 group-hover:opacity-100"-->
-<!--              >-->
-<!--                🗑-->
-<!--              </button>-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash; Empty State &ndash;&gt;-->
-<!--          <div v-if="paginatedPacks.length === 0" class="px-8 py-12 text-center">-->
-<!--            <p class="text-slate-400 text-sm">No packs found. Create one to get started!</p>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Footer with Pagination &ndash;&gt;-->
-<!--        <div class="bg-gradient-to-r from-slate-800/30 to-transparent border-t border-slate-800/50 px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">-->
-<!--          <span class="text-sm text-slate-400">-->
-<!--            Showing <span class="font-semibold text-white">{{ startItem }}-{{ endItem }}</span> of <span class="font-semibold text-white">{{ filteredPacks.length }}</span>-->
-<!--          </span>-->
-<!--          <div class="flex gap-2 items-center">-->
-<!--            <button-->
-<!--                @click="previousPage"-->
-<!--                :disabled="currentPage === 1"-->
-<!--                class="p-2 rounded-lg border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"-->
-<!--            >-->
-<!--              ←-->
-<!--            </button>-->
-<!--            <div class="flex gap-1">-->
-<!--              <button-->
-<!--                  v-for="page in totalPages"-->
-<!--                  :key="page"-->
-<!--                  @click="currentPage = page"-->
-<!--                  :class="[-->
-<!--                  'px-3 py-1 rounded-lg text-sm font-medium transition-all',-->
-<!--                  currentPage === page-->
-<!--                    ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30'-->
-<!--                    : 'bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-cyan-400 hover:border-slate-600/50'-->
-<!--                ]"-->
-<!--              >-->
-<!--                {{ page }}-->
-<!--              </button>-->
-<!--            </div>-->
-<!--            <button-->
-<!--                @click="nextPage"-->
-<!--                :disabled="currentPage === totalPages"-->
-<!--                class="p-2 rounded-lg border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"-->
-<!--            >-->
-<!--              →-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      -->
-
-      <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950 shadow-2xl">
-        <table class="w-full text-left border-collapse min-w-[800px]">
+      <div class="overflow-x-auto border border-border">
+        <table class="w-full text-sm">
           <thead>
-          <tr class="border-b border-slate-800 bg-slate-900/40">
-            <th v-for="header in tableHeaders" :key="header" class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-widest">
+          <tr class="border-b border-gray-200">
+            <th v-for="header in tableHeaders" :key="header" class="px-4 py-3 text-left font-semibold text-gray-700">
               {{ header }}
             </th>
           </tr>
           </thead>
           <tbody class="divide-y divide-slate-800/50">
-          <tr v-for="(row, index) in inventoryData" :key="index" class="group hover:bg-slate-900/50 transition-colors">
+          <tr v-for="(row, index) in inventoryData" :key="index" class="border-b border-gray-100 hover:bg-gray-50 transition">
             <td class="px-6 py-5">
-          <span class="text-sm font-bold text-slate-200 tracking-tight">
+          <span class="text-sm font-semibold text-gray-700 tracking-tight">
             {{ row.sizeName }}
           </span>
             </td>
 
             <td class="px-6 py-5">
-          <span class="text-sm text-slate-400 font-medium">
+          <span class="text-sm text-gray-700 font-medium">
             {{ row.details }}
           </span>
             </td>
 
             <td class="px-6 py-5">
-              <div class="inline-block px-3 py-1 bg-cyan-950/30 border border-cyan-800/30 rounded-full text-xs font-mono text-cyan-400">
+              <div class="inline-block text-gray-700 px-3 py-1 ">
                 {{ row.packConfig }}
               </div>
             </td>
@@ -277,10 +138,10 @@
 
             <td class="px-6 py-5">
               <div class="flex items-center gap-2">
-                <button class="p-2 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-all">
+                <button class="p-2  text-gray-700  transition-all">
                   <EditIcon :size="16" />
                 </button>
-                <button @click="deleteRow(index)" class="p-2 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-rose-500 transition-all">
+                <button @click="deleteRow(index)" class="p-2  text-gray-700 hover:text-rose-500 transition-all">
                   <TrashIcon :size="16" />
                 </button>
               </div>
@@ -289,12 +150,11 @@
           </tbody>
         </table>
       </div>
-      <div class="flex flex-end justify-end mt-3">
-        <Pagination />
-      </div>
+
+      <Pagination />
 
     </main>
-  </div>
+
 </template>
 
 <script setup>
@@ -305,6 +165,8 @@ import {
   ChevronDownIcon, TrashIcon, EditIcon, CalendarIcon
 } from 'lucide-vue-next';
 import Pagination from "@/components/Pagination.vue";
+import BaseSelect from "@/components/form/BaseSelect.vue";
+import BaseInput from "@/components/form/BaseInput.vue";
 // Form data
 const newPack = ref({
   size: '',
@@ -437,7 +299,7 @@ const inventoryData = ref([
 ]);
 
 const statusColor = (status) => {
-  return status === 'Active' ? 'text-emerald-400' : 'text-slate-400';
+  return status === 'Active' ? 'text-emerald-400' : 'text-gray-700';
 };
 
 const deleteRow = (index) => {
