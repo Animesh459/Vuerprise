@@ -169,7 +169,7 @@
 
       <!-- Action Buttons -->
       <div class="flex items-center justify-between mt-8 pt-8 border-t border-border">
-        <button class="btn-secondary-new">← BACK TO LIST</button>
+        <button class="btn-secondary-new">← Back to list</button>
         <div class="flex gap-4">
           <button class="btn-secondary-new">
             Previous

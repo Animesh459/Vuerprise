@@ -7,10 +7,10 @@
       <div class="space-y-8">
         <section>
           <div class="flex justify-between items-end mb-1">
-            <h1 class="text-3xl font-bold tracking-tighter uppercase">Welcome, Mello User</h1>
+            <h1 class="text-3xl font-bold tracking-tighter ">Welcome, Mello User</h1>
             <p class="text-xs font-mono text-zinc-500 uppercase tracking-widest">LAST SYNC: {{ currentTime }}</p>
           </div>
-          <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest">
+          <p class="text-sm text-text-muted-light mt-1">
             Good to see you boss! System status: Nominal.
           </p>
         </section>

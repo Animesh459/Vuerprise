@@ -1,7 +1,7 @@
 <template>
   <header class="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md min-w-[1300px]">
     <!-- Logo and Main Nav -->
-    <div class="flex h-16 items-center justify-between px-4 lg:px-8">
+    <div class="flex h-16 items-center justify-between px-6">
 
 
       <nav class="flex items-center gap-6">

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import "tailwindcss";
 body {
-    color: #b0b8c4;
+    color: #4B5563;
     font-size: 14px;
     background: rgb(243, 244, 246);
 }
@@ -128,7 +128,7 @@ body {
 
     /*button new theme*/
     .btn-secondary-new {
-        @apply h-9 border border-black px-5 text-sm font-medium  transition-all hover:bg-black hover:text-white;
+        @apply h-9 border border-border px-6 text-sm font-medium  transition-all hover:bg-black hover:text-white;
     }
     .btn-primary-new {
         @apply h-9 bg-black px-6 text-sm font-medium  text-white transition-all hover:bg-neutral-800

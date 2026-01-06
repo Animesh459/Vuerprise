@@ -1,11 +1,11 @@
 <template>
-
+<div>
   <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
     <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Packs Manager</h1>
     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product Packs Here</p>
   </div>
 
-    <main class="">
+  <main class="">
 
       <div class="common-card-new mb-8">
         <div class="mb-5">
@@ -155,6 +155,7 @@
 
     </main>
 
+</div>
 </template>
 
 <script setup>
