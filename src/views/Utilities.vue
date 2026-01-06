@@ -61,6 +61,7 @@
           transparent
         </button>
       </div>
+
     <div class="flex gap-2">
       <button class="btn-secondary-new"> Unselect All </button>
       <button class="btn-primary-new"> Clone Selected </button>
@@ -84,63 +85,69 @@
           { value: 'express', text: 'Radio 2' },
         ]"
               />
-                <div class="card flex flex-wrap  gap-4">
-                    <CustomCheckbox
-                        id="news-check"
-                        label="Checkbox 1"
-                        v-model="formData.newsletter"
-                    />
+<!--                <div class="card flex flex-wrap  gap-4">-->
+<!--                    <CustomCheckbox-->
+<!--                        id="news-check"-->
+<!--                        label="Checkbox 1"-->
+<!--                        v-model="formData.newsletter"-->
+<!--                    />-->
 
-                    <CustomCheckbox id="terms-check" v-model="formData.terms">
-                      Checkbox 2
-                    </CustomCheckbox>
-                </div>
+<!--                    <CustomCheckbox id="terms-check" v-model="formData.terms">-->
+<!--                      Checkbox 2-->
+<!--                    </CustomCheckbox>-->
+<!--                </div>-->
               <BaseCheckbox
                   label="Checkbox 1"
               />
-                <CustomSelect
-                    id="project-select"
-                    label="Select box"
-                    v-model="projectData.lead"
-                    :options="[
-                    { value: 'alice', text: 'Alice (Development)' },
-                    { value: 'bob', text: 'Bob (Design)' },
-                    { value: 'charlie', text: 'Charlie (Testing)' }
-                  ]"
-                    placeholder="Choose a team member..."
-                />
-              <CustomInput
-                  id="user-name"
-                  label="Username"
-                  type="text"
-                  placeholder="Choose a unique name"
-                  v-model="inputData.username"
-                  :required="true"
+<!--                <CustomSelect-->
+<!--                    id="project-select"-->
+<!--                    label="Select box"-->
+<!--                    v-model="projectData.lead"-->
+<!--                    :options="[-->
+<!--                    { value: 'alice', text: 'Alice (Development)' },-->
+<!--                    { value: 'bob', text: 'Bob (Design)' },-->
+<!--                    { value: 'charlie', text: 'Charlie (Testing)' }-->
+<!--                  ]"-->
+<!--                    placeholder="Choose a team member..."-->
+<!--                />-->
+              <BaseSelect
+                  label="Select box"
+                  :options="['XS', 'S', 'M']"
               />
+<!--              <CustomInput-->
+<!--                  id="user-name"-->
+<!--                  label="Username"-->
+<!--                  type="text"-->
+<!--                  placeholder="Choose a unique name"-->
+<!--                  v-model="inputData.username"-->
+<!--                  :required="true"-->
+<!--              />-->
+              <BaseInput label="Username" placeholder="Username" />
 
-              <CustomInput
-                  id="user-password"
-                  label="Password"
-                  type="password"
-                  placeholder="••••••••"
-                  v-model="inputData.password"
-              />
+              <BaseTextArea label="Detailed Feedback"  placeholder="Textarea" />
+<!--              <CustomInput-->
+<!--                  id="user-password"-->
+<!--                  label="Password"-->
+<!--                  type="password"-->
+<!--                  placeholder="••••••••"-->
+<!--                  v-model="inputData.password"-->
+<!--              />-->
 
-              <CustomInput
-                  id="user-email"
-                  label="Email Address"
-                  type="email"
-                  placeholder="you@domain.com"
-                  v-model="inputData.email"
-              />
+<!--              <CustomInput-->
+<!--                  id="user-email"-->
+<!--                  label="Email Address"-->
+<!--                  type="email"-->
+<!--                  placeholder="you@domain.com"-->
+<!--                  v-model="inputData.email"-->
+<!--              />-->
 
-              <CustomTextarea
-                  id="user-feedback"
-                  label="Detailed Feedback"
-                  placeholder="Enter your thoughts or questions here..."
-                  v-model="textarea.feedback"
-                  :rows="5"
-              />
+<!--              <CustomTextarea-->
+<!--                  id="user-feedback"-->
+<!--                  label="Detailed Feedback"-->
+<!--                  placeholder="Enter your thoughts or questions here..."-->
+<!--                  v-model="textarea.feedback"-->
+<!--                  :rows="5"-->
+<!--              />-->
 
             </div>
 
@@ -232,10 +239,10 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores at dolore earum ex iusto nihil quod reiciendis, soluta temporibus ut.</p>
       <template #footer>
         <div class="flex items-end justify-end gap-1">
-          <button class="btn-danger" @click="isModalOpen = false">
+          <button class="btn-secondary-new" @click="isModalOpen = false">
             Close
           </button>
-          <button class="btn-success" @click="isModalOpen = false">
+          <button class="btn-primary-new" @click="isModalOpen = false">
             Apply
           </button>
         </div>
@@ -430,6 +437,9 @@
   import CustomPagination from "@/components/CustomPagination.vue";
   import {AlertCircleIcon, ArrowDownCircleIcon, CalendarIcon, ChevronDownIcon, ZapIcon} from "lucide-vue-next";
   import BaseCheckbox from "@/components/form/BaseCheckbox.vue";
+  import BaseInput from "@/components/form/BaseInput.vue";
+  import BaseSelect from "@/components/form/BaseSelect.vue";
+  import BaseTextArea from "@/components/form/BaseTextArea.vue";
 
   const isModalOpen = ref(false);
 

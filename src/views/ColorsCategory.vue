@@ -102,14 +102,14 @@
             :key="color.id"
             @click="selectedColorCard = color.id"
             :class="[
-            'bg-white border-2 rounded-xl p-4 cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/20',
-            selectedColorCard === color.id ? 'border-border shadow-lg shadow-cyan-500/30 bg-white' : 'border-border'
+            'bg-white border rounded-xl p-4 cursor-pointer transition-all hover:-translate-y-1',
+            selectedColorCard === color.id ? 'border-border bg-white' : 'border-border'
           ]"
         >
           <div class="w-full h-20 rounded-lg mb-3 shadow-lg" :style="{ backgroundColor: color.code }"></div>
           <span class="block text-xs font-semibold text-gray-700 text-center uppercase tracking-wider">{{ color.name }}</span>
           <div class="flex justify-center gap-2 mt-3 pt-3 border-t border-border">
-            <button class="text-xs text-gray-400 hover:text-cyan-400 font-semibold transition-colors">Edit</button>
+            <button class="text-xs text-gray-400 hover:text-gray-700 font-semibold transition-colors">Edit</button>
             <span class="text-gray-600">|</span>
             <button class="text-xs text-red-400 hover:text-red-300 font-semibold transition-colors">Delete</button>
           </div>
