@@ -2,12 +2,27 @@
   <header class="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md min-w-[1300px]">
     <!-- Logo and Main Nav -->
     <div class="flex h-16 items-center justify-between px-6">
-
-
       <nav class="flex items-center gap-6">
+        <!-- Logo -->
         <div class="flex items-center gap-2">
-          <router-link to="/" class="block pr-4 py-2 text-sm text-zinc-500"><img src="/vendor-logo.png" class="w-[100px]" alt="" srcset=""></router-link>
+          <router-link to="/" class="flex items-center gap-2">
+            <div v-if="siteSettings?.logo" class="h-10 flex items-center">
+              <img
+                :src="siteSettings.logo"
+                :alt="siteSettings.site_name || 'Logo'"
+                class="h-full w-auto object-contain"
+              />
+            </div>
+            <div v-else class="flex items-center gap-2">
+              <div class="w-10 h-10 bg-gradient-to-br from-black to-gray-800 rounded-lg flex items-center justify-center">
+                <span class="text-white font-bold text-lg">{{ (siteSettings?.site_name || 'VE').substring(0, 2) }}</span>
+              </div>
+              <span class="text-xl font-bold text-gray-900">{{ siteSettings?.site_name || 'Vlan24 ERP' }}</span>
+            </div>
+          </router-link>
         </div>
+
+        <!-- Product Dropdown -->
         <Dropdown ref="productDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
@@ -89,8 +104,21 @@
             <button
                 class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
             >
-              <div class="w-7 h-7 rounded-full flex items-center justify-center bg-black">M</div>
-              <span class="text-sm text-zinc-500 font-medium">Mello</span>
+              <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-gray-200">
+                <img
+                  v-if="user?.profile_image"
+                  :src="user.profile_image"
+                  :alt="user?.name || 'User'"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  v-else
+                  class="w-full h-full flex items-center justify-center bg-gradient-to-br from-black to-gray-800 text-white font-semibold text-sm"
+                >
+                  {{ (user?.name || 'U').charAt(0).toUpperCase() }}
+                </div>
+              </div>
+              <span class="text-sm text-zinc-500 font-medium">{{ user?.name || 'User' }}</span>
               <svg
                   class="w-4 h-4 text-zinc-500 transition-transform duration-300"
                   fill="none"
@@ -104,25 +132,26 @@
 
           <template #content>
             <div class="px-4 py-3 border-b border-border">
-              <p class="text-sm text-zinc-500 font-medium">Mello</p>
-              <p class="text-xs text-zinc-500">mello@example.com</p>
+              <p class="text-sm text-zinc-500 font-medium">{{ user?.name || 'User' }}</p>
+              <p class="text-xs text-zinc-500">{{ user?.email || '' }}</p>
             </div>
 
             <div class="py-1">
-              <a
+              <router-link
                   v-for="item in menuItems"
                   :key="item.label"
-                  href="#"
+                  :to="item.route"
                   class="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150 group"
               >
                 <component :is="item.icon" class="w-4 h-4 text-zinc-500 group-hover:text-blue-400 transition-colors" />
                 {{ item.label }}
-              </a>
+              </router-link>
             </div>
 
             <div class="border-t border-border pt-1 mt-1">
               <a
                   href="#"
+                  @click.prevent="showLogoutModal = true"
                   class="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors duration-150 group"
               >
                 <LogOut class="w-4 h-4" />
@@ -136,21 +165,51 @@
       </div>
     </div>
   </header>
+
+  <!-- Logout Confirmation Modal -->
+  <ConfirmModal
+    :show="showLogoutModal"
+    title="Logout Confirmation"
+    message="Are you sure you want to logout? You will need to login again to access your account."
+    @confirm="confirmLogout"
+    @cancel="showLogoutModal = false"
+  />
 </template>
 
 <script setup>
 
- import {h, ref, watch} from 'vue'
+ import {h, ref, watch, onMounted} from 'vue'
  import {User, Settings, LogOut, ChevronDown} from 'lucide-vue-next'
 
  import Dropdown from "@/components/Dropdown.vue";
  import DropdownItem from "@/components/DropdownItem.vue";
+ import ConfirmModal from "@/components/ConfirmModal.vue";
  import {useRoute} from "vue-router";
+ import { useAuth } from '@/composables/useAuth';
+ import { useSettings } from '@/composables/useSettings';
+
+ const { user, logout } = useAuth();
+ const { settings: siteSettings, fetchSettings } = useSettings();
+ const showLogoutModal = ref(false);
+
+ // Fetch site settings on mount
+ onMounted(async () => {
+   try {
+     await fetchSettings();
+   } catch (error) {
+     console.error('Failed to load site settings:', error);
+   }
+ });
+
+ const confirmLogout = async () => {
+   showLogoutModal.value = false;
+   await logout();
+ };
 
 
  const menuItems = [
-   { label: 'Profile', icon: User },
-   { label: 'Settings', icon: Settings },
+   { label: 'Profile', icon: User, route: '/profile' },
+   { label: 'Settings', icon: Settings, route: '/settings' },
  ]
 
  const productItems = [
