@@ -61,6 +61,14 @@ defineProps({
     type: String,
     default: 'Are you sure you want to proceed?',
   },
+  confirmText: {
+    type: String,
+    default: 'Confirm',
+  },
+  cancelText: {
+    type: String,
+    default: 'Cancel',
+  },
 })
 
 const emit = defineEmits(['confirm', 'cancel'])

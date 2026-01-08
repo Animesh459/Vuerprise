@@ -54,11 +54,21 @@
 
           <template #content>
             <div class="py-1">
-              <DropdownItem
-                  v-for="item in productSettingItems"
-                  :key="item.label"
-                  :item="item"
-              />
+              <router-link to="/master-colors" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
+                Master Colors
+              </router-link>
+              <router-link to="/categories" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
+                Category
+              </router-link>
+              <router-link to="/colors" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
+                Color
+              </router-link>
+              <router-link to="/packs" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
+                Pack
+              </router-link>
+              <router-link to="/sizes" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
+                Size
+              </router-link>
             </div>
           </template>
         </Dropdown>
@@ -171,6 +181,8 @@
     :show="showLogoutModal"
     title="Logout Confirmation"
     message="Are you sure you want to logout? You will need to login again to access your account."
+    :confirmText="'Logout'"
+    :cancelText="'Cancel'"
     @confirm="confirmLogout"
     @cancel="showLogoutModal = false"
   />

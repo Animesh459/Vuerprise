@@ -7,9 +7,10 @@ import apiClient from '@/utils/axios'
 export const masterColorService = {
   /**
    * Get all master colors
+   * @param {Object} params - Query parameters for filtering, sorting, pagination
    */
-  getAll() {
-    return apiClient.get('/master-colors')
+  getAll(params = {}) {
+    return apiClient.get('/master-colors', { params })
   },
 
   /**
@@ -21,20 +22,30 @@ export const masterColorService = {
   },
 
   /**
-   * Create new master color
-   * @param {Object} data - Master color data
+   * Create a new master color
+   * @param {FormData} formData - Form data with name, code, image
    */
-  create(data) {
-    return apiClient.post('/master-colors', data)
+  create(formData) {
+    return apiClient.post('/master-colors', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
   },
 
   /**
-   * Update master color
-   * @param {number|string} id - Master Color ID
-   * @param {Object} data - Updated master color data
+   * Update a master color
+   * @param {number} id
+   * @param {FormData} formData - Form data with name, code, image
    */
-  update(id, data) {
-    return apiClient.put(`/master-colors/${id}`, data)
+  update(id, formData) {
+    // Laravel needs _method for PUT with FormData
+    formData.append('_method', 'PUT')
+    return apiClient.post(`/master-colors/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
   },
 
   /**

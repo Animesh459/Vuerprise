@@ -1,6 +1,15 @@
 import { requireAuth } from '../guards/auth'
 
 export default [
+  // Master Colors
+  {
+    path: '/master-colors',
+    name: 'masterColors',
+    component: () => import('@/views/MasterColors.vue'),
+    beforeEnter: requireAuth,
+    meta: { title: 'Master Colors' },
+  },
+
   // Categories
   {
     path: '/categories',
@@ -14,7 +23,7 @@ export default [
   {
     path: '/colors',
     name: 'colors',
-    component: () => import('@/views/ColorsCategory.vue'),
+    component: () => import('@/views/Colors.vue'),
     beforeEnter: requireAuth,
     meta: { title: 'Colors' },
   },
