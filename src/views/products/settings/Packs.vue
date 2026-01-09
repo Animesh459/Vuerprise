@@ -1,311 +1,275 @@
 <template>
-<div>
-  <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
-    <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Packs Manager</h1>
-    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product Packs Here</p>
-  </div>
+  <div>
+    <div class="flex flex-col border-b border-b-border pb-4 mb-4">
+      <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Pack Ratios</h1>
+      <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Manage pack ratios for each size configuration</p>
+    </div>
 
-  <main class="">
-
-      <div class="common-card-new mb-8">
-        <div class="mb-5">
-          <h2 class="text-xl font-semibold text-gray-700 flex items-center gap-2">
-            <span class="flex items-center justify-center ">+</span>
-            Create New Pack
-          </h2>
-          <p class="text-sm text-gray-700 mt-1">Configure size options and pack specifications</p>
-        </div>
-
-        <div class="space-y-5">
+    <main>
+      <!-- Size Selector -->
+      <div class="common-card-new mb-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Select Size to Manage Packs</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <BaseSelect
-                label="Size Configuration"
-                :options="['Small, Medium, Large', 'Small to Extra Large', 'Medium to 2XL']"
-            />
-          </div>
-          <!-- Pack Grid -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Select Packs</label>
-            <div class="grid grid-cols-5 md:grid-cols-10 gap-3">
-              <button
-                  v-for="i in 10"
-                  :key="i"
-                  @click="togglePack(`P${i}`)"
-                  :class="[
-                  '',
-                  newPack.packs.includes(`P${i}`)
-                    ? 'btn-primary-new'
-                    : 'btn-secondary-new'
-                ]"
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Size <span class="text-red-500">*</span>
+            </label>
+            <div class="relative">
+              <select 
+                v-model="selectedSizeId"
+                @change="onSizeChange"
+                class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-10 text-sm transition-colors text-black focus:border-black focus:outline-none rounded appearance-none"
               >
-                P{{ i }}
-              </button>
-            </div>
-          </div>
-
-          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-6 border-t border-border">
-            <button class="text-blue-500 font-medium text-sm flex items-center gap-2 transition-colors">
-              <span class="text-lg">+</span>
-              <span>Add More Options</span>
-            </button>
-            <div class="flex gap-3 w-full md:w-auto">
-              <button
-                  @click="resetForm"
-                  class="btn-secondary-new"
-              >
-                Cancel
-              </button>
-              <button
-                  @click="savePack"
-                  class="btn-primary-new"
-              >
-                Save Pack
-              </button>
+                <option value="">Select a size</option>
+                <option v-for="size in sizes" :key="size.id" :value="size.id">
+                  {{ size.name }} ({{ size.size_items?.map(si => si.value).join(', ') || 'No items' }})
+                </option>
+              </select>
+              <ChevronDown class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
             </div>
           </div>
         </div>
       </div>
 
-      <div class="common-card-new mb-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <!-- Search Input -->
-          <div>
-            <BaseInput label="Search" placeholder="Search" />
-          </div>
-
-          <div>
-            <BaseSelect
-                label="Sort By"
-                :options="['Name (A-Z)', 'Date Added', 'Size']"
-            />
-
-          </div>
-
-          <div>
-            <BaseSelect
-                label="Status"
-                :options="['All Packs', 'Active', 'Inactive']"
-            />
-
-          </div>
-
-          <div>
-            <BaseSelect
-                label="Per Page"
-                :options="['10 items', '20 items', '50 items']"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="overflow-x-auto border border-border">
-        <table class="w-full text-sm">
-          <thead>
-          <tr class="border-b border-gray-200">
-            <th v-for="header in tableHeaders" :key="header" class="px-4 py-3 text-left font-semibold text-gray-700">
-              {{ header }}
-            </th>
-          </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-800/50">
-          <tr v-for="(row, index) in inventoryData" :key="index" class="border-b border-gray-100 hover:bg-gray-50 transition">
-            <td class="px-6 py-5">
-          <span class="text-sm font-semibold text-gray-700 tracking-tight">
-            {{ row.sizeName }}
-          </span>
-            </td>
-
-            <td class="px-6 py-5">
-          <span class="text-sm text-gray-700 font-medium">
-            {{ row.details }}
-          </span>
-            </td>
-
-            <td class="px-6 py-5">
-              <div class="inline-block text-gray-700 px-3 py-1 ">
-                {{ row.packConfig }}
+      <!-- Pack Management (only shown when size is selected) -->
+      <div v-if="selectedSizeId && selectedSize" class="space-y-6">
+        <!-- Current Size Info -->
+        <div class="common-card-new">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">{{ selectedSize.name }}</h3>
+              <div class="flex gap-2 mt-2">
+                <span v-for="(item, idx) in selectedSize.size_items" :key="idx" class="px-3 py-1 bg-blue-50 text-blue-700 text-sm font-medium rounded">
+                  {{item.value }}
+                </span>
               </div>
-            </td>
-
-            <td class="px-6 py-5">
-              <div class="flex items-center gap-2">
-                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></div>
-                <span :class="statusColor(row.status)" class="text-xs font-bold tracking-wide">
-              {{ row.status }}
+            </div>
+            <span :class="[
+              'px-3 py-1 rounded-full text-xs font-bold',
+              selectedSize.status === 1 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+            ]">
+              {{ selectedSize.status === 1 ? 'Active' : 'Inactive' }}
             </span>
-              </div>
-            </td>
+          </div>
+        </div>
 
-            <td class="px-6 py-5">
-              <div class="flex items-center gap-2">
-                <button class="p-2  text-gray-700  transition-all">
-                  <EditIcon :size="16" />
-                </button>
-                <button @click="deleteRow(index)" class="p-2  text-gray-700 hover:text-rose-500 transition-all">
-                  <TrashIcon :size="16" />
+        <!-- Pack Ratios List -->
+        <div class="common-card-new">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-base font-semibold text-gray-900">Pack Ratios</h3>
+            <button @click="addPackRatio" class="btn-primary-new">+ Add Ratio</button>
+          </div>
+
+          <div v-if="packRatios.length === 0" class="text-center py-6 text-gray-500 text-sm">
+            No pack ratios configured. Click "Add Ratio" to create one.
+          </div>
+
+          <div v-else class="space-y-3">
+            <div v-for="(pack, packIndex) in packRatios" :key="packIndex" class="border border-gray-200 rounded-lg p-3 bg-gray-50">
+              <div class="flex justify-between items-start mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-semibold text-gray-700">Ratio #{{ packIndex + 1 }}</span>
+                  <span class="text-xs text-gray-500">{{ formatPackDisplay(pack, selectedSize.size_items.length) }}</span>
+                </div>
+                <button @click="removePackRatio(packIndex)" class="text-red-600 hover:text-red-800 p-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
                 </button>
               </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+
+              <div class="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-2">
+                <div v-for="(sizeItem, idx) in selectedSize.size_items" :key="idx">
+                  <label class="block text-xs font-medium text-gray-600 mb-1">
+                    {{ sizeItem.value }}
+                  </label>
+                  <input
+                    v-model.number="pack[`p${idx + 1}`]"
+                    type="number"
+                    min="0"
+                    placeholder="0"
+                    :class="[
+                      'h-8 w-full border bg-white px-2 text-sm transition-colors text-black focus:border-black focus:outline-none rounded',
+                      getFieldError(packIndex, idx + 1) ? 'border-red-500' : 'border-neutral-200'
+                    ]"
+                  />
+                  <div v-if="getFieldError(packIndex, idx + 1)" class="text-xs text-red-600 mt-0.5">
+                    {{ getFieldError(packIndex, idx + 1) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="packRatios.length > 0" class="flex justify-end gap-3 mt-4 pt-3 border-t border-gray-200">
+            <button @click="cancelEditing" class="btn-secondary-new">Cancel</button>
+            <button @click="savePackRatios" :disabled="loading" class="btn-primary-new">
+              <span v-if="!loading">Save All Ratios</span>
+              <span v-else>Saving...</span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <Pagination />
-
+      <!-- Empty State -->
+      <div v-else class="common-card-new">
+        <div class="text-center py-12 text-gray-500">
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+          </svg>
+          <p class="text-lg font-medium">Select a size to manage pack ratios</p>
+          <p class="text-sm mt-1">Choose a size configuration from the dropdown above</p>
+        </div>
+      </div>
     </main>
-
-</div>
+  </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { ChevronDown } from "lucide-vue-next"
+import ErrorMessage from "@/components/ErrorMessage.vue"
+import { sizeService, packService } from '@/services'
+import { useToast } from '@/composables/useToast'
 
-import {
-  ZapIcon, ArrowDownCircleIcon, AlertCircleIcon,
-  ChevronDownIcon, TrashIcon, EditIcon, CalendarIcon
-} from 'lucide-vue-next';
-import Pagination from "@/components/Pagination.vue";
-import BaseSelect from "@/components/form/BaseSelect.vue";
-import BaseInput from "@/components/form/BaseInput.vue";
-// Form data
-const newPack = ref({
-  size: '',
-  packs: []
+const toast = useToast()
+
+const sizes = ref([])
+const selectedSizeId = ref('')
+const selectedSize = ref(null)
+const packRatios = ref([])
+const loading = ref(false)
+const errors = ref({})
+const packsToRemove = ref([])
+
+onMounted(() => {
+  fetchSizes()
 })
 
-// Data
-const packs = ref([
-  { id: 1, sizeName: 'S-M-L', sizeDetails: 'Small, Medium, Large', pack: '2-2-2', status: 'active' },
-  { id: 2, sizeName: 'S-M-L-XL', sizeDetails: 'Small to Extra Large', pack: '1-2-2-1', status: 'active' },
-  { id: 3, sizeName: 'M-L-XL', sizeDetails: 'Medium to Extra Large', pack: '3-2-1', status: 'active' },
-  { id: 4, sizeName: 'XS-S-M', sizeDetails: 'Extra Small to Medium', pack: '2-3-2', status: 'active' },
-  { id: 5, sizeName: 'L-XL-XXL', sizeDetails: 'Large to 2XL', pack: '1-2-3', status: 'active' },
-])
-
-// Filters & Search
-const searchQuery = ref('')
-const sortBy = ref('name')
-const filterCategory = ref('')
-const itemsPerPage = ref(10)
-const currentPage = ref(1)
-
-// Toggle pack selection
-const togglePack = (packValue) => {
-  const index = newPack.value.packs.indexOf(packValue)
-  if (index > -1) {
-    newPack.value.packs.splice(index, 1)
-  } else {
-    newPack.value.packs.push(packValue)
+const fetchSizes = async () => {
+  try {
+    const response = await sizeService.getAll({ status: 1 })
+    sizes.value = response.data.data || response.data
+  } catch (error) {
+    console.error('Failed to fetch sizes:', error)
+    toast.error('Failed to fetch sizes')
   }
 }
 
-// Reset form
-const resetForm = () => {
-  newPack.value = { size: '', packs: [] }
-}
+const onSizeChange = async () => {
+  if (!selectedSizeId.value) {
+    selectedSize.value = null
+    packRatios.value = []
+    return
+  }
 
-// Save pack
-const savePack = () => {
-  if (newPack.value.size && newPack.value.packs.length > 0) {
-    const packString = newPack.value.packs.map(p => p.replace('P', '')).join('-')
-    packs.value.push({
-      id: Math.max(...packs.value.map(p => p.id), 0) + 1,
-      sizeName: newPack.value.size,
-      sizeDetails: newPack.value.size,
-      pack: packString,
-      status: 'active'
-    })
-    resetForm()
+  try {
+    const response = await sizeService.getById(selectedSizeId.value)
+    selectedSize.value = response.data.data || response.data
+    
+    // Load existing pack ratios
+    if (selectedSize.value.pack && selectedSize.value.pack.length > 0) {
+      packRatios.value = selectedSize.value.pack.map(pack => {
+        const ratio = { id: pack.id }
+        pack.pack_items.forEach(item => {
+          ratio[`p${item.position}`] = item.quantity
+        })
+        return ratio
+      })
+    } else {
+      packRatios.value = []
+    }
+    
+    packsToRemove.value = []
+    errors.value = {}
+  } catch (error) {
+    console.error('Failed to fetch size details:', error)
+    toast.error('Failed to load size details')
   }
 }
 
-// Delete pack
-const deletePack = (id) => {
-  packs.value = packs.value.filter(p => p.id !== id)
-}
-
-// Filtered packs
-const filteredPacks = computed(() => {
-  let filtered = packs.value.filter(pack => {
-    const matchSearch = pack.sizeName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        pack.pack.toLowerCase().includes(searchQuery.value.toLowerCase())
-    const matchFilter = filterCategory.value === '' || pack.status === filterCategory.value
-    return matchSearch && matchFilter
+const addPackRatio = () => {
+  const newPack = {}
+  selectedSize.value.size_items.forEach((item, idx) => {
+    newPack[`p${idx + 1}`] = 0
   })
-
-  // Sort
-  if (sortBy.value === 'name') {
-    filtered.sort((a, b) => a.sizeName.localeCompare(b.sizeName))
-  }
-
-  return filtered
-})
-
-// Pagination
-const totalPages = computed(() => Math.ceil(filteredPacks.value.length / itemsPerPage.value))
-
-const paginatedPacks = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value
-  const end = start + itemsPerPage.value
-  return filteredPacks.value.slice(start, end)
-})
-
-const startItem = computed(() => (currentPage.value - 1) * itemsPerPage.value + 1)
-const endItem = computed(() => Math.min(currentPage.value * itemsPerPage.value, filteredPacks.value.length))
-
-const previousPage = () => {
-  if (currentPage.value > 1) currentPage.value--
+  packRatios.value.push(newPack)
 }
 
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) currentPage.value++
+const removePackRatio = (index) => {
+  const pack = packRatios.value[index]
+  if (pack.id) {
+    // Track for removal if it's an existing pack
+    packsToRemove.value.push({ id: pack.id })
+  }
+  packRatios.value.splice(index, 1)
 }
 
-const tableHeaders = [
-  'Size Name', 'Size Details', 'Pack Config', 'Status', 'Actions'
-];
-
-const inventoryData = ref([
-  {
-    sizeName: 'L-XL-XXL',
-    details: 'Large to 2XL',
-    packConfig: '1-2-3',
-    status: 'Active'
-  },
-  {
-    sizeName: 'M-L-XL',
-    details: 'Medium to Extra Large',
-    packConfig: '3-2-1',
-    status: 'Active'
-  },
-  {
-    sizeName: 'S-M-L',
-    details: 'Small, Medium, Large',
-    packConfig: '2-2-2',
-    status: 'Active'
-  },
-  {
-    sizeName: 'S-M-L-XL',
-    details: 'Small to Extra Large',
-    packConfig: '1-2-2-1',
-    status: 'Active'
-  },
-  {
-    sizeName: 'XS-S-M',
-    details: 'Extra Small to Medium',
-    packConfig: '2-3-2',
-    status: 'Active'
+const formatPackDisplay = (pack, itemCount) => {
+  const values = []
+  for (let i = 1; i <= itemCount; i++) {
+    values.push(pack[`p${i}`] || 0)
   }
-]);
+  return values.join('-')
+}
 
-const statusColor = (status) => {
-  return status === 'Active' ? 'text-emerald-400' : 'text-gray-700';
-};
+const savePackRatios = async () => {
+  loading.value = true
+  errors.value = {}
 
-const deleteRow = (index) => {
-  inventoryData.value.splice(index, 1);
-};
+  try {
+    const sizeData = {
+      name: selectedSize.value.name,
+      status: selectedSize.value.status,
+    }
 
+    // Add size items
+    selectedSize.value.size_items.forEach((item, idx) => {
+      sizeData[`s${idx + 1}`] = item.value
+    })
 
+    const payload = {
+      size_id: selectedSizeId.value,
+      size: sizeData,
+      pack: packRatios.value,
+    }
+
+    if (packsToRemove.value.length > 0) {
+      payload.removeRatio = packsToRemove.value
+    }
+
+    await packService.updatePacks(payload)
+    toast.success('Pack ratios saved successfully!')
+    
+    // Reload size to get updated packs
+    await onSizeChange()
+  } catch (error) {
+    console.error('Pack save error:', error.response)
+    
+    if (error.response?.data?.errors) {
+      // Backend validation errors
+      errors.value = error.response.data.errors
+      toast.error('Please fix the validation errors')
+    } else {
+      const errorMsg = error.response?.data?.message || 'Failed to save pack ratios'
+      toast.error(errorMsg)
+    }
+  } finally {
+    loading.value = false
+  }
+}
+
+const cancelEditing = () => {
+  // Reload the size to reset changes
+  onSizeChange()
+}
+
+const getFieldError = (packIndex, position) => {
+  // Backend now returns errors with pack index: pack.0.p1, pack.1.p2, etc.
+  const errorKey = `pack.${packIndex}.p${position}`
+  if (errors.value[errorKey]) {
+    return Array.isArray(errors.value[errorKey]) ? errors.value[errorKey][0] : errors.value[errorKey]
+  }
+  return null
+}
 </script>

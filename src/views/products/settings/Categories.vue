@@ -29,81 +29,202 @@
                 <div
                     v-for="(category, index) in categories"
                     :key="category.id"
-                    draggable="true"
-                    @dragstart="dragStart($event, index)"
-                    @dragover.prevent="dragOver"
-                    @drop="dragDrop($event, index)"
-                    @dragend="dragEnd"
-                    :class="[
-                    'group relative cursor-move transition-all duration-300 rounded-xl overflow-hidden',
-                    draggedIndex === index ? 'opacity-50 scale-95' : '',
-                    dragOverIndex === index && draggedIndex !== index ? 'border-blue-300 bg-blue-50' : ''
-                  ]"
+                    class="space-y-0"
                 >
+                  <!-- Parent Category - Draggable -->
                   <div
-                      @click="toggleCategory(index)"
+                      draggable="true"
+                      @dragstart="dragStart($event, index)"
+                      @dragover.prevent="dragOver"
+                      @drop="dragDrop($event, index)"
+                      @dragend="dragEnd"
                       :class="[
-                      'p-2 rounded-xl transition-all duration-300 cursor-pointer',
-                      selectedCategory === index
-                        ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 shadow-sm'
-                        : 'bg-gray-50 border border-gray-200 hover:bg-gray-100'
+                      'group relative cursor-move transition-all duration-300',
+                      expandedCategories[category.id] ? 'rounded-t-xl' : 'rounded-xl',
+                      draggedIndex === index ? 'opacity-50 scale-95' : '',
+                      dragOverIndex === index && draggedIndex !== index ? 'border-blue-300 bg-blue-50' : ''
                     ]"
                   >
-                    <div class="flex items-center justify-between">
-                      <div class="flex items-center gap-3 flex-1">
-                        <button
-                            v-if="category.sub_categories && category.sub_categories.length > 0"
-                            @click.stop="expandedCategories[category.id] = !expandedCategories[category.id]"
-                            class="transition-transform duration-300"
-                            :style="{ transform: expandedCategories[category.id] ? 'rotate(90deg)' : 'rotate(0deg)' }"
-                        >
-                          <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                        </button>
-                        <div class="w-4" v-else></div>
-                        <div>
-                          <div class="font-semibold text-sm text-gray-900">{{ category.name }}</div>
-                          <div class="text-xs text-gray-500 mt-0.5">{{ category.sub_categories?.length || 0 }} items</div>
+                    <div
+                        @click="toggleCategory(index)"
+                        :class="[
+                        'p-2 transition-all duration-300 cursor-pointer',
+                        expandedCategories[category.id] ? 'rounded-t-xl' : 'rounded-xl',
+                        selectedCategory === index
+                          ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 shadow-sm'
+                          : 'bg-gray-50 border border-gray-200 hover:bg-gray-100'
+                      ]"
+                    >
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3 flex-1">
+                          <button
+                              v-if="category.sub_categories && category.sub_categories.length > 0"
+                              @click.stop="expandedCategories[category.id] = !expandedCategories[category.id]"
+                              class="transition-transform duration-300"
+                              :style="{ transform: expandedCategories[category.id] ? 'rotate(90deg)' : 'rotate(0deg)' }"
+                          >
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                          </button>
+                          <div class="w-4" v-else></div>
+                          <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                              <div class="font-semibold text-sm text-gray-900">{{ category.name }}</div>
+                              <span :class="[
+                                'text-xs px-2 py-0.5 rounded-full font-medium',
+                                category.status === 1 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                              ]">
+                                {{ category.status === 1 ? 'Active' : 'Inactive' }}
+                              </span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-0.5">{{ category.sub_categories?.length || 0 }} items</div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
-                        <button
-                            @click.stop="openEditModal(category)"
-                            class="p-2 hover:bg-gray-200 rounded-lg transition-colors"
-                        >
-                          <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                          </svg>
-                        </button>
-                        <button
-                            @click.stop="confirmDelete(category)"
-                            class="p-2 hover:bg-red-100 rounded-lg transition-colors"
-                        >
-                          <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                          </svg>
-                        </button>
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+                          <button
+                              @click.stop="openEditModal(category)"
+                              class="p-2 hover:bg-gray-200 rounded-lg transition-colors"
+                          >
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                          </button>
+                          <button
+                              @click.stop="confirmDelete(category)"
+                              class="p-2 hover:bg-red-100 rounded-lg transition-colors"
+                          >
+                            <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <!-- Subcategories dropdown -->
+                  <!-- Subcategories dropdown - Separate from draggable -->
                   <transition
                       enter-active-class="transition-all duration-300"
                       leave-active-class="transition-all duration-300"
                       enter-from-class="opacity-0 -translate-y-2"
                       leave-to-class="opacity-0 -translate-y-2"
                   >
-                    <div v-if="expandedCategories[category.id] && category.sub_categories && category.sub_categories.length > 0" class="bg-gray-50 border-t border-gray-200 overflow-hidden">
+                    <div v-if="expandedCategories[category.id] && category.sub_categories && category.sub_categories.length > 0" class="bg-gray-50 border border-t-0 border-gray-200 rounded-b-xl overflow-hidden">
                       <div class="p-3 space-y-2">
                         <div
-                            v-for="sub in category.sub_categories"
+                            v-for="(sub, subIndex) in category.sub_categories"
                             :key="sub.id"
-                            class="p-3 rounded-lg bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 cursor-pointer transition-all text-sm text-gray-700 flex items-center justify-between group"
+                            class="space-y-0"
                         >
-                          <span>{{ sub.name }}</span>
-                          <span class="text-xs text-gray-400 group-hover:text-gray-600">→</span>
+                          <!-- Subcategory - Draggable -->
+                          <div
+                              draggable="true"
+                              @dragstart="dragStartSub($event, index, subIndex)"
+                              @dragover.prevent="dragOver"
+                              @drop="dragDropSub($event, index, subIndex)"
+                              @dragend="dragEnd"
+                              :class="[
+                                'p-3 rounded-lg bg-white border transition-all text-sm text-gray-700 flex items-center justify-between group cursor-move',
+                                draggedSubIndex === subIndex && draggedParentIndex === index ? 'opacity-50 scale-95' : '',
+                                expandedCategories[sub.id] && sub.sub_categories?.length > 0 ? 'rounded-b-none' : '',
+                                'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                              ]"
+                          >
+                            <div class="flex items-center gap-2 flex-1">
+                              <button
+                                  v-if="sub.sub_categories && sub.sub_categories.length > 0"
+                                  @click.stop="expandedCategories[sub.id] = !expandedCategories[sub.id]"
+                                  class="transition-transform duration-300"
+                                  :style="{ transform: expandedCategories[sub.id] ? 'rotate(90deg)' : 'rotate(0deg)' }"
+                              >
+                                <svg class="w-3.5 h-3.5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                              </button>
+                              <div class="w-3.5" v-else></div>
+                              <span>{{ sub.name }}</span>
+                              <span :class="[
+                                'text-xs px-2 py-0.5 rounded-full font-medium',
+                                sub.status === 1 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                              ]">
+                                {{ sub.status === 1 ? 'Active' : 'Inactive' }}
+                              </span>
+                            </div>
+                            <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <button
+                                  @click.stop="openEditModal(sub)"
+                                  class="p-1.5 hover:bg-gray-200 rounded-lg transition-colors"
+                              >
+                                <svg class="w-3.5 h-3.5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                              </button>
+                              <button
+                                  @click.stop="confirmDelete(sub)"
+                                  class="p-1.5 hover:bg-red-100 rounded-lg transition-colors"
+                              >
+                                <svg class="w-3.5 h-3.5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- Sub-sub-categories (Third Level) -->
+                          <transition
+                              enter-active-class="transition-all duration-300"
+                              leave-active-class="transition-all duration-300"
+                              enter-from-class="opacity-0 -translate-y-2"
+                              leave-to-class="opacity-0 -translate-y-2"
+                          >
+                            <div v-if="expandedCategories[sub.id] && sub.sub_categories && sub.sub_categories.length > 0" class="bg-gray-100 border border-t-0 border-gray-200 rounded-b-lg overflow-hidden">
+                              <div class="p-2 pl-8 space-y-2">
+                                <div
+                                    v-for="(subSub, subSubIndex) in sub.sub_categories"
+                                    :key="subSub.id"
+                                    draggable="true"
+                                    @dragstart="dragStartSubSub($event, index, subIndex, subSubIndex)"
+                                    @dragover.prevent="dragOver"
+                                    @drop="dragDropSubSub($event, index, subIndex, subSubIndex)"
+                                    @dragend="dragEnd"
+                                    :class="[
+                                      'p-2 rounded-lg bg-white border transition-all text-xs text-gray-700 flex items-center justify-between group cursor-move',
+                                      draggedSubSubIndex === subSubIndex && draggedSubIndex === subIndex && draggedParentIndex === index ? 'opacity-50 scale-95' : '',
+                                      'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                                    ]"
+                                >
+                                  <div class="flex items-center gap-2 flex-1">
+                                    <span>{{ subSub.name }}</span>
+                                    <span :class="[
+                                      'text-xs px-2 py-0.5 rounded-full font-medium',
+                                      subSub.status === 1 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                                    ]">
+                                      {{ subSub.status === 1 ? 'Active' : 'Inactive' }}
+                                    </span>
+                                  </div>
+                                  <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button
+                                        @click.stop="openEditModal(subSub)"
+                                        class="p-1 hover:bg-gray-200 rounded transition-colors"
+                                    >
+                                      <svg class="w-3 h-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                      </svg>
+                                    </button>
+                                    <button
+                                        @click.stop="confirmDelete(subSub)"
+                                        class="p-1 hover:bg-red-100 rounded transition-colors"
+                                    >
+                                      <svg class="w-3 h-3 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </transition>
                         </div>
                       </div>
                     </div>
@@ -272,11 +393,12 @@
               <div class="relative">
                 <select
                     v-model="form.second_parent_id"
-                    class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-10 text-sm transition-colors text-black focus:border-black focus:outline-none rounded appearance-none"
+                    :disabled="!form.parent"
+                    class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-10 text-sm transition-colors text-black focus:border-black focus:outline-none rounded appearance-none disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <option value="">Select Secondary Parent</option>
                   <option
-                      v-for="cat in parentCategories"
+                      v-for="cat in secondaryParentOptions"
                       :key="cat.id"
                       :value="cat.id"
                   >
@@ -380,6 +502,9 @@ const selectedCategory = ref(null)
 const showEditModal = ref(false)
 const draggedIndex = ref(null)
 const dragOverIndex = ref(null)
+const draggedSubIndex = ref(null)
+const draggedParentIndex = ref(null)
+const draggedSubSubIndex = ref(null)
 const expandedCategories = ref({})
 const loadingList = ref(false)
 const loading = ref(false)
@@ -404,6 +529,13 @@ const form = ref({
 
 const parentCategories = computed(() => {
   return categories.value.filter(cat => !cat.parent || cat.parent === null)
+})
+
+const secondaryParentOptions = computed(() => {
+  if (!form.value.parent) return []
+  
+  const selectedParent = categories.value.find(cat => cat.id === parseInt(form.value.parent))
+  return selectedParent?.sub_categories || []
 })
 
 onMounted(() => {
@@ -450,12 +582,14 @@ const dragDrop = async (e, index) => {
     try {
       const sortData = newOrder.map((cat, idx) => ({
         id: cat.id,
-        sort: idx + 1
+        sort: idx + 1,
+        sub_categories: cat.sub_categories || []
       }))
       await categoryService.updateSort({ categories: sortData })
       toast.success('Category order updated')
     } catch (error) {
       console.error('Failed to update sort order:', error)
+      toast.error('Failed to update sort order')
       await fetchCategories()
     }
   }
@@ -465,6 +599,93 @@ const dragDrop = async (e, index) => {
 const dragEnd = () => {
   draggedIndex.value = null
   dragOverIndex.value = null
+  draggedSubIndex.value = null
+  draggedParentIndex.value = null
+  draggedSubSubIndex.value = null
+}
+
+const dragStartSub = (e, parentIndex, subIndex) => {
+  draggedParentIndex.value = parentIndex
+  draggedSubIndex.value = subIndex
+  e.dataTransfer.effectAllowed = 'move'
+}
+
+const dragDropSub = async (e, parentIndex, subIndex) => {
+  e.preventDefault()
+  e.stopPropagation()
+  
+  if (draggedParentIndex.value !== parentIndex || draggedSubIndex.value === null || draggedSubIndex.value === subIndex) {
+    return
+  }
+  
+  const parent = categories.value[parentIndex]
+  const draggedItem = parent.sub_categories[draggedSubIndex.value]
+  
+  const newSubOrder = parent.sub_categories.map((sub, idx) => {
+    if (idx === draggedSubIndex.value) return null
+    return sub
+  }).filter(Boolean)
+  
+  newSubOrder.splice(subIndex, 0, draggedItem)
+  categories.value[parentIndex].sub_categories = newSubOrder
+  
+  // Update sort order in backend
+  try {
+    const sortData = categories.value.map((cat, idx) => ({
+      id: cat.id,
+      sort: idx + 1,
+      sub_categories: cat.sub_categories || []
+    }))
+    await categoryService.updateSort({ categories: sortData })
+    toast.success('Subcategory order updated')
+  } catch (error) {
+    console.error('Failed to update subcategory sort order:', error)
+    toast.error('Failed to update sort order')
+    await fetchCategories()
+  }
+}
+
+const dragStartSubSub = (e, parentIndex, subIndex, subSubIndex) => {
+  draggedParentIndex.value = parentIndex
+  draggedSubIndex.value = subIndex
+  draggedSubSubIndex.value = subSubIndex
+  e.dataTransfer.effectAllowed = 'move'
+}
+
+const dragDropSubSub = async (e, parentIndex, subIndex, subSubIndex) => {
+  e.preventDefault()
+  e.stopPropagation()
+  
+  if (draggedParentIndex.value !== parentIndex || draggedSubIndex.value !== subIndex || draggedSubSubIndex.value === null || draggedSubSubIndex.value === subSubIndex) {
+    return
+  }
+  
+  const parent = categories.value[parentIndex]
+  const sub = parent.sub_categories[subIndex]
+  const draggedItem = sub.sub_categories[draggedSubSubIndex.value]
+  
+  const newSubSubOrder = sub.sub_categories.map((item, idx) => {
+    if (idx === draggedSubSubIndex.value) return null
+    return item
+  }).filter(Boolean)
+  
+  newSubSubOrder.splice(subSubIndex, 0, draggedItem)
+  categories.value[parentIndex].sub_categories[subIndex].sub_categories = newSubSubOrder
+  
+  // Update sort order in backend
+  try {
+    const sortData = categories.value.map((cat, idx) => ({
+      id: cat.id,
+      sort: idx + 1,
+      sub_categories: cat.sub_categories || []
+    }))
+    await categoryService.updateSort({ categories: sortData })
+    toast.success('Sub-sub-category order updated')
+  } catch (error) {
+    console.error('Failed to update sub-sub-category sort order:', error)
+    toast.error('Failed to update sort order')
+    await fetchCategories()
+  }
 }
 
 const openCreateModal = () => {
@@ -485,11 +706,39 @@ const openCreateModal = () => {
 
 const openEditModal = (category) => {
   editingId.value = category.id
+  
+  // Find if this is a sub-sub-category (has a parent with a parent)
+  let parentCat = null
+  let grandParentCat = null
+  
+  // Search for parent relationships
+  for (const cat of categories.value) {
+    if (cat.sub_categories) {
+      for (const sub of cat.sub_categories) {
+        if (sub.id === category.id) {
+          // This is a subcategory
+          parentCat = cat
+          break
+        }
+        if (sub.sub_categories) {
+          for (const subSub of sub.sub_categories) {
+            if (subSub.id === category.id) {
+              // This is a sub-sub-category
+              grandParentCat = cat
+              parentCat = sub
+              break
+            }
+          }
+        }
+      }
+    }
+  }
+  
   form.value = {
     status: category.status === 1,
     name: category.name || '',
-    parent: category.parent || '',
-    second_parent_id: category.second_parent_id || '',
+    parent: parentCat ? (grandParentCat ? grandParentCat.id : parentCat.id) : (category.parent || ''),
+    second_parent_id: grandParentCat ? parentCat.id : (category.second_parent_id || ''),
     description: category.description || '',
     image: null
   }
@@ -601,8 +850,9 @@ const deleteCategory = async () => {
     selectedCategory.value = null
     await fetchCategories()
   } catch (error) {
-    toast.error('Failed to delete category')
     showDeleteModal.value = false
+    const errorMessage = error.response?.data?.message || 'Failed to delete category'
+    toast.error(errorMessage)
   }
 }
 

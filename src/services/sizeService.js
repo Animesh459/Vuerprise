@@ -52,4 +52,12 @@ export const sizeService = {
   updateStatus(id) {
     return apiClient.post(`/sizes/status/${id}`)
   },
+
+  /**
+   * Set size as default
+   * @param {number|string} id - Size ID
+   */
+  setDefault(id) {
+    return apiClient.post(`/sizes/default/${id}`)
+  },
 }

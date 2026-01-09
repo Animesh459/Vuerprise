@@ -37,11 +37,11 @@ export default [
     meta: { title: 'Packs' },
   },
   
-  // Sizes (placeholder for future)
+  // Sizes
   {
     path: '/sizes',
     name: 'sizes',
-    component: () => import('@/views/Welcome.vue'), // Replace with actual component
+    component: () => import('@/views/products/settings/Sizes.vue'),
     beforeEnter: requireAuth,
     meta: { title: 'Sizes' },
   },

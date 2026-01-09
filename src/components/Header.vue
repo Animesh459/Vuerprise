@@ -63,11 +63,11 @@
               <router-link to="/colors" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
                 Color
               </router-link>
-              <router-link to="/packs" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
-                Pack
-              </router-link>
               <router-link to="/sizes" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
                 Size
+              </router-link>
+              <router-link to="/packs" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
+                Pack
               </router-link>
             </div>
           </template>

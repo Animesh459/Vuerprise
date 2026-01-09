@@ -6,50 +6,24 @@ import apiClient from '@/utils/axios'
  */
 export const packService = {
   /**
-   * Get all packs
+   * Get all packs for a specific size
+   * @param {Object} params - Query parameters including size_id
    */
-  getAll() {
-    return apiClient.get('/packs')
+  getAll(params = {}) {
+    return apiClient.get('/packs', { params })
   },
 
   /**
-   * Get single pack by ID
-   * @param {number|string} id - Pack ID
+   * Update pack configuration for a size
+   * @param {Object} data - Pack update data
+   * {
+   *   size_id: number,
+   *   size: { name, status, s1, s2, s3... },
+   *   pack: [{ p1, p2, p3... }, ...],
+   *   removeRatio: [{ id }, ...]
+   * }
    */
-  getById(id) {
-    return apiClient.get(`/packs/${id}`)
-  },
-
-  /**
-   * Create new pack
-   * @param {Object} data - Pack data
-   */
-  create(data) {
-    return apiClient.post('/packs', data)
-  },
-
-  /**
-   * Update pack
-   * @param {number|string} id - Pack ID
-   * @param {Object} data - Updated pack data
-   */
-  update(id, data) {
-    return apiClient.put(`/packs/${id}`, data)
-  },
-
-  /**
-   * Delete pack
-   * @param {number|string} id - Pack ID
-   */
-  delete(id) {
-    return apiClient.delete(`/packs/${id}`)
-  },
-
-  /**
-   * Update pack status
-   * @param {number|string} id - Pack ID
-   */
-  updateStatus(id) {
-    return apiClient.post(`/packs/status/${id}`)
+  updatePacks(data) {
+    return apiClient.post('/packs/update', data)
   },
 }
