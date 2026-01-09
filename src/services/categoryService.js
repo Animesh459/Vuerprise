@@ -42,9 +42,17 @@ export const categoryService = {
   /**
    * Update category
    * @param {number|string} id - Category ID
-   * @param {Object} data - Updated category data
+   * @param {FormData|Object} data - Updated category data
    */
   update(id, data) {
+    // If data is FormData, use POST with _method override
+    if (data instanceof FormData) {
+      return apiClient.post(`/categories/${id}`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+    }
     return apiClient.put(`/categories/${id}`, data)
   },
 

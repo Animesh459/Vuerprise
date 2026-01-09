@@ -5,7 +5,7 @@ export default [
   {
     path: '/master-colors',
     name: 'masterColors',
-    component: () => import('@/views/MasterColors.vue'),
+    component: () => import('@/views/products/settings/MasterColors.vue'),
     beforeEnter: requireAuth,
     meta: { title: 'Master Colors' },
   },
@@ -14,7 +14,7 @@ export default [
   {
     path: '/categories',
     name: 'categories',
-    component: () => import('@/views/AddCategory.vue'),
+    component: () => import('@/views/products/settings/Categories.vue'),
     beforeEnter: requireAuth,
     meta: { title: 'Categories' },
   },
@@ -23,7 +23,7 @@ export default [
   {
     path: '/colors',
     name: 'colors',
-    component: () => import('@/views/Colors.vue'),
+    component: () => import('@/views/products/settings/Colors.vue'),
     beforeEnter: requireAuth,
     meta: { title: 'Colors' },
   },
@@ -32,7 +32,7 @@ export default [
   {
     path: '/packs',
     name: 'packs',
-    component: () => import('@/views/PacksCategory.vue'),
+    component: () => import('@/views/products/settings/Packs.vue'),
     beforeEnter: requireAuth,
     meta: { title: 'Packs' },
   },
@@ -46,3 +46,4 @@ export default [
     meta: { title: 'Sizes' },
   },
 ]
+

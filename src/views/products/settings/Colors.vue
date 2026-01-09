@@ -2,58 +2,95 @@
   <div>
     <div class="space-y-6">
       <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
-        <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Master Colors</h1>
-        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Manage master color categories</p>
+        <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Colors</h1>
+        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Manage colors</p>
       </div>
 
       <!-- Add/Edit Form -->
       <div v-if="showForm" class="common-card-new">
         <div class="flex justify-between mb-4">
           <h2 class="text-lg font-bold text-gray-900">
-            {{ editingId ? 'Edit Master Color' : 'Add a New Master Color' }}
+            {{ editingId ? 'Edit Color' : 'Add a New Color' }}
           </h2>
-          <button @click="cancelForm" class="text-gray-400 hover:text-gray-600">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </button>
+          <div class="flex items-center gap-4  p-1.5 rounded-full border border-zinc-200">
+            <button
+                @click="form.status = true"
+                :class="[
+                      'flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all',
+                      form.status === true ? 'bg-blue-500 text-white ' : 'text-slate-500 hover:text-slate-300'
+                    ]"
+            >
+              <div class="w-2 h-2 rounded-full" :class="form.status === true ? 'bg-white' : 'bg-slate-600'"></div>
+              ACTIVE
+            </button>
+            <button
+                @click="form.status = false"
+                :class="[
+                      'flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all',
+                      form.status === false ? 'bg-rose-500 text-white ' : 'text-slate-500 hover:text-slate-300'
+                    ]"
+            >
+              <div class="w-2 h-2 rounded-full" :class="form.status === false ? 'bg-white' : 'bg-slate-600'"></div>
+              INACTIVE
+            </button>
+          </div>
         </div>
 
         <div class="space-y-6">
-          <div class="grid grid-cols-3 gap-6 lg:grid-cols-3">
+          <div class="grid grid-cols-2 gap-6 lg:grid-cols-2">
             <div class="space-y-6">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Master Color Name <span class="text-red-500">*</span>
+                  Color Name <span class="text-red-500">*</span>
                 </label>
                 <input
                   v-model="form.name"
                   type="text"
-                  placeholder="Enter master color name"
+                  placeholder="Enter color name"
                   class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-black focus:outline-none rounded"
                 />
                 <ErrorMessage :error="errors.name" />
+              </div>
+              <!-- Master Color -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Master Color <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                  <select 
+                    v-model="form.master_color_id"
+                    class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-10 text-sm transition-colors text-black focus:border-black focus:outline-none rounded appearance-none"
+                  >
+                    <option value="">Select Master Color</option>
+                    <option 
+                      v-for="mc in masterColorsList" 
+                      :key="mc.id" 
+                      :value="mc.id"
+                    >
+                      {{ mc.name }}
+                    </option>
+                  </select>
+                  <ChevronDown class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                </div>
+                <ErrorMessage :error="errors.master_color_id" />
               </div>
             </div>
 
             <div class="space-y-6">
               <!-- Color Code -->
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Color Code</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Color Code <span class="text-red-500">*</span></label>
                 <div class="flex gap-3">
-                  <input type="color" v-model="form.code" class="w-20 h-9 border border-neutral-200 rounded-lg cursor-pointer" />
+                  <input type="color" v-model="form.color_code" class="w-20 h-9 border border-neutral-200 rounded-lg cursor-pointer" />
                   <input
-                    v-model="form.code"
+                    v-model="form.color_code"
                     type="text"
                     placeholder="#000000"
                     class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-black focus:outline-none rounded"
                   />
                 </div>
-                <ErrorMessage :error="errors.code" />
+                <ErrorMessage :error="errors.color_code" />
               </div>
-            </div>
-
-            <div class="space-y-6">
               <!-- Image Upload -->
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Upload Image</label>
@@ -86,7 +123,7 @@
 
           <div class="flex justify-end gap-3">
             <button @click="cancelForm" class="btn-secondary-new">Cancel</button>
-            <button @click="saveMasterColor" :disabled="loading" class="btn-primary-new">
+            <button @click="saveColor" :disabled="loading" class="btn-primary-new">
               <span v-if="!loading">{{ editingId ? 'Update' : 'Save' }}</span>
               <span v-else>Saving...</span>
             </button>
@@ -101,14 +138,14 @@
             <Search class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
             <input 
               v-model="queryParams.search"
-              @keyup.enter="fetchMasterColors"
+              @keyup.enter="fetchColors"
               type="text"
-              placeholder="Search master colors..."
+              placeholder="Search colors..."
               class="w-full pl-10 pr-4 py-2 h-9 border border-neutral-200 bg-neutral-50 rounded text-sm focus:border-black focus:outline-none"
             />
           </div>
           <div class="flex gap-3">
-            <button @click="fetchMasterColors" class="btn-primary-new whitespace-nowrap">Search</button>
+            <button @click="fetchColors" class="btn-primary-new whitespace-nowrap">Search</button>
             
             <div class="relative">
               <select 
@@ -140,18 +177,18 @@
           </div>
         </div>
 
-        <!-- Master Colors Grid -->
+        <!-- Colors Grid -->
         <div v-if="loadingList" class="flex justify-center py-12">
           <span class="inline-block w-8 h-8 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin"></span>
         </div>
 
-        <div v-else-if="masterColors.length === 0" class="text-center py-12 text-gray-500">
-          No master colors found. <a @click="showForm = true" class="text-blue-600 hover:text-blue-800 cursor-pointer">Add one now</a>
+        <div v-else-if="colors.length === 0" class="text-center py-12 text-gray-500">
+          No colors found. <a @click="showForm = true" class="text-blue-600 hover:text-blue-800 cursor-pointer">Add one now</a>
         </div>
 
         <div v-else class="grid grid-cols-6 gap-4 md:grid-cols-8 sm:grid-cols-4">
           <div
-              v-for="item in masterColors"
+              v-for="item in colors"
               :key="item.id"
               @click="selectedColorCard = item.id"
               :class="[
@@ -161,11 +198,11 @@
           >
             <div 
               class="w-full h-20 rounded-lg mb-3 shadow-lg"
-              :style="{ backgroundColor: item.code || '#374151' }"
+              :style="{ backgroundColor: item.color_code || '#374151' }"
             ></div>
             <span class="block text-xs font-semibold text-gray-700 text-center uppercase tracking-wider">{{ item.name }}</span>
             <div class="flex justify-center gap-2 mt-3 pt-3 border-t border-border">
-              <button @click.stop="editMasterColor(item)" class="text-xs text-gray-400 hover:text-gray-700 font-semibold transition-colors">Edit</button>
+              <button @click.stop="editColor(item)" class="text-xs text-gray-400 hover:text-gray-700 font-semibold transition-colors">Edit</button>
               <span class="text-gray-600">|</span>
               <button @click.stop="confirmDelete(item)" class="text-xs text-red-400 hover:text-red-300 font-semibold transition-colors">Delete</button>
             </div>
@@ -173,63 +210,30 @@
         </div>
 
         <!-- Pagination -->
-        <div v-if="pagination && pagination.last_page > 1" class="flex justify-center items-center gap-2 pt-4">
-          <button 
-            @click="changePage(pagination.current_page - 1)"
-            :disabled="pagination.current_page === 1"
-            class="px-3 py-2 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-          >
-            Previous
-          </button>
-          
-          <span class="text-sm text-gray-600">
-            Page {{ pagination.current_page }} of {{ pagination.last_page }}
-          </span>
-          
-          <button 
-            v-for="page in paginationPages"
-            :key="page"
-            @click="changePage(page)"
-            :class="[
-              'px-3 py-2 text-sm border rounded transition-colors',
-              page === pagination.current_page 
-                ? 'bg-black text-white border-black' 
-                : 'border-gray-300 hover:bg-gray-50'
-            ]"
-          >
-            {{ page }}
-          </button>
-          
-          <button 
-            @click="changePage(pagination.current_page + 1)"
-            :disabled="pagination.current_page === pagination.last_page"
-            class="px-3 py-2 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-          >
-            Next
-          </button>
-        </div>
+        <Pagination :pagination="pagination" @change-page="changePage" />
       </div>
     </div>
 
     <!-- Delete Confirmation Modal -->
     <ConfirmModal
     :show="showDeleteModal"
-    title="Delete Master Color"
-    message="Are you sure you want to delete this master color? This action cannot be undone."
+    title="Delete Color"
+    message="Are you sure you want to delete this color? This action cannot be undone."
     :confirmText="'Delete'"
     :cancelText="'Cancel'"
-    @confirm="deleteMasterColor"
+    @confirm="deleteColor"
     @cancel="showDeleteModal = false"
     />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { Search, ChevronDown } from "lucide-vue-next"
 import ErrorMessage from "@/components/ErrorMessage.vue"
 import ConfirmModal from "@/components/ConfirmModal.vue"
-import { masterColorService } from '@/services'
+import Pagination from "@/components/Pagination.vue"
+import { colorService, masterColorService } from '@/services'
 import { useToast } from '@/composables/useToast'
 
 const toast = useToast()
@@ -245,11 +249,12 @@ const sortOption = ref('updated')
 const showDeleteModal = ref(false)
 const deletingItem = ref(null)
 const existingImageUrl = ref('') // Track existing image URL
+const masterColorsList = ref([])
 
 const queryParams = ref({
   page: 1,
   search: '',
-  search_columns: 'name,code',
+  search_columns: 'name,color_code',
   sort: 'updated_at',
   sort_order: 'desc',
   per_page: 50
@@ -257,12 +262,14 @@ const queryParams = ref({
 
 const form = ref({
   name: '',
-  code: '#000000',
+  color_code: '#000000',
+  master_color_id: '',
+  status: true,
   image: null,
 })
 
 const errors = ref({})
-const masterColors = ref([])
+const colors = ref([])
 const pagination = ref(null)
 
 // Watch sort option
@@ -277,50 +284,38 @@ watch(sortOption, (newVal) => {
     queryParams.value.sort = 'updated_at'
     queryParams.value.sort_order = 'desc'
   }
-  fetchMasterColors()
+  fetchColors()
 })
 
 // Watch per_page
 watch(() => queryParams.value.per_page, () => {
   queryParams.value.page = 1
-  fetchMasterColors()
-})
-
-const paginationPages = computed(() => {
-  if (!pagination.value) return []
-  
-  const current = pagination.value.current_page
-  const last = pagination.value.last_page
-  const pages = []
-  
-  // Show max 5 pages
-  let start = Math.max(1, current - 2)
-  let end = Math.min(last, start + 4)
-  
-  if (end - start < 4) {
-    start = Math.max(1, end - 4)
-  }
-  
-  for (let i = start; i <= end; i++) {
-    pages.push(i)
-  }
-  
-  return pages
+  fetchColors()
 })
 
 onMounted(() => {
+  fetchColors()
   fetchMasterColors()
 })
 
 const fetchMasterColors = async () => {
-  loadingList.value = true
   try {
-    const response = await masterColorService.getAll(queryParams.value)
-    masterColors.value = response.data.data || response.data
-    pagination.value = response.data.meta || null
+    const response = await masterColorService.getAll({ per_page: 1000 })
+    masterColorsList.value = response.data.data || response.data
   } catch (error) {
     console.error('Failed to fetch master colors:', error)
-    toast.error('Failed to fetch master colors')
+  }
+}
+
+const fetchColors = async () => {
+  loadingList.value = true
+  try {
+    const response = await colorService.getAll(queryParams.value)
+    colors.value = response.data.data || response.data
+    pagination.value = response.data.meta || null
+  } catch (error) {
+    console.error('Failed to fetch colors:', error)
+    toast.error('Failed to fetch colors')
   } finally {
     loadingList.value = false
   }
@@ -329,7 +324,7 @@ const fetchMasterColors = async () => {
 const changePage = (page) => {
   if (page < 1 || (pagination.value && page > pagination.value.last_page)) return
   queryParams.value.page = page
-  fetchMasterColors()
+  fetchColors()
 }
 
 const handleImageChange = (event) => {
@@ -355,51 +350,51 @@ const removeImage = () => {
   }
 }
 
-const saveMasterColor = async () => {
+const saveColor = async () => {
   loading.value = true
   errors.value = {}
 
   try {
     const formData = new FormData()
     formData.append('name', form.value.name)
-    
-    if (form.value.code) {
-      formData.append('code', form.value.code)
-    }
+    formData.append('color_code', form.value.color_code)
+    formData.append('master_color_id', form.value.master_color_id)
+    formData.append('status', form.value.status ? '1' : '0')
     
     // Handle image field
     if (form.value.image instanceof File) {
-      // New file selected - send the file
       formData.append('image', form.value.image)
-    } else if (editingId.value) {
+    }else if (editingId.value) {
       // Updating without new file - send existing URL
       formData.append('image', existingImageUrl.value)
     }
 
     if (editingId.value) {
-      await masterColorService.update(editingId.value, formData)
-      toast.success('Master color updated successfully!')
+      await colorService.update(editingId.value, formData)
+      toast.success('Color updated successfully!')
     } else {
-      await masterColorService.create(formData)
-      toast.success('Master color created successfully!')
+      await colorService.create(formData)
+      toast.success('Color created successfully!')
     }
-    await fetchMasterColors()
+    await fetchColors()
     cancelForm()
   } catch (error) {
     if (error.response?.data?.errors) {
       errors.value = error.response.data.errors
     } else {
-      toast.error('Failed to save master color')
+      toast.error('Failed to save color')
     }
   } finally {
     loading.value = false
   }
 }
 
-const editMasterColor = (item) => {
+const editColor = (item) => {
   editingId.value = item.id
   form.value.name = item.name || ''
-  form.value.code = item.code || '#000000'
+  form.value.color_code = item.color_code || '#000000'
+  form.value.master_color_id = item.master_color_id || ''
+  form.value.status = item.status === 1 || item.status === true
   form.value.image = null
   
   // Store and show existing image
@@ -420,17 +415,17 @@ const confirmDelete = (item) => {
   showDeleteModal.value = true
 }
 
-const deleteMasterColor = async () => {
+const deleteColor = async () => {
   if (!deletingItem.value) return
 
   try {
-    await masterColorService.delete(deletingItem.value.id)
-    toast.success('Master color deleted successfully!')
+    await colorService.delete(deletingItem.value.id)
+    toast.success('Color deleted successfully!')
     showDeleteModal.value = false
     deletingItem.value = null
-    await fetchMasterColors()
+    await fetchColors()
   } catch (error) {
-    toast.error('Failed to delete master color')
+    toast.error('Failed to delete color')
     showDeleteModal.value = false
   }
 }
@@ -439,7 +434,9 @@ const cancelForm = () => {
   showForm.value = false
   editingId.value = null
   form.value.name = ''
-  form.value.code = '#000000'
+  form.value.color_code = '#000000'
+  form.value.master_color_id = ''
+  form.value.status = true
   form.value.image = null
   imagePreview.value = null
   existingImageUrl.value = null
@@ -453,12 +450,12 @@ const resetFilters = () => {
   queryParams.value = {
     page: 1,
     search: '',
-    search_columns: 'name,code',
+    search_columns: 'name,color_code',
     sort: 'updated_at',
     sort_order: 'desc',
     per_page: 50
   }
   sortOption.value = 'updated'
-  fetchMasterColors()
+  fetchColors()
 }
 </script>

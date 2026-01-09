@@ -7,9 +7,10 @@ import apiClient from '@/utils/axios'
 export const colorService = {
   /**
    * Get all colors
+   * @param {Object} params - Query parameters for filtering, sorting, pagination
    */
-  getAll() {
-    return apiClient.get('/colors')
+  getAll(params = {}) {
+    return apiClient.get('/colors', { params })
   },
 
   /**
