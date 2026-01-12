@@ -43,35 +43,7 @@
           </template>
         </Dropdown>
 
-        <Dropdown ref="productSettingDropdown" contentClasses="w-56 left-0 right-auto">
-          <template #trigger>
-            <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
-            >
-              Product Setting <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
-            </button>
-          </template>
 
-          <template #content>
-            <div class="py-1">
-              <router-link to="/categories" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
-                Category
-              </router-link>
-              <router-link to="/master-colors" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
-                Master Colors
-              </router-link>
-              <router-link to="/colors" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
-                Color
-              </router-link>
-              <router-link to="/sizes" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
-                Size
-              </router-link>
-              <router-link to="/packs" class="block px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-500 hover:bg-zinc-50 transition-colors duration-150">
-                Pack
-              </router-link>
-            </div>
-          </template>
-        </Dropdown>
 
         <Dropdown ref="receivingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
@@ -190,7 +162,7 @@
 
 <script setup>
 
- import {h, ref, watch, onMounted} from 'vue'
+ import {h, ref, watch, onMounted, computed} from 'vue'
  import {User, Settings, LogOut, ChevronDown} from 'lucide-vue-next'
 
  import Dropdown from "@/components/Dropdown.vue";
@@ -199,19 +171,33 @@
  import {useRoute} from "vue-router";
  import { useAuth } from '@/composables/useAuth';
  import { useSettings } from '@/composables/useSettings';
+ import apiClient from '@/utils/axios';
 
  const { user, logout } = useAuth();
  const { settings: siteSettings, fetchSettings } = useSettings();
  const showLogoutModal = ref(false);
+ const categories = ref([]);
 
  // Fetch site settings on mount
  onMounted(async () => {
    try {
      await fetchSettings();
+     await fetchCategories();
    } catch (error) {
      console.error('Failed to load site settings:', error);
    }
  });
+
+ // Fetch categories from API
+ const fetchCategories = async () => {
+   try {
+     const response = await apiClient.get('/categories');
+     categories.value = response.data.data || [];
+   } catch (error) {
+     console.error('Failed to fetch categories:', error);
+     categories.value = [];
+   }
+ };
 
  const confirmLogout = async () => {
    showLogoutModal.value = false;
@@ -224,34 +210,47 @@
    { label: 'Settings', icon: Settings, route: '/settings' },
  ]
 
- const productItems = [
-   { label: 'Product List' , to: '/products/list' },
-   { label: 'Dress',
-     children: [
-       { label: 'Parent 1',
-         children: [
-           { label: 'Child 1' },
-           { label: 'Child 1' },
-         ]
-       },
-       { label: 'Parent 2',
-         children: [
-           { label: 'Child 1' },
-           { label: 'Child 1' },
-         ]},
-       { label: 'Parent 3'},
+// Build product items with dynamic categories
+const productItems = computed(() => {
+  const items = [
+    { label: 'Add New Product', to: '/products/create' },
+    { label: 'Product List', to: '/products' },
+  ];
 
-     ]
-   },
-   { label: 'Add Product'},
-   { label: 'Bulk Import/Export'},
- ]
+  // Add categories dynamically
+  const categoryItems = buildCategoryTree(categories.value);
+  items.push(...categoryItems);
 
- const productSettingItems = [
-   { label: 'Add Category' , to: '/category' },
-   { label: 'Add Color', to: '/colors' },
-   { label: 'Add Pack', to: '/packs'}
- ]
+  // Add settings section
+  items.push({
+    label: 'Product Settings',
+    children: [
+      { label: 'Categories', to: '/categories' },
+      { label: 'Master Color', to: '/master-colors' },
+      { label: 'Color', to: '/colors' },
+      { label: 'Size', to: '/sizes' },
+      { label: 'Pack', to: '/packs' },
+    ]
+  });
+
+  return items;
+});
+
+// Helper function to build category tree
+const buildCategoryTree = (cats) => {
+  return cats.map(category => {
+    const item = {
+      label: category.name,
+      to: `/products/category/${category.id}`
+    };
+
+    if (category.sub_categories && category.sub_categories.length > 0) {
+      item.children = buildCategoryTree(category.sub_categories);
+    }
+
+    return item;
+  });
+};
 
  const receivingItems = [
    { label: 'Purchase Orders' , to: '/purchase-order' },
@@ -262,17 +261,13 @@
  ]
 
  const productDropdown = ref(null);
- const productSettingDropdown = ref(null);
-  const receivingDropdown = ref(null);
+ const receivingDropdown = ref(null);
  const userDropdown = ref(null);
  const route = useRoute();
 
  watch(() => route.fullPath, () => {
    if (productDropdown.value) {
      productDropdown.value.close();
-   }
-   if (productSettingDropdown.value) {
-     productSettingDropdown.value.close();
    }
    if (receivingDropdown.value) {
      receivingDropdown.value.close();

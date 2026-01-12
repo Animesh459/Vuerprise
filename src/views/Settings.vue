@@ -70,6 +70,67 @@
           </div>
         </div>
 
+        <!-- Inventory Management Settings -->
+        <div class="pt-6 border-t border-gray-200">
+          <h2 class="text-lg font-semibold text-gray-900 mb-4">Inventory Management</h2>
+          <p class="text-sm text-gray-600 mb-6">Configure stock thresholds for automatic status calculation</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Low Stock Quantity -->
+            <div>
+              <label for="low_stock_qty" class="block text-sm font-medium text-gray-700 mb-2">
+                Low Stock Quantity (Critical Threshold) <span class="text-red-500">*</span>
+              </label>
+              <input
+                id="low_stock_qty"
+                v-model.number="form.low_stock_qty"
+                type="number"
+                min="0"
+                placeholder="e.g., 10"
+                :class="{
+                  'border-red-300 bg-red-50': errors.low_stock_qty,
+                  'border-gray-200': !errors.low_stock_qty
+                }"
+                class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
+              />
+              <p class="text-xs text-gray-500 mt-1">Products with projected qty ≤ this value will be marked as "Critical"</p>
+              <ErrorMessage :error="errors.low_stock_qty" />
+            </div>
+
+            <!-- Reorder Quantity -->
+            <div>
+              <label for="reorder_qty" class="block text-sm font-medium text-gray-700 mb-2">
+                Reorder Quantity Threshold <span class="text-red-500">*</span>
+              </label>
+              <input
+                id="reorder_qty"
+                v-model.number="form.reorder_qty"
+                type="number"
+                min="0"
+                placeholder="e.g., 50"
+                :class="{
+                  'border-red-300 bg-red-50': errors.reorder_qty,
+                  'border-gray-200': !errors.reorder_qty
+                }"
+                class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
+              />
+              <p class="text-xs text-gray-500 mt-1">Products with projected qty ≤ this value will be marked as "Reorder"</p>
+              <ErrorMessage :error="errors.reorder_qty" />
+            </div>
+          </div>
+
+          <!-- Stock Status Legend -->
+          <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p class="text-sm font-medium text-blue-900 mb-2">Stock Status Calculation:</p>
+            <ul class="text-xs text-blue-800 space-y-1">
+              <li><span class="font-semibold">Safe:</span> Projected qty > Reorder Threshold</li>
+              <li><span class="font-semibold">Reorder:</span> Projected qty ≤ Reorder Threshold</li>
+              <li><span class="font-semibold">Critical:</span> Projected qty ≤ Low Stock Threshold</li>
+              <li><span class="font-semibold">Out of Stock:</span> Projected qty ≤ 0</li>
+            </ul>
+          </div>
+        </div>
+
         <!-- Action Buttons -->
         <div class="flex gap-3 pt-4 border-t border-gray-200">
           <button
@@ -106,6 +167,8 @@ const toast = useToast()
 
 const form = ref({
   site_name: '',
+  low_stock_qty: 10,
+  reorder_qty: 50,
 })
 const selectedLogo = ref(null)
 const logoPreview = ref(null)
@@ -118,6 +181,8 @@ onMounted(async () => {
     const response = await settingsService.getSettings()
     const settings = response.data.data || response.data
     form.value.site_name = settings.site_name || ''
+    form.value.low_stock_qty = settings.low_stock_qty || 10
+    form.value.reorder_qty = settings.reorder_qty || 50
     currentLogo.value = settings.logo || null
   } catch (error) {
     console.error('Failed to load settings:', error)
@@ -145,6 +210,8 @@ const saveSettings = async () => {
 
   const formData = new FormData()
   formData.append('site_name', form.value.site_name)
+  formData.append('low_stock_qty', form.value.low_stock_qty)
+  formData.append('reorder_qty', form.value.reorder_qty)
   
   if (selectedLogo.value) {
     formData.append('logo', selectedLogo.value)
@@ -154,6 +221,9 @@ const saveSettings = async () => {
     const response = await settingsService.updateSettings(formData)
     const settings = response.data.data || response.data
     
+    // Update form with saved values
+    form.value.low_stock_qty = settings.low_stock_qty || form.value.low_stock_qty
+    form.value.reorder_qty = settings.reorder_qty || form.value.reorder_qty
     currentLogo.value = settings.logo || currentLogo.value
     selectedLogo.value = null
     logoPreview.value = null
