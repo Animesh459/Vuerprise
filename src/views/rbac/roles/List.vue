@@ -118,12 +118,15 @@ const fetchRoles = async (page = 1) => {
       search: searchQuery.value,
     })
     roles.value = response.data
+    // Handle both direct and Resource-wrapped pagination
+    const meta = response.meta || response
     pagination.value = {
-      current_page: response.current_page,
-      per_page: response.per_page,
-      total: response.total,
-      from: response.from,
-      to: response.to,
+      current_page: meta.current_page,
+      per_page: meta.per_page,
+      total: meta.total,
+      from: meta.from,
+      to: meta.to,
+      last_page: meta.last_page,
     }
   } catch (error) {
     toast.error('Failed to fetch roles')

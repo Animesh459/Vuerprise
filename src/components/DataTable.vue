@@ -72,21 +72,10 @@
         <div class="text-sm text-gray-600">
           Showing {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }} {{ itemName }}
         </div>
-        <div class="flex gap-2">
-          <button
-            v-for="page in paginationPages"
-            :key="page"
-            @click="$emit('page-change', page)"
-            :class="[
-              page === pagination.current_page
-                ? 'bg-black text-white'
-                : 'bg-white text-gray-700 hover:bg-gray-50',
-              'px-4 py-2 border border-gray-200 rounded-lg transition-colors'
-            ]"
-          >
-            {{ page }}
-          </button>
-        </div>
+        <Pagination
+          :pagination="pagination"
+          @change-page="$emit('page-change', $event)"
+        />
       </div>
     </div>
   </div>
@@ -94,6 +83,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import Pagination from '@/components/Pagination.vue'
 
 const props = defineProps({
   columns: {
@@ -112,7 +102,7 @@ const props = defineProps({
   pagination: {
     type: Object,
     default: null
-    // Example: { current_page: 1, per_page: 10, total: 100, from: 1, to: 10 }
+    // Example: { current_page: 1, per_page: 10, total: 100, from: 1, to: 10, last_page: 5 }
   },
   searchable: {
     type: Boolean,
@@ -146,15 +136,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:searchQuery', 'page-change'])
 
-const paginationPages = computed(() => {
-  if (!props.pagination) return []
-  const pages = []
-  const totalPages = Math.ceil(props.pagination.total / props.pagination.per_page)
-  for (let i = 1; i <= totalPages; i++) {
-    pages.push(i)
-  }
-  return pages
-})
+// paginationPages computed property removed as it is handled by Pagination component
 
 const getItemKey = (item, index) => {
   return item[props.itemKey] || index

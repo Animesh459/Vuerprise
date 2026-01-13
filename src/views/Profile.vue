@@ -160,8 +160,8 @@
             <p class="text-sm font-medium text-gray-700 mb-3">Current Image</p>
             <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200">
               <img
-                v-if="user?.profile_image"
-                :src="user.profile_image"
+                v-if="previewUrl || user?.profile_image"
+                :src="previewUrl || user.profile_image"
                 :alt="user?.name"
                 class="w-full h-full object-cover"
               />
@@ -210,7 +210,7 @@
               </span>
             </button>
             <button
-              @click="selectedImage = null"
+              @click="cancelUpload"
               class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
             >
               Cancel
@@ -258,6 +258,7 @@ const passwordLoading = ref(false)
 
 // Image upload
 const selectedImage = ref(null)
+const previewUrl = ref(null)
 const imageErrors = ref({})
 const imageLoading = ref(false)
 
@@ -314,8 +315,14 @@ const handleImageChange = (event) => {
   const file = event.target.files[0]
   if (file) {
     selectedImage.value = file
+    previewUrl.value = URL.createObjectURL(file)
     imageErrors.value = {}
   }
+}
+
+const cancelUpload = () => {
+  selectedImage.value = null
+  previewUrl.value = null
 }
 
 const uploadImage = async () => {
@@ -331,6 +338,7 @@ const uploadImage = async () => {
     await userService.uploadProfileImage(formData)
     await fetchUser()
     selectedImage.value = null
+    previewUrl.value = null
     toast.success('Profile image updated successfully!')
   } catch (error) {
     if (error.response?.data?.errors) {
