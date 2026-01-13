@@ -29,7 +29,7 @@
                 v-model="email"
                 type="email"
                 placeholder="admin@example.com"
-                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-700  transition-all"
+                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-600  transition-all"
             />
           </div>
 
@@ -41,7 +41,7 @@
                 v-model="password"
                 :type="showPassword ? 'text' : 'password'"
                 placeholder="••••••••"
-                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-700  transition-all"
+                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-600  transition-all"
             />
           </div>
 
@@ -55,7 +55,7 @@
           <button
               type="submit"
               :disabled="loading"
-              class="w-full py-3 px-4 bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95"
+              class="btn-primary-new w-full"
           >
             <span v-if="!loading">Sign In to Admin</span>
             <span v-else class="flex items-center justify-center gap-2">
