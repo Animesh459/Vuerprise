@@ -11,7 +11,7 @@
         <Dropdown ref="productDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
             >
               Product <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
             </button>
@@ -31,7 +31,7 @@
         <Dropdown ref="productSettingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
             >
               Product Setting <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
             </button>
@@ -51,7 +51,7 @@
         <Dropdown ref="receivingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
             >
               Receiving <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
             </button>
@@ -68,15 +68,15 @@
           </template>
         </Dropdown>
 
-        <router-link to="/customer-orders" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+        <router-link to="/customer-orders" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition">
           Customer Orders
         </router-link>
 
-        <router-link to="/inventory" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+        <router-link to="/inventory" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition">
           Inventory
         </router-link>
 
-        <router-link to="/customers" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+        <router-link to="/customers" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition">
           Customers
         </router-link>
 
@@ -87,7 +87,7 @@
         <Dropdown ref="userDropdown">
           <template #trigger>
             <button
-                class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+                class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
             >
               <div class="w-7 h-7 rounded-full flex items-center justify-center bg-black">M</div>
               <span class="text-sm text-zinc-500 font-medium">Mello</span>
@@ -213,6 +213,6 @@
 </script>
 <style scoped>
 .router-link-active {
-  color: #111827;
+  color: #2563eb;
 }
 </style>
