@@ -15,11 +15,11 @@
   <div class="mt-6 flex  items-center justify-between gap-6 border-t border-border pt-6 flex-row">
     <p class="text-xs font-semibold text-gray-600 uppercase tracking-widest">1-18 of 50 Results</p>
     <div class="flex items-center gap-1">
-      <button class="h-9 border border-border px-4 text-xs font-semibold uppercase hover:border-black transition-colors">Prev</button>
-      <button class="h-9 w-9 bg-black text-xs font-semibold text-white">1</button>
-      <button class="h-9 w-9 border border-border text-xs font-semibold hover:border-black transition-colors">2</button>
-      <button class="h-9 w-9 border border-border text-xs font-semibold hover:border-black transition-colors">3</button>
-      <button class="h-9 border border-border px-4 text-xs font-semibold uppercase hover:border-black transition-colors">Next</button>
+      <button class="h-9 border border-border px-4 text-xs font-semibold uppercase hover:border-blue-600 rounded-xl transition-colors">Prev</button>
+      <button class="h-9 w-9 bg-blue-600 text-xs rounded-xl font-semibold text-white">1</button>
+      <button class="h-9 w-9 border border-border text-xs font-semibold hover:border-blue-600 rounded-xl transition-colors">2</button>
+      <button class="h-9 w-9 border border-border text-xs font-semibold hover:border-blue-600 rounded-xl transition-colors">3</button>
+      <button class="h-9 border border-border px-4 text-xs font-semibold uppercase hover:border-blue-600 rounded-xl transition-colors">Next</button>
     </div>
   </div>
 
