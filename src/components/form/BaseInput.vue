@@ -11,8 +11,8 @@
         type="text"
         :placeholder="placeholder"
         :class="[
-        'h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors',
-        'placeholder:text-neutral-300 text-black focus:border-black focus:outline-none',
+        'h-9 w-full border border-border rounded-xl bg-white pl-4 pr-4 text-sm transition-colors',
+        'placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none',
         customClass
       ]"
     />

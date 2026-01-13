@@ -66,7 +66,7 @@ const stats = [
 </script>
 
 <template>
-  <div class="flex flex-col gap-6 mb-8 p-4 border  border-zinc-200 bg-white  transition-colors group">
+  <div class="flex flex-col gap-6 mb-8 p-4 bg-white  transition-colors common-card-new group">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="space-y-4 flex-1">
         <h1 class="text-lg items-center flex gap-1 font-bold text-gray-900">

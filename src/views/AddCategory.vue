@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
+    <div class="flex flex-col  pb-4">
       <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Category Manager</h1>
       <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product categories with drag and drop</p>
     </div>
@@ -20,7 +20,7 @@
 
           <!-- Left Panel - Categories List with Collapsible -->
           <div class="lg:col-span-1">
-            <div class="bg-white border border-gray-200 rounded-2xl p-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto">
+            <div class="bg-white border border-gray-200 rounded-xl p-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto">
               <div class="flex items-center gap-2 mb-6">
                 <h2 class="text-xl font-bold text-gray-900">Categories</h2>
               </div>
@@ -112,7 +112,7 @@
 
           <!-- Right Panel - Category Details -->
           <div class="lg:col-span-2">
-            <div class="bg-white border border-gray-200 rounded-2xl p-8">
+            <div class="bg-white border border-gray-200 rounded-xl p-8">
               <div class="flex items-center gap-3 mb-8" v-if="selectedCategory !== null">
                 <div>
                   <h3 class="text-2xl font-bold text-gray-900">{{ categories[selectedCategory].name }}</h3>
@@ -124,13 +124,13 @@
                 <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
                   <p class="text-sm text-gray-600 mb-2">Subcategories</p>
                   <div class="flex flex-wrap gap-2">
-                    <span
+                    <button
                         v-for="(sub, idx) in categories[selectedCategory].subcategories"
                         :key="idx"
-                        class="px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm font-medium text-blue-700"
+                        class="btn-secondary-new"
                     >
                       {{ sub }}
-                    </span>
+                    </button>
                   </div>
                 </div>
 

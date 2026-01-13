@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="space-y-6">
-    <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
+    <div class="space-y-4">
+    <div class="flex flex-col   pb-4 ">
       <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Add a New Color</h1>
       <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Fill in the details below to add a New Color</p>
     </div>
@@ -61,7 +61,7 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Upload Color Image</label>
-              <input type="file" class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-black focus:outline-none" />
+              <input type="file" class="h-9 w-full border border-border bg-white pl-4 pr-4 rounded-xl text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none" />
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
+  <div class="flex flex-col   pb-4 ">
     <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Packs Manager</h1>
     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product Packs Here</p>
   </div>
@@ -98,36 +98,36 @@
         </div>
       </div>
 
-      <div class="overflow-x-auto border border-border">
-        <table class="w-full text-sm">
+      <div class="table-container">
+        <table class="table">
           <thead>
-          <tr class="border-b border-gray-200">
-            <th v-for="header in tableHeaders" :key="header" class="px-4 py-3 text-left font-semibold text-gray-700">
+          <tr class="">
+            <th v-for="header in tableHeaders" :key="header" class="">
               {{ header }}
             </th>
           </tr>
           </thead>
-          <tbody class="divide-y divide-slate-800/50">
-          <tr v-for="(row, index) in inventoryData" :key="index" class="border-b border-gray-100 hover:bg-gray-50 transition">
+          <tbody class="divide-y divide-gray-200">
+          <tr v-for="(row, index) in inventoryData" :key="index" class="">
             <td class="px-6 py-5">
           <span class="text-sm font-semibold text-gray-700 tracking-tight">
             {{ row.sizeName }}
           </span>
             </td>
 
-            <td class="px-6 py-5">
+            <td class="">
           <span class="text-sm text-gray-700 font-medium">
             {{ row.details }}
           </span>
             </td>
 
-            <td class="px-6 py-5">
+            <td class="">
               <div class="inline-block text-gray-700 px-3 py-1 ">
                 {{ row.packConfig }}
               </div>
             </td>
 
-            <td class="px-6 py-5">
+            <td class="">
               <div class="flex items-center gap-2">
                 <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></div>
                 <span :class="statusColor(row.status)" class="text-xs font-bold tracking-wide">
@@ -136,7 +136,7 @@
               </div>
             </td>
 
-            <td class="px-6 py-5">
+            <td class="">
               <div class="flex items-center gap-2">
                 <button class="p-2  text-gray-700  transition-all">
                   <EditIcon :size="16" />

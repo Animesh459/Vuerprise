@@ -7,7 +7,7 @@
           @change="$emit('update:modelValue', $event.target.checked)"
           :class="[
           'relative h-5 w-5 appearance-none border border-neutral-200 bg-white rounded-sm cursor-pointer transition-all',
-          'checked:bg-black checked:border-black',
+          'checked:bg-blue-600 checked:border-blue-600',
           'after:content-[\'✓\'] after:absolute after:inset-0 after:flex after:items-center after:justify-center',
           'after:text-[10px] after:text-white after:font-bold after:opacity-0 checked:after:opacity-100',
           customClass

@@ -4,14 +4,14 @@
 <!--  <Inventory />-->
   <div class="bg-white">
 
-    <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
+    <div class="flex flex-col  pb-4  ">
         <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Create New Product</h1>
         <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Fill in the details below to add a new product to the inventory.</p>
     </div>
 
     <div class="">
 
-      <div class="mb-8 p-4 border col-span-8 border-zinc-200 bg-white  transition-colors group ">
+      <div class="mb-8 common-card-new group ">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-1">
               <div class="w-10 h-10 rounded-lg  flex items-center justify-center">

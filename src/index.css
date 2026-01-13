@@ -123,12 +123,12 @@ body {
     }
 
     .common-card-new {
-        @apply bg-white rounded-xl shadow-sm border border-gray-200  p-[15px];
+        @apply bg-white rounded-xl shadow-sm border border-border  p-[15px];
     }
 
     /*button new theme*/
     .btn-secondary-new {
-        @apply h-9 border border-blue-600 rounded-xl px-6 text-sm font-medium  transition-all hover:bg-blue-500 hover:text-white;
+        @apply h-9 bg-blue-50 border border-blue-600 rounded-xl px-6 text-sm font-medium text-blue-700  transition-all  hover:bg-blue-500 hover:text-white;
     }
     .btn-primary-new {
         @apply h-9 bg-blue-600 rounded-xl px-6 text-sm font-medium  text-white transition-all hover:bg-blue-500
@@ -208,6 +208,27 @@ body {
     .common-card {
         @apply  p-6 bg-white rounded-xl mb-10 overflow-hidden;
     }
+
+    .table-container {
+        @apply overflow-x-auto rounded-[5px] border border-gray-200 ;
+    }
+
+    .table {
+        @apply min-w-full divide-y divide-gray-200 ;
+    }
+
+    .table th {
+        @apply px-6 py-3 text-left text-xs font-medium text-gray-500  uppercase tracking-wider bg-gray-50 ;
+    }
+
+    .table td {
+        @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900 ;
+    }
+
+    .table tbody tr {
+        @apply bg-white  hover:bg-gray-50 transition-colors;
+    }
+
 }
 
 

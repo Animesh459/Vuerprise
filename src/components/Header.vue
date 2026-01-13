@@ -89,7 +89,7 @@
             <button
                 class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
             >
-              <div class="w-7 h-7 rounded-full flex items-center justify-center bg-black">M</div>
+              <div class="w-7 h-7 rounded-full flex items-center text-white justify-center bg-blue-600">M</div>
               <span class="text-sm text-zinc-500 font-medium">Mello</span>
               <svg
                   class="w-4 h-4 text-zinc-500 transition-transform duration-300"
