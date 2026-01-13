@@ -199,18 +199,34 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { settingsService } from '@/services'
 import { useToast } from '@/composables/useToast'
+import { usePermission } from '@/composables/usePermission'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 
 const toast = useToast()
+const { can } = usePermission()
 
 const activeTab = ref('general')
-const tabs = [
-  { id: 'general', label: 'General' },
-  { id: 'inventory', label: 'Inventory Settings' },
-]
+
+// Filter tabs based on permissions
+const tabs = computed(() => {
+  const allTabs = [
+    { 
+      id: 'general', 
+      label: 'General',
+      permission: 'general-settings.view'
+    },
+    { 
+      id: 'inventory', 
+      label: 'Inventory Settings',
+      permission: 'inventory-settings.view'
+    },
+  ]
+  
+  return allTabs.filter(tab => can(tab.permission))
+})
 
 const form = ref({
   site_name: '',
@@ -224,15 +240,30 @@ const errors = ref({})
 const loading = ref(false)
 
 onMounted(async () => {
+  // Set active tab to first available tab
+  if (tabs.value.length > 0) {
+    activeTab.value = tabs.value[0].id
+  }
+
   try {
-    const response = await settingsService.getSettings()
-    const settings = response.data.data || response.data
-    form.value.site_name = settings.site_name || ''
-    form.value.low_stock_qty = settings.low_stock_qty || 10
-    form.value.reorder_qty = settings.reorder_qty || 50
-    currentLogo.value = settings.logo || null
+    // Load general settings only if user has permission
+    if (can('general-settings.view')) {
+      const generalResponse = await settingsService.getGeneralSettings()
+      const generalSettings = generalResponse.data.data || generalResponse.data
+      form.value.site_name = generalSettings.site_name || ''
+      currentLogo.value = generalSettings.logo || null
+    }
+
+    // Load inventory settings only if user has permission
+    if (can('inventory-settings.view')) {
+      const inventoryResponse = await settingsService.getInventorySettings()
+      const inventorySettings = inventoryResponse.data.data || inventoryResponse.data
+      form.value.low_stock_qty = inventorySettings.low_stock_qty || 10
+      form.value.reorder_qty = inventorySettings.reorder_qty || 50
+    }
   } catch (error) {
     console.error('Failed to load settings:', error)
+    toast.error('Failed to load settings')
   }
 })
 
@@ -263,10 +294,10 @@ const saveGeneral = async () => {
   }
 
   try {
-    const response = await settingsService.updateSettings(formData)
+    const response = await settingsService.updateGeneralSettings(formData)
     const settings = response.data.data || response.data
     
-    // Update form with saved values (others might allow reactivity from backend feedback if needed)
+    // Update form with saved values
     currentLogo.value = settings.logo || currentLogo.value
     selectedLogo.value = null
     logoPreview.value = null
@@ -287,12 +318,13 @@ const saveInventory = async () => {
   loading.value = true
   errors.value = {}
 
-  const formData = new FormData()
-  formData.append('low_stock_qty', form.value.low_stock_qty)
-  formData.append('reorder_qty', form.value.reorder_qty)
+  const data = {
+    low_stock_qty: form.value.low_stock_qty,
+    reorder_qty: form.value.reorder_qty
+  }
 
   try {
-    const response = await settingsService.updateSettings(formData)
+    const response = await settingsService.updateInventorySettings(data)
     const settings = response.data.data || response.data
     
     form.value.low_stock_qty = settings.low_stock_qty || form.value.low_stock_qty

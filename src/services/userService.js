@@ -111,21 +111,36 @@ export const userService = {
  */
 export const settingsService = {
   /**
-   * Get site settings
+   * Get general settings (site name, logo)
    */
-  getSettings() {
-    return apiClient.get('/settings')
+  getGeneralSettings() {
+    return apiClient.get('/settings/general')
   },
 
   /**
-   * Update site settings
-   * @param {FormData} formData - Settings data (may include logo file)
+   * Update general settings
+   * @param {FormData} formData - General settings data (site_name, logo)
    */
-  updateSettings(formData) {
-    return apiClient.post('/settings', formData, {
+  updateGeneralSettings(formData) {
+    return apiClient.post('/settings/general', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     })
+  },
+
+  /**
+   * Get inventory settings (low stock, reorder quantities)
+   */
+  getInventorySettings() {
+    return apiClient.get('/settings/inventory')
+  },
+
+  /**
+   * Update inventory settings
+   * @param {Object} data - Inventory settings data (low_stock_qty, reorder_qty)
+   */
+  updateInventorySettings(data) {
+    return apiClient.post('/settings/inventory', data)
   },
 }

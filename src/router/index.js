@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { requirePermission } from './guards/permission'
 
 // Import route modules
 import authRoutes from './modules/auth'
@@ -26,6 +27,15 @@ const routes = [
   ...utilityRoutes,
   ...profileRoutes,
   ...userManagementRoutes,
+  // Unauthorized page
+  {
+    path: '/unauthorized',
+    name: 'Unauthorized',
+    component: () => import('@/views/Unauthorized.vue'),
+    meta: {
+      title: 'Access Denied'
+    }
+  },
 ]
 
 // Create router instance
@@ -50,7 +60,12 @@ router.beforeEach((to, from, next) => {
     document.title = 'Vlan24 ERP'
   }
   
-  next()
+  // Check permissions if route requires them
+  if (to.meta.permissions && to.meta.permissions.length > 0) {
+    requirePermission(to, from, next)
+  } else {
+    next()
+  }
 })
 
 export default router

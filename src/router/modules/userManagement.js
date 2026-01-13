@@ -5,7 +5,8 @@ export default [
     component: () => import('@/views/rbac/Users.vue'),
     meta: {
       requiresAuth: true,
-      title: 'Users'
+      title: 'Users',
+      permissions: ['users.list']
     }
   },
   {
@@ -14,7 +15,8 @@ export default [
     component: () => import('@/views/rbac/roles/List.vue'),
     meta: {
       requiresAuth: true,
-      title: 'Roles & Permissions'
+      title: 'Roles & Permissions',
+      permissions: ['roles.list']
     }
   },
   {
@@ -23,7 +25,8 @@ export default [
     component: () => import('@/views/rbac/roles/Form.vue'),
     meta: {
       requiresAuth: true,
-      title: 'Create Role'
+      title: 'Create Role',
+      permissions: ['roles.create']
     }
   },
   {
@@ -32,7 +35,8 @@ export default [
     component: () => import('@/views/rbac/roles/Form.vue'),
     meta: {
       requiresAuth: true,
-      title: 'Edit Role'
+      title: 'Edit Role',
+      permissions: ['roles.update']
     }
   }
 ]

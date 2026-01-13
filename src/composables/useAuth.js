@@ -36,7 +36,7 @@ export function useAuth() {
 
       const authData = response.data.data
       
-      // Store auth data
+      // Store auth data including permissions
       token.value = authData.token
       user.value = {
         id: authData.id,
@@ -44,6 +44,8 @@ export function useAuth() {
         email: authData.email,
         status: authData.status,
         profile_image: authData.profile_image,
+        permissions: authData.permissions || [],
+        roles: authData.roles || []
       }
 
       // Persist to localStorage
@@ -98,6 +100,20 @@ export function useAuth() {
     }
   }
 
+  // Check if user has a specific permission
+  const hasPermission = (permission) => {
+    if (!user.value) return false
+    const userPermissions = user.value.permissions || []
+    return userPermissions.includes(permission)
+  }
+
+  // Check if user has any of the specified permissions
+  const hasAnyPermission = (permissions) => {
+    if (!user.value) return false
+    const userPermissions = user.value.permissions || []
+    return permissions.some(permission => userPermissions.includes(permission))
+  }
+
   // Initialize on first call
   initAuth()
 
@@ -109,5 +125,7 @@ export function useAuth() {
     logout,
     fetchUser,
     clearAuth,
+    hasPermission,
+    hasAnyPermission,
   }
 }
