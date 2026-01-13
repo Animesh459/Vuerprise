@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col bg-white font-sans text-black selection:bg-black selection:text-white">
+  <div class="flex  text-black">
 
     <main class="flex-1">
 
@@ -29,16 +29,16 @@
         </div>
       </div>
 
-
-      <!-- Product Grid -->
-      <div class="grid grid-cols-2 gap-x-4 gap-y-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10">
-        <ProductCard
-            v-for="product in products"
-            :key="product.id"
-            :product="product"
-        />
+      <div class="common-card-new">
+        <!-- Product Grid -->
+        <div class="grid grid-cols-2 gap-x-4 gap-y-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10">
+          <ProductCard
+              v-for="product in products"
+              :key="product.id"
+              :product="product"
+          />
+        </div>
       </div>
-
 
     </main>
 

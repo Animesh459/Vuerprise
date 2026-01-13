@@ -1,19 +1,19 @@
 <template>
-  <div class="flex bg-white font-sans text-black selection:bg-black selection:text-white">
+  <div class="flex  text-black">
 
     <main class="flex-1 overflow-y-auto">
-
+      <section class="flex flex-col  pb-4">
+        <div class="flex justify-between items-end mb-1">
+          <h1 class="text-3xl font-bold tracking-tighter ">Welcome, Mello User</h1>
+          <p class="text-xs font-mono text-zinc-500 uppercase tracking-widest">LAST SYNC: {{ currentTime }}</p>
+        </div>
+        <p class="text-sm text-text-muted-light mt-1">
+          Good to see you boss! System status: Nominal.
+        </p>
+      </section>
       <!-- Content -->
-      <div class="space-y-8">
-        <section>
-          <div class="flex justify-between items-end mb-1">
-            <h1 class="text-3xl font-bold tracking-tighter ">Welcome, Mello User</h1>
-            <p class="text-xs font-mono text-zinc-500 uppercase tracking-widest">LAST SYNC: {{ currentTime }}</p>
-          </div>
-          <p class="text-sm text-text-muted-light mt-1">
-            Good to see you boss! System status: Nominal.
-          </p>
-        </section>
+      <div class="common-card-new space-y-4">
+
 
         <!-- Metrics Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

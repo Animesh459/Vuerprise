@@ -1,5 +1,5 @@
 <template>
-  <div  class="flex min-h-screen flex-col bg-background font-sans selection:bg-foreground selection:text-background">
+  <div  class="flex min-h-screen flex-col bg-[#f9fafb] font-sans selection:bg-foreground selection:text-background">
     <Header v-if="!shouldHideHeader" />
     <main
           class="px-6 py-4"
