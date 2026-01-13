@@ -78,7 +78,8 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['confirm', 'cancel'])
+const emit = defineEmits(['confirm', 'cancel', 'close'])
+
 
 // Dynamic classes based on variant
 const iconBgClass = computed(() => {
@@ -110,10 +111,12 @@ const confirmButtonClass = computed(() => {
 
 const onConfirm = () => {
   emit('confirm')
+  emit('close')
 }
 
 const onCancel = () => {
   emit('cancel')
+  emit('close')
 }
 </script>
 

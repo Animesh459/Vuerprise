@@ -77,6 +77,27 @@
           Customers
         </router-link>
 
+        <!-- User Management Dropdown -->
+        <Dropdown ref="userManagementDropdown" contentClasses="w-56 left-0 right-auto">
+          <template #trigger>
+            <button
+                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+            >
+              User Management <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
+            </button>
+          </template>
+
+          <template #content>
+            <div class="py-1">
+              <DropdownItem
+                  v-for="item in userManagementItems"
+                  :key="item.label"
+                  :item="item"
+              />
+            </div>
+          </template>
+        </Dropdown>
+
       </nav>
       <div class="flex items-center gap-4">
 
@@ -260,8 +281,14 @@ const buildCategoryTree = (cats) => {
    // { label: 'Return to Vendor', to: '/packs'},
  ]
 
+ const userManagementItems = [
+   { label: 'Users', to: '/users' },
+   { label: 'Roles', to: '/roles' },
+ ]
+
  const productDropdown = ref(null);
  const receivingDropdown = ref(null);
+ const userManagementDropdown = ref(null);
  const userDropdown = ref(null);
  const route = useRoute();
 
@@ -271,6 +298,9 @@ const buildCategoryTree = (cats) => {
    }
    if (receivingDropdown.value) {
      receivingDropdown.value.close();
+   }
+   if (userManagementDropdown.value) {
+     userManagementDropdown.value.close();
    }
    if (userDropdown.value) {
      userDropdown.value.close();

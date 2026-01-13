@@ -262,11 +262,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -307,11 +307,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -422,14 +422,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -455,23 +455,53 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "anyOf": [
-                                        {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
                                             "type": "boolean"
                                         },
-                                        {
-                                            "type": "null"
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Category and all subcategories deleted successfully"
+                                            ]
                                         }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
                                     ]
                                 }
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -624,11 +654,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -670,11 +700,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -698,7 +728,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -719,9 +749,7 @@
                                         "type": [
                                             "string",
                                             "null"
-                                        ],
-                                        "format": "binary",
-                                        "contentMediaType": "application/octet-stream"
+                                        ]
                                     }
                                 },
                                 "required": [
@@ -745,14 +773,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -784,11 +812,45 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/get-active-colors": {
+            "get": {
+                "operationId": "color.getActiveColors",
+                "tags": [
+                    "Color"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `ColorResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ColorResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -1021,6 +1083,27 @@
                 "tags": [
                     "Image"
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "contentMediaType": "application/octet-stream",
+                                        "maxLength": 2048
+                                    }
+                                },
+                                "required": [
+                                    "file"
+                                ]
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "",
@@ -1057,6 +1140,9 @@
                                 }
                             }
                         }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
@@ -1110,7 +1196,7 @@
                                 "properties": {
                                     "file": {
                                         "type": "string",
-                                        "maxLength": 51200
+                                        "maxLength": 2048
                                     }
                                 },
                                 "required": [
@@ -1143,11 +1229,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -1254,6 +1340,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "201": {
                         "description": "",
                         "content": {
@@ -1266,9 +1355,6 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -1301,11 +1387,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -1350,12 +1436,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
                     },
                     "422": {
                         "description": "",
@@ -1403,6 +1483,12 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -1488,6 +1574,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "201": {
                         "description": "",
                         "content": {
@@ -1500,9 +1589,6 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -1630,6 +1716,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "201": {
                         "description": "",
                         "content": {
@@ -1642,9 +1731,6 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -1722,9 +1808,6 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "description": "",
                         "content": {
@@ -1749,6 +1832,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -1771,22 +1857,6 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
                     "422": {
                         "description": "",
                         "content": {
@@ -1808,6 +1878,22 @@
                                 }
                             }
                         }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -1847,6 +1933,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -1857,14 +1946,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -2104,11 +2190,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -2150,11 +2236,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -2178,7 +2264,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -2197,9 +2283,7 @@
                                         "type": [
                                             "string",
                                             "null"
-                                        ],
-                                        "format": "binary",
-                                        "contentMediaType": "application/octet-stream"
+                                        ]
                                     }
                                 },
                                 "required": [
@@ -2220,14 +2304,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -2259,11 +2343,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -2390,6 +2474,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "201": {
                         "description": "",
                         "content": {
@@ -2402,9 +2489,6 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -2460,22 +2544,6 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
                     "422": {
                         "description": "",
                         "content": {
@@ -2497,6 +2565,22 @@
                                 }
                             }
                         }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -2537,6 +2621,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -2547,14 +2634,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -2652,11 +2736,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -2698,11 +2782,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -2757,14 +2841,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -2796,11 +2880,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -3011,20 +3095,6 @@
                                                     "type": "integer",
                                                     "minimum": 0
                                                 },
-                                                "reorder_level": {
-                                                    "type": [
-                                                        "integer",
-                                                        "null"
-                                                    ],
-                                                    "minimum": 0
-                                                },
-                                                "reorder_quantity": {
-                                                    "type": [
-                                                        "integer",
-                                                        "null"
-                                                    ],
-                                                    "minimum": 0
-                                                },
                                                 "stock_status": {
                                                     "type": [
                                                         "string",
@@ -3087,6 +3157,28 @@
                     }
                 },
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "201": {
                         "description": "",
                         "content": {
@@ -3116,33 +3208,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
                     },
-                    "500": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -3184,11 +3254,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -3304,20 +3374,6 @@
                                                     "type": "integer",
                                                     "minimum": 0
                                                 },
-                                                "reorder_level": {
-                                                    "type": [
-                                                        "integer",
-                                                        "null"
-                                                    ],
-                                                    "minimum": 0
-                                                },
-                                                "reorder_quantity": {
-                                                    "type": [
-                                                        "integer",
-                                                        "null"
-                                                    ],
-                                                    "minimum": 0
-                                                },
                                                 "stock_status": {
                                                     "type": [
                                                         "string",
@@ -3391,14 +3447,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -3430,11 +3486,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -3501,11 +3557,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -3601,6 +3657,211 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/user/profile": {
+            "put": {
+                "operationId": "profile.updateProfile",
+                "summary": "Update user profile",
+                "tags": [
+                    "Profile"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "email"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Profile updated successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/user/password": {
+            "put": {
+                "operationId": "profile.updatePassword",
+                "summary": "Update password",
+                "tags": [
+                    "Profile"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "current_password",
+                                    "password",
+                                    "password_confirmation"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Password updated successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/user/profile-image": {
+            "post": {
+                "operationId": "profile.uploadProfileImage",
+                "summary": "Upload profile image",
+                "tags": [
+                    "Profile"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "contentMediaType": "application/octet-stream",
+                                        "maxLength": 2048
+                                    }
+                                },
+                                "required": [
+                                    "image"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Profile image updated successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
@@ -3764,6 +4025,28 @@
                     }
                 },
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "201": {
                         "description": "",
                         "content": {
@@ -3793,33 +4076,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
                     },
-                    "500": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -3861,11 +4122,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -4008,6 +4269,28 @@
                     }
                 },
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -4037,36 +4320,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "500": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -4088,6 +4349,28 @@
                     }
                 ],
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -4112,12 +4395,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
                     },
                     "422": {
                         "description": "",
@@ -4144,27 +4421,11 @@
                             }
                         }
                     },
-                    "500": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -4213,6 +4474,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -4222,9 +4486,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "404": {
                         "description": "",
@@ -4251,8 +4512,8 @@
                             }
                         }
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -4292,6 +4553,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -4301,9 +4565,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
                     },
                     "404": {
                         "description": "",
@@ -4330,8 +4591,8 @@
                             }
                         }
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -4456,6 +4717,1033 @@
                 }
             }
         },
+        "/roles/all": {
+            "get": {
+                "operationId": "role.getAllRoles",
+                "summary": "Get all roles for dropdown",
+                "tags": [
+                    "Role"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/roles/permissions": {
+            "get": {
+                "operationId": "role.getPermissions",
+                "summary": "Get all permissions in hierarchical structure",
+                "tags": [
+                    "Role"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Products": {
+                                            "type": "object",
+                                            "properties": {
+                                                "Products": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "products.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "products.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "products.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "products.delete"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "products.clone"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "products.export"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 6,
+                                                    "maxItems": 6,
+                                                    "additionalItems": false
+                                                },
+                                                "Product Settings": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "Categories": {
+                                                            "type": "array",
+                                                            "prefixItems": [
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "categories.view"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "categories.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "categories.update"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "categories.delete"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "categories.sort"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "minItems": 5,
+                                                            "maxItems": 5,
+                                                            "additionalItems": false
+                                                        },
+                                                        "Master Colors": {
+                                                            "type": "array",
+                                                            "prefixItems": [
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "master-colors.view"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "master-colors.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "master-colors.update"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "master-colors.delete"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "minItems": 4,
+                                                            "maxItems": 4,
+                                                            "additionalItems": false
+                                                        },
+                                                        "Colors": {
+                                                            "type": "array",
+                                                            "prefixItems": [
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "colors.view"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "colors.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "colors.update"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "colors.delete"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "colors.status"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "minItems": 5,
+                                                            "maxItems": 5,
+                                                            "additionalItems": false
+                                                        },
+                                                        "Sizes": {
+                                                            "type": "array",
+                                                            "prefixItems": [
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "sizes.view"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "sizes.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "sizes.update"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "sizes.delete"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "sizes.status"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "sizes.default"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "minItems": 6,
+                                                            "maxItems": 6,
+                                                            "additionalItems": false
+                                                        },
+                                                        "Packs": {
+                                                            "type": "array",
+                                                            "prefixItems": [
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "packs.view"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "packs.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "packs.update"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "packs.delete"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "minItems": 4,
+                                                            "maxItems": 4,
+                                                            "additionalItems": false
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "Categories",
+                                                        "Master Colors",
+                                                        "Colors",
+                                                        "Sizes",
+                                                        "Packs"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "Products",
+                                                "Product Settings"
+                                            ]
+                                        },
+                                        "Settings": {
+                                            "type": "object",
+                                            "properties": {
+                                                "General Settings": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "settings.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "settings.update"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 2,
+                                                    "maxItems": 2,
+                                                    "additionalItems": false
+                                                },
+                                                "Payment Terms": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "payment-terms.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "payment-terms.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "payment-terms.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "payment-terms.delete"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "payment-terms.status"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Shipping Methods": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "shipping-methods.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "shipping-methods.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "shipping-methods.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "shipping-methods.delete"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "shipping-methods.status"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Warehouses": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouses.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouses.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouses.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouses.delete"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouses.status"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                }
+                                            },
+                                            "required": [
+                                                "General Settings",
+                                                "Payment Terms",
+                                                "Shipping Methods",
+                                                "Warehouses"
+                                            ]
+                                        },
+                                        "User Management": {
+                                            "type": "object",
+                                            "properties": {
+                                                "Users": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.delete"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.status"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Roles": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 4,
+                                                    "maxItems": 4,
+                                                    "additionalItems": false
+                                                }
+                                            },
+                                            "required": [
+                                                "Users",
+                                                "Roles"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "Products",
+                                        "Settings",
+                                        "User Management"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/roles": {
+            "get": {
+                "operationId": "roles.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Role"
+                ],
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LengthAwarePaginator"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "roles.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Role"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "permissions": {
+                                        "type": [
+                                            "array",
+                                            "null"
+                                        ],
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "name"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Role created successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Validation failed"
+                                            ]
+                                        },
+                                        "errors": {
+                                            "$ref": "#/components/schemas/MessageBag"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "errors"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/roles/{id}": {
+            "get": {
+                "operationId": "roles.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "Role"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "roles.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "Role"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "permissions": {
+                                        "type": [
+                                            "array",
+                                            "null"
+                                        ],
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "name"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Role updated successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Validation failed"
+                                            ]
+                                        },
+                                        "errors": {
+                                            "$ref": "#/components/schemas/MessageBag"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "errors"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Super Admin role cannot be modified"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "roles.destroy",
+                "summary": "Remove the specified resource from storage",
+                "tags": [
+                    "Role"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Role deleted successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Role cannot be deleted as it is assigned to users"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Super Admin role cannot be deleted"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/settings": {
+            "get": {
+                "operationId": "setting.index",
+                "summary": "Get site settings",
+                "tags": [
+                    "Setting"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Setting"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "setting.update",
+                "tags": [
+                    "Setting"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "site_name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "logo": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "format": "binary",
+                                        "contentMediaType": "application/octet-stream",
+                                        "maxLength": 2048
+                                    },
+                                    "low_stock_qty": {
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ],
+                                        "minimum": 0
+                                    },
+                                    "reorder_qty": {
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ],
+                                        "minimum": 0
+                                    }
+                                },
+                                "required": [
+                                    "site_name"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Settings updated successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Setting"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
         "/shipping-methods": {
             "get": {
                 "operationId": "shipping-methods.index",
@@ -4567,11 +5855,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -4612,11 +5900,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -4708,14 +5996,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -4762,11 +6050,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -4932,11 +6220,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -4978,11 +6266,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -5041,14 +6329,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -5087,11 +6375,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -5224,11 +6512,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -5403,6 +6691,12 @@
                                         "format": "binary",
                                         "contentMediaType": "application/octet-stream",
                                         "maxLength": 2048
+                                    },
+                                    "role_id": {
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
@@ -5425,11 +6719,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -5471,11 +6765,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -5516,6 +6810,12 @@
                                             "string",
                                             "null"
                                         ]
+                                    },
+                                    "role_id": {
+                                        "type": [
+                                            "integer",
+                                            "null"
+                                        ]
                                     }
                                 },
                                 "required": [
@@ -5537,14 +6837,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -5587,11 +6887,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -5763,6 +7063,35 @@
                     }
                 },
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Creation failed"
+                                            ]
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "201": {
                         "description": "",
                         "content": {
@@ -5792,40 +7121,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "422": {
                         "$ref": "#/components/responses/ValidationException"
                     },
-                    "500": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "enum": [
-                                                "Creation failed"
-                                            ]
-                                        },
-                                        "error": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "error"
-                                    ]
-                                }
-                            }
-                        }
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -5867,11 +7167,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -5985,6 +7285,35 @@
                     }
                 },
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Update failed"
+                                            ]
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "error"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -6014,43 +7343,14 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
                     },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
-                    },
-                    "500": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "enum": [
-                                                "Update failed"
-                                            ]
-                                        },
-                                        "error": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "error"
-                                    ]
-                                }
-                            }
-                        }
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             },
@@ -6097,12 +7397,6 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
                     "422": {
                         "description": "",
                         "content": {
@@ -6127,6 +7421,12 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -6339,6 +7639,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "201": {
                         "description": "",
                         "content": {
@@ -6351,9 +7654,6 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -6395,11 +7695,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -6544,6 +7844,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -6554,14 +7857,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -6603,6 +7903,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -6613,14 +7916,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -6693,6 +7993,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -6703,14 +8006,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -6751,6 +8051,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -6761,14 +8064,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -6896,6 +8196,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "`VendorShipmentResource`",
                         "content": {
@@ -6916,9 +8219,6 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -6960,11 +8260,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -6988,22 +8288,6 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
                     "422": {
                         "description": "",
                         "content": {
@@ -7025,6 +8309,22 @@
                                 }
                             }
                         }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -7048,22 +8348,6 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
-                    },
                     "422": {
                         "description": "",
                         "content": {
@@ -7085,6 +8369,22 @@
                                 }
                             }
                         }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -7198,6 +8498,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "`WarehouseReceivingResource`",
                         "content": {
@@ -7218,9 +8521,6 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
-                    },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
                     }
                 }
             }
@@ -7262,11 +8562,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -7387,6 +8687,9 @@
                     }
                 },
                 "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -7397,14 +8700,11 @@
                             }
                         }
                     },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    },
                     "404": {
                         "$ref": "#/components/responses/ModelNotFoundException"
                     },
-                    "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
                     }
                 }
             }
@@ -7621,6 +8921,79 @@
                 ],
                 "title": "ColorResource"
             },
+            "LengthAwarePaginator": {
+                "type": "object",
+                "properties": {
+                    "current_page": {
+                        "type": "integer"
+                    },
+                    "data": {
+                        "type": "string"
+                    },
+                    "first_page_url": {
+                        "type": "string"
+                    },
+                    "from": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "last_page": {
+                        "type": "integer"
+                    },
+                    "last_page_url": {
+                        "type": "string"
+                    },
+                    "links": {
+                        "type": "object",
+                        "additionalProperties": {}
+                    },
+                    "next_page_url": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "per_page": {
+                        "type": "integer"
+                    },
+                    "prev_page_url": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "to": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "total": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "current_page",
+                    "data",
+                    "first_page_url",
+                    "from",
+                    "last_page",
+                    "last_page_url",
+                    "links",
+                    "next_page_url",
+                    "path",
+                    "per_page",
+                    "prev_page_url",
+                    "to",
+                    "total"
+                ],
+                "title": "LengthAwarePaginator"
+            },
             "MasterColorResource": {
                 "type": "object",
                 "properties": {
@@ -7661,6 +9034,11 @@
                     "created_at"
                 ],
                 "title": "MasterColorResource"
+            },
+            "MessageBag": {
+                "type": "array",
+                "items": {},
+                "title": "MessageBag"
             },
             "PackResource": {
                 "type": "array",
@@ -7742,6 +9120,18 @@
                     },
                     "resale_price": {
                         "type": "string"
+                    },
+                    "total_qty": {
+                        "type": "integer"
+                    },
+                    "stock_status": {
+                        "type": "string"
+                    },
+                    "preorder_date": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     },
                     "parent_category_id": {
                         "type": [
@@ -7836,6 +9226,9 @@
                     "fob_price",
                     "landed_price",
                     "resale_price",
+                    "total_qty",
+                    "stock_status",
+                    "preorder_date",
                     "parent_category_id",
                     "second_category_id",
                     "third_category_id",
@@ -8083,6 +9476,18 @@
                     "resale_price": {
                         "type": "string"
                     },
+                    "total_qty": {
+                        "type": "integer"
+                    },
+                    "stock_status": {
+                        "type": "string"
+                    },
+                    "preorder_date": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
                     "parent_category_id": {
                         "anyOf": [
                             {
@@ -8292,6 +9697,9 @@
                     "fob_price",
                     "landed_price",
                     "resale_price",
+                    "total_qty",
+                    "stock_status",
+                    "preorder_date",
                     "parent_category_id",
                     "second_category_id",
                     "third_category_id",
@@ -8576,6 +9984,89 @@
                 ],
                 "title": "PurchaseResource"
             },
+            "Role": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "guard_name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "guard_name",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "Role"
+            },
+            "Setting": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "site_name": {
+                        "type": "string"
+                    },
+                    "logo": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "low_stock_qty": {
+                        "type": "integer"
+                    },
+                    "reorder_qty": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "site_name",
+                    "logo",
+                    "low_stock_qty",
+                    "reorder_qty",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "Setting"
+            },
             "ShippingMethodResource": {
                 "type": "object",
                 "properties": {
@@ -8730,6 +10221,27 @@
                         "type": "integer"
                     },
                     "profile_image": {
+                        "type": "string"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "id",
+                                "name"
+                            ]
+                        }
+                    },
+                    "role_id": {
                         "type": "string"
                     },
                     "last_login_at": {

@@ -11,6 +11,7 @@ import customerRoutes from './modules/customers'
 import inventoryRoutes from './modules/inventory'
 import utilityRoutes from './modules/utilities'
 import profileRoutes from './modules/profile'
+import userManagementRoutes from './modules/userManagement'
 
 // Combine all routes
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
   ...inventoryRoutes,
   ...utilityRoutes,
   ...profileRoutes,
+  ...userManagementRoutes,
 ]
 
 // Create router instance
