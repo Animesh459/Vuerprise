@@ -1,20 +1,19 @@
 <template>
   <Transition name="modal-fade">
-    <div v-if="isOpen"
+    <div v-if="isVisible"
          @click.self="$emit('close')"
-         class="fixed inset-0 bg-black/20 backdrop-blur-sm z-60 flex items-center justify-center p-4"
+         class="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center p-4"
          style="background-color: rgba(0, 0, 0, 0.7);"
     >
 
       <Transition name="modal-slide">
-        <div v-if="isOpen"
-             class="bg-white rounded-xl shadow-2xl w-full max-w-lg
-                 p-6 transform transition-all overflow-hidden border border-border"
+        <div v-if="isVisible"
+             :class="['bg-white rounded-xl shadow-2xl w-full p-6 transform transition-all border border-gray-200', sizeClass, scrollClass]"
              role="dialog"
              aria-modal="true"
         >
-          <header class="flex justify-between items-center pb-4 border-b border-border">
-            <h3 class="text-xl font-bold text-gray-700">
+          <header v-if="title" class="flex justify-between items-center pb-4 border-b border-gray-200">
+            <h3 class="text-xl font-bold text-gray-900">
               {{ title }}
             </h3>
             <button @click="$emit('close')"
@@ -25,19 +24,9 @@
             </button>
           </header>
 
-          <section class="py-6 text-gray-700 space-y-4">
+          <section :class="['text-gray-700', contentPadding]">
             <slot></slot>
           </section>
-
-          <footer class="pt-4 border-t border-border text-right">
-            <slot name="footer">
-              <button @click="$emit('close')"
-                      class="btn-secondary-new"
-              >
-                Close
-              </button>
-            </slot>
-          </footer>
         </div>
       </Transition>
     </div>
@@ -45,29 +34,80 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, watch } from 'vue';
+import { defineProps, defineEmits, watch, computed } from 'vue';
 
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    required: true
+    default: false
+  },
+  show: {
+    type: Boolean,
+    default: false
   },
   title: {
     type: String,
-    default: 'Modal Title'
+    default: ''
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', 'auto'].includes(value)
+  },
+  scrollable: {
+    type: Boolean,
+    default: false
+  },
+  maxHeight: {
+    type: String,
+    default: '' // e.g., '80vh'
   }
 });
 
 const emit = defineEmits(['close']);
 
+// Support both isOpen and show props
+const isVisible = computed(() => props.isOpen || props.show);
+
+// Size class mapping
+const sizeClass = computed(() => {
+  const sizes = {
+    sm: 'max-w-sm',
+    md: 'max-w-md',
+    lg: 'max-w-lg',
+    xl: 'max-w-xl',
+    '2xl': 'max-w-2xl',
+    '3xl': 'max-w-3xl',
+    '4xl': 'max-w-4xl',
+    auto: 'max-w-[95vw]'
+  };
+  return sizes[props.size] || sizes.md;
+});
+
+// Scroll and max-height classes
+const scrollClass = computed(() => {
+  if (props.scrollable || props.maxHeight) {
+    return 'overflow-hidden flex flex-col';
+  }
+  return '';
+});
+
+const contentPadding = computed(() => {
+  if (props.scrollable || props.maxHeight) {
+    const style = props.maxHeight ? `max-height: ${props.maxHeight};` : 'max-height: 70vh;';
+    return `py-6 overflow-y-auto style="${style}"`;
+  }
+  return 'py-6';
+});
+
 // ESC key listener for accessibility and convenience
 const handleEscape = (e) => {
-  if (e.key === 'Escape' && props.isOpen) {
+  if (e.key === 'Escape' && isVisible.value) {
     emit('close');
   }
 };
 
-watch(() => props.isOpen, (newVal) => {
+watch(isVisible, (newVal) => {
   if (newVal) {
     document.addEventListener('keydown', handleEscape);
   } else {
@@ -76,8 +116,25 @@ watch(() => props.isOpen, (newVal) => {
 }, { immediate: true });
 </script>
 
-<style>
+<style scoped>
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
 
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
 
+.modal-slide-enter-active,
+.modal-slide-leave-active {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
 
+.modal-slide-enter-from,
+.modal-slide-leave-to {
+  transform: scale(0.95);
+  opacity: 0;
+}
 </style>
