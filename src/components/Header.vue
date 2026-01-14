@@ -11,9 +11,10 @@
         <Dropdown ref="productDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
+                class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
             >
-              Product <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
+              <Boxes :size="18" class="transition-colors" />
+              Product <ChevronDown :size="16" class="opacity-50 group-hover:opacity-70 transition-opacity"/>
             </button>
           </template>
 
@@ -31,9 +32,10 @@
         <Dropdown ref="productSettingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
+                class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
             >
-              Product Setting <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
+              <Settings2 :size="18" class="transition-colors" />
+              Product Setting <ChevronDown :size="16" class="opacity-50 group-hover:opacity-70 transition-opacity"/>
             </button>
           </template>
 
@@ -51,9 +53,10 @@
         <Dropdown ref="receivingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
+                class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
             >
-              Receiving <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
+              <PackageCheck :size="18" class="transition-colors" />
+              Receiving <ChevronDown :size="16" class="opacity-50 group-hover:opacity-70 transition-opacity"/>
             </button>
           </template>
 
@@ -68,15 +71,18 @@
           </template>
         </Dropdown>
 
-        <router-link to="/customer-orders" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+        <router-link to="/customer-orders" class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+          <ShoppingBag :size="18" />
           Customer Orders
         </router-link>
 
-        <router-link to="/inventory" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+        <router-link to="/inventory" class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+          <Warehouse :size="18" />
           Inventory
         </router-link>
 
-        <router-link to="/customers" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+        <router-link to="/customers" class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+          <UsersRound :size="18" />
           Customers
         </router-link>
 
@@ -141,7 +147,7 @@
 <script setup>
 
  import {h, ref, watch} from 'vue'
- import {User, Settings, LogOut, ChevronDown} from 'lucide-vue-next'
+ import {User, Settings, LogOut, ChevronDown, Boxes, Settings2, PackageCheck, ShoppingBag, Warehouse, UsersRound} from 'lucide-vue-next'
 
  import Dropdown from "@/components/Dropdown.vue";
  import DropdownItem from "@/components/DropdownItem.vue";

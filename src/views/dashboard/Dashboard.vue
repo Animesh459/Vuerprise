@@ -17,28 +17,20 @@
 
         <!-- Metrics Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div v-for="metric in mainMetrics" :key="metric.label" class="p-6 border border-zinc-200 bg-white hover:border-blue-300 transition-colors group">
-            <div class="flex justify-between items-start mb-4">
-              <div class="p-2 bg-blue-50 group-hover:bg-blue-100 transition-colors">
-                <component :is="metric.icon" class="w-4 h-4 text-blue-600 group-hover:text-blue-700" />
-              </div>
-              <div :class="['flex items-center gap-1 text-xs font-mono', metric.trend > 0 ? 'text-blue-600' : 'text-zinc-500']">
-                <span>{{ metric.trend > 0 ? '+' : '' }}{{ metric.trend }}%</span>
-                <TrendingUp v-if="metric.trend > 0" class="w-3 h-3" />
-                <TrendingDown v-else class="w-3 h-3" />
-              </div>
-            </div>
-            <p class="text-xs font-medium text-zinc-500 uppercase tracking-widest mb-1">{{ metric.label }}</p>
-            <div class="flex items-baseline gap-2">
-              <h3 class="text-2xl font-bold tracking-tight">{{ metric.value }}</h3>
-              <span class="text-xs text-zinc-600 font-mono">{{ metric.subValue }}</span>
-            </div>
-          </div>
+          <StatsCard
+            v-for="metric in mainMetrics"
+            :key="metric.label"
+            :title="metric.label"
+            :value="metric.value"
+            :icon="metric.iconName"
+            :color="metric.color"
+            :trend="{ value: `${metric.trend > 0 ? '+' : ''}${metric.trend}%`, positive: metric.trend > 0 }"
+          />
         </div>
 
         <!-- Charts Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-2 p-6 border border-zinc-200 bg-white flex flex-col">
+          <div class="lg:col-span-2 p-6 border border-zinc-200 bg-white rounded-xl flex flex-col">
             <div class="flex justify-between items-center mb-8">
               <div>
                 <h3 class="text-sm font-bold uppercase tracking-widest">Revenue Overview</h3>
@@ -71,37 +63,29 @@
           </div>
 
           <div class="space-y-6">
-            <div v-for="metric in sideMetrics" :key="metric.title" class="p-6 border border-zinc-200 bg-white group hover:bg-blue-50 transition-colors">
-              <div class="flex justify-between items-center mb-4">
-                <span class="text-xs font-medium text-zinc-500 uppercase tracking-widest">{{ metric.title }}</span>
-                <span :class="['text-xs font-mono', metric.isPositive ? 'text-blue-600' : 'text-zinc-400']">
-                  {{ metric.isPositive ? '↑' : '↓' }} {{ metric.percent }}%
-                </span>
-              </div>
-              <div class="flex justify-between items-end">
-                <h4 class="text-3xl font-bold tracking-tighter">{{ metric.value }}</h4>
-                <div class="h-8 w-24 flex items-end gap-0.5">
-                  <div v-for="i in 12" :key="i" class="flex-1 bg-blue-100" :style="{ height: `${Math.random() * 100}%` }"></div>
-                </div>
-              </div>
-            </div>
+            <StatsCard
+              v-for="metric in sideMetrics"
+              :key="metric.title"
+              :title="metric.title"
+              :value="metric.value"
+              :icon="metric.iconName"
+              :color="metric.color"
+              :trend="{ value: metric.percent + '%', positive: metric.isPositive }"
+            />
           </div>
         </div>
 
         <!-- Bottom Metrics -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div v-for="item in bottomMetrics" :key="item.label" class="p-6 border border-zinc-200 bg-white flex items-center justify-between group cursor-pointer hover:border-blue-300 transition-all">
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center bg-blue-50 group-hover:bg-blue-100 transition-colors">
-                <component :is="item.icon" class="w-4 h-4 text-blue-500 group-hover:text-blue-600" />
-              </div>
-              <div>
-                <p class="text-xs font-medium text-zinc-400 uppercase tracking-widest mb-0.5">{{ item.label }}</p>
-                <p class="text-xl font-bold tracking-tight">{{ item.value }}</p>
-              </div>
-            </div>
-            <div class="text-xs font-mono text-blue-600 group-hover:text-blue-500">{{ item.change }}%</div>
-          </div>
+          <StatsCard
+            v-for="item in bottomMetrics"
+            :key="item.label"
+            :title="item.label"
+            :value="item.value"
+            :icon="item.iconName"
+            :color="item.color"
+            :trend="{ value: item.change + '%', positive: item.change.startsWith('+') }"
+          />
         </div>
       </div>
     </main>
@@ -115,6 +99,7 @@ import {
   Package, CreditCard, Truck, Inbox, Search, TrendingUp, TrendingDown,
   DollarSign, Clock
 } from 'lucide-vue-next'
+import StatsCard from './StatsCard.vue'
 
 const currentTime = ref('')
 let timer
@@ -156,10 +141,10 @@ const navigation = [
 ]
 
 const mainMetrics = [
-  { label: 'Delivery', value: '1,240', subValue: 'Processed', icon: Truck, trend: 12 },
-  { label: 'Payment', value: '$42.5k', subValue: 'Waiting', icon: CreditCard, trend: -5 },
-  { label: 'Items Uploaded', value: '892', subValue: 'This Month', icon: Package, trend: 24 },
-  { label: 'Response Rate', value: '98.2%', subValue: 'Cancellation', icon: Inbox, trend: 2 }
+  { label: 'Delivery', value: '1,240', subValue: 'Processed', icon: Truck, iconName: 'truck', color: 'primary', trend: 12 },
+  { label: 'Payment', value: '$42.5k', subValue: 'Waiting', icon: CreditCard, iconName: 'credit-card', color: 'warning', trend: -5 },
+  { label: 'Items Uploaded', value: '892', subValue: 'This Month', icon: Package, iconName: 'package', color: 'success', trend: 24 },
+  { label: 'Response Rate', value: '98.2%', subValue: 'Cancellation', icon: Inbox, iconName: 'inbox', color: 'info', trend: 2 }
 ]
 
 const salesData = [
@@ -173,14 +158,14 @@ const salesData = [
 ]
 
 const sideMetrics = [
-  { title: 'Today Order Amt', value: '$12,450', percent: '12.4', isPositive: true },
-  { title: 'Homepage Visits', value: '48,291', percent: '5.2', isPositive: true },
-  { title: 'Avg. Item Price', value: '$84.20', percent: '2.1', isPositive: false }
+  { title: 'Today Order Amt', value: '$12,450', percent: '12.4', isPositive: true, iconName: 'shopping-cart', color: 'success' },
+  { title: 'Homepage Visits', value: '48,291', percent: '5.2', isPositive: true, iconName: 'users', color: 'primary' },
+  { title: 'Avg. Item Price', value: '$84.20', percent: '2.1', isPositive: false, iconName: 'currency-dollar', color: 'danger' }
 ]
 
 const bottomMetrics = [
-  { label: 'Avg. Order Amount', value: '$240.00', change: '+12.45', icon: DollarSign },
-  { label: 'Total Pending Order', value: '42', change: '-2.10', icon: Clock },
-  { label: 'Total Sale Amount', value: '$1.2M', change: '+18.50', icon: TrendingUp }
+  { label: 'Avg. Order Amount', value: '$240.00', change: '+12.45', icon: DollarSign, iconName: 'currency-dollar', color: 'success' },
+  { label: 'Total Pending Order', value: '42', change: '-2.10', icon: Clock, iconName: 'clock', color: 'warning' },
+  { label: 'Total Sale Amount', value: '$1.2M', change: '+18.50', icon: TrendingUp, iconName: 'trending-up', color: 'primary' }
 ]
 </script>
