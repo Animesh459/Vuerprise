@@ -174,7 +174,7 @@ const stats = [
       </div>
 
       <!-- Stats Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+      <div class="grid grid-cols-4 gap-6 mt-8">
         <div class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-blue-50 to-white">
           <div class="flex items-center justify-between mb-3">
             <h4 class="text-sm font-semibold text-gray-600">TOTAL COLORS</h4>

@@ -31,7 +31,7 @@
 
       <div class="common-card-new">
         <!-- Product Grid -->
-        <div class="grid grid-cols-2 gap-x-4 gap-y-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10">
+        <div class="grid gap-x-4 gap-y-4 grid-cols-10">
           <ProductCard
               v-for="product in products"
               :key="product.id"

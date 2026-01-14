@@ -16,7 +16,7 @@
 
 
         <!-- Metrics Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-4 gap-6">
           <StatsCard
             v-for="metric in mainMetrics"
             :key="metric.label"
@@ -29,8 +29,8 @@
         </div>
 
         <!-- Charts Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-2 p-6 border border-zinc-200 bg-white rounded-xl flex flex-col">
+        <div class="grid grid-cols-3 gap-6">
+          <div class="col-span-2 p-6 border border-zinc-200 bg-white rounded-xl flex flex-col">
             <div class="flex justify-between items-center mb-8">
               <div>
                 <h3 class="text-sm font-bold uppercase tracking-widest">Revenue Overview</h3>
@@ -76,7 +76,7 @@
         </div>
 
         <!-- Bottom Metrics -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6">
           <StatsCard
             v-for="item in bottomMetrics"
             :key="item.label"

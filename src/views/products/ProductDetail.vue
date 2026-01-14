@@ -2,7 +2,7 @@
 
 <!--  <ProductInfo />-->
 <!--  <Inventory />-->
-  <div class="bg-white">
+  <div class="">
 
     <div class="flex flex-col  pb-4  ">
         <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Create New Product</h1>
@@ -111,7 +111,7 @@
         </div>
 
         <!-- Image Gallery -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="grid grid-cols-6 gap-4">
           <div class="relative group overflow-hidden rounded-lg bg-gray-100 h-40">
             <img src="/product/1.jpg" alt="Product" class="w-full h-full object-cover group-hover:scale-110 transition" />
           </div>
