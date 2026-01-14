@@ -1,14 +1,13 @@
 <template>
-  <div
-    class="group relative flex flex-col bg-white rounded-md overflow-hidden transition-all duration-300 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 cursor-pointer"
-    :class="{ 'ring-2 ring-blue-600 ring-offset-2': isSelected }"
+  <router-link 
+    :to="`/products/${product.id}/edit`"
+    class="group relative flex flex-col border border-neutral-200 bg-white transition-all hover:border-gray-900 cursor-pointer"
   >
-    <!-- Image Container -->
-    <div class="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
+    <div class="relative aspect-[4/5] overflow-hidden bg-neutral-100">
       <img
-        :src="getProductImage(product.image) || '/placeholder.svg'"
-        :alt="product.name"
-        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          :src="productImage"
+          :alt="product.product_name || product.style_no"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
 
       <!-- Gradient Overlay on Hover -->
@@ -16,67 +15,92 @@
 
       <!-- Stock Badge -->
       <div
-        v-if="product.inStock"
-        class="absolute top-2 right-2 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-full shadow-sm"
+          v-if="categoryName"
+          class="absolute top-2 right-2 bg-white/90 px-2 py-0.5 text-[10px] font-bold tracking-tight text-black backdrop-blur-sm"
       >
-        <span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
-        <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">In Stock</span>
+        {{ categoryName }}
       </div>
-
-      <!-- Out of Stock Badge -->
-      <div
-        v-else
-        class="absolute top-2 right-2 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm px-2.5 py-1 rounded-full"
-      >
-        <span class="text-[10px] font-bold text-white uppercase tracking-wide">Sold Out</span>
+      <div class="absolute bottom-2 left-2" @click.prevent.stop>
+        <input
+            type="checkbox"
+            :checked="selected"
+            @change="$emit('toggle-select')"
+            class="relative h-4 w-4 appearance-none border border-black/20 bg-white/50 rounded-sm cursor-pointer
+    checked:bg-black checked:border-black
+    after:content-['✓'] after:absolute after:inset-0
+    after:flex after:items-center after:justify-center
+    after:text-[10px] after:text-white after:font-bold
+    after:opacity-0 checked:after:opacity-100"
+        />
       </div>
-
-      <!-- Selection Checkbox -->
-      <div class="absolute top-2 left-2 z-10">
-        <BaseCheckbox label="" />
-      </div>
-
     </div>
-
-    <!-- Product Info -->
-    <div class="flex flex-col p-4">
-      <h3 class="text-sm font-semibold text-gray-900 tracking-tight line-clamp-1 group-hover:text-blue-600 transition-colors">
-        {{ product.name }}
-      </h3>
-      <p class="mt-1.5 text-xs font-medium text-gray-500 font-mono bg-gray-50 px-2 py-0.5 rounded w-fit">
-        {{ product.sku }}
+    <div class="flex flex-col p-3">
+      <h3 class="text-sm font-medium tracking-tight text-gray-900 line-clamp-2">{{ product.product_name || product.style_no }}</h3>
+      <p class="mt-1 text-xs font-medium text-gray-600 ">{{ product.style_no }}</p>
+      <p v-if="product.preorder_date" class="mt-3 text-[11px] font-medium text-gray-400 tabular-nums ">
+        Preorder Date: {{ formatDate(product.preorder_date) }}
       </p>
-      <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-        <p class="text-[11px] font-medium text-gray-400 tabular-nums flex items-center gap-1.5">
-          <Calendar class="w-3 h-3" />
-          {{ product.date }}
-        </p>
-      </div>
     </div>
-
-    <!-- Selection Indicator Bar -->
-    <div
-      v-if="isSelected"
-      class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-500"
-    ></div>
-  </div>
+  </router-link>
 </template>
 
 <script setup>
-import { Check, Eye, Pencil, Calendar, MoreHorizontal } from 'lucide-vue-next'
-import { getProductImage } from "@/utils/helper.js"
-import BaseCheckbox from "@/components/form/BaseCheckbox.vue";
+import { computed } from 'vue';
 
-defineProps({
+const props = defineProps({
   product: {
     type: Object,
     required: true
   },
-  isSelected: {
+  selected: {
     type: Boolean,
     default: false
   }
 })
 
 defineEmits(['toggle-select'])
+
+// Get the first product image URL
+const productImage = computed(() => {
+  if (props.product.images && props.product.images.length > 0) {
+    const firstImage = props.product.images[0];
+    // Use compressed_image_sf if available, otherwise use thumbs_image or original image
+    return firstImage.compressed_image_sf || firstImage.thumbs_image || firstImage.image || '/placeholder.svg';
+  }
+  
+  // Return placeholder if no image
+  return '/placeholder.svg';
+});
+
+// Get category breadcrumb path
+const categoryName = computed(() => {
+  const breadcrumbs = [];
+  
+  // Build breadcrumb from parent to most specific
+  if (props.product.parent_category && props.product.parent_category.name) {
+    breadcrumbs.push(props.product.parent_category.name);
+  }
+  
+  if (props.product.second_category && props.product.second_category.name) {
+    breadcrumbs.push(props.product.second_category.name);
+  }
+  
+  if (props.product.third_category && props.product.third_category.name) {
+    breadcrumbs.push(props.product.third_category.name);
+  }
+  
+  return breadcrumbs.join(' / ');
+});
+
+// Format date helper
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  }).toUpperCase();
+};
 </script>
