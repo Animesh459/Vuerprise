@@ -1,12 +1,27 @@
 <template>
-  <div class="flex  text-black">
+  <div class="flex text-black">
 
     <main class="flex-1">
 
       <div class="flex flex-col justify-between gap-5 border-b border-border pb-5 mb-5">
+        <!-- Page Header -->
         <div class="flex items-center justify-between">
-          <h1 class="text-3xl font-bold tracking-tighter ">Product Catalog</h1>
-          <p class="mt-2 font-semibold text-gray-600 uppercase">10 of 50 items selected</p>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+              <ShoppingBagIcon :size="24" class="text-white" />
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-gray-900">Product Catalog</h1>
+              <p class="text-sm text-gray-500 mt-0.5">Browse and manage your product inventory</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-50 text-orange-600 text-xs font-medium">
+              <PackageIcon :size="12" />
+              {{ products.length }} Products
+            </span>
+            <span class="text-sm font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">10 of 50 selected</span>
+          </div>
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <div class="flex flex-1">
@@ -46,7 +61,7 @@
 </template>
 
 <script setup>
-import { ChevronDown, Search, Grid, List, Filter } from 'lucide-vue-next'
+import { ChevronDown, Search, Grid, List, Filter, ShoppingBagIcon, PackageIcon } from 'lucide-vue-next'
 import ProductCard from './ProductCard.vue'
 import BaseInput from "@/components/form/BaseInput.vue";
 

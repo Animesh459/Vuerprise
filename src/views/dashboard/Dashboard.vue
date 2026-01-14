@@ -1,15 +1,25 @@
 <template>
-  <div class="flex  text-black">
+  <div class="flex text-black">
 
     <main class="flex-1 overflow-y-auto">
-      <section class="flex flex-col  pb-4">
-        <div class="flex justify-between items-end mb-1">
-          <h1 class="text-3xl font-bold tracking-tighter ">Welcome, Mello User</h1>
-          <p class="text-xs font-mono text-zinc-500 uppercase tracking-widest">LAST SYNC: {{ currentTime }}</p>
+      <!-- Page Header -->
+      <section class="flex items-center justify-between pb-6">
+        <div class="flex items-center gap-4">
+          <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+            <LayoutDashboard :size="24" class="text-white" />
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900">Welcome back, Mello</h1>
+            <p class="text-sm text-gray-500 mt-0.5">Here's what's happening with your store today</p>
+          </div>
         </div>
-        <p class="text-sm text-text-muted-light mt-1">
-          Good to see you boss! System status: Nominal.
-        </p>
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-600 text-xs font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            System Online
+          </span>
+          <span class="text-xs font-mono text-zinc-400 bg-zinc-100 px-3 py-1.5 rounded-full">{{ currentTime }}</span>
+        </div>
       </section>
       <!-- Content -->
       <div class="common-card-new space-y-4">

@@ -4,9 +4,23 @@
 <!--  <Inventory />-->
   <div class="">
 
-    <div class="flex flex-col  pb-4  ">
-        <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Create New Product</h1>
-        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Fill in the details below to add a new product to the inventory.</p>
+    <!-- Page Header -->
+    <div class="flex items-center justify-between pb-6">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+          <PlusCircleIcon :size="24" class="text-white" />
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Create New Product</h1>
+          <p class="text-sm text-gray-500 mt-0.5">Fill in the details below to add a new product to the inventory</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-50 text-cyan-600 text-xs font-medium">
+          <SparklesIcon :size="12" />
+          New Product
+        </span>
+      </div>
     </div>
 
     <div class="">
@@ -188,7 +202,7 @@ import { ref } from 'vue'
 import BaseInput from "@/components/form/BaseInput.vue";
 import BaseSelect from "@/components/form/BaseSelect.vue";
 import ProductInfo from "@/components/product/ProductInfo.vue";
-import {PackageIcon} from "lucide-vue-next";
+import { PackageIcon, PlusCircleIcon, SparklesIcon } from "lucide-vue-next";
 import BaseTextArea from "@/components/form/BaseTextArea.vue";
 import Inventory from "@/components/product/Inventory.vue";
 

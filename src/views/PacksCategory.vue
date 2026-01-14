@@ -1,8 +1,22 @@
 <template>
 <div>
-  <div class="flex flex-col   pb-4 ">
-    <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Packs Manager</h1>
-    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product Packs Here</p>
+  <!-- Page Header -->
+  <div class="flex items-center justify-between pb-6">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+        <BoxesIcon :size="24" class="text-white" />
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Packs Manager</h1>
+        <p class="text-sm text-gray-500 mt-0.5">Organize your product packs here</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-medium">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+        Live
+      </span>
+    </div>
   </div>
 
   <main class="">
@@ -171,7 +185,7 @@ import { ref, computed } from 'vue'
 
 import {
   ZapIcon, ArrowDownCircleIcon, AlertCircleIcon,
-  ChevronDownIcon, TrashIcon, EditIcon, CalendarIcon, PlusIcon
+  ChevronDownIcon, TrashIcon, EditIcon, CalendarIcon, PlusIcon, BoxesIcon
 } from 'lucide-vue-next';
 import Pagination from "@/components/Pagination.vue";
 import BaseSelect from "@/components/form/BaseSelect.vue";
