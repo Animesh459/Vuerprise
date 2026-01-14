@@ -100,7 +100,7 @@
           <button
               type="submit"
               :disabled="loading"
-              class="w-full py-3 px-4 bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95"
+              class="btn-primary-new w-full"
           >
             <span v-if="!loading">Sign In to Admin</span>
             <span v-else class="flex items-center justify-center gap-2">

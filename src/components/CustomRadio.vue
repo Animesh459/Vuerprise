@@ -24,11 +24,11 @@
               class="w-5 h-5 mr-2 rounded-full border flex items-center justify-center flex-shrink-0
                    transition duration-300 ease-in-out"
               :class="modelValue === option.value
-              ? 'border-neutral-200 '
-              : 'border-neutral-200 bg-white hover:border-neutral-200'"
+              ? 'border-border '
+              : 'border-border bg-white hover:border-border'"
           >
             <div
-                class="w-2.5 h-2.5 rounded-full bg-black
+                class="w-2.5 h-2.5 rounded-full bg-blue-600
                      transition-transform duration-300 ease-in-out"
                 :class="{ 'scale-100 opacity-100': modelValue === option.value, 'scale-0 opacity-0': modelValue !== option.value }"
             ></div>

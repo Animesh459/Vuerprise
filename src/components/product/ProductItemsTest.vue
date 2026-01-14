@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col bg-white font-sans text-black selection:bg-black selection:text-white">
+  <div class="flex text-black">
 
     <!-- Loading Overlay -->
     <div v-if="loading" class="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex items-center justify-center">
@@ -12,6 +12,7 @@
     <main class="flex-1">
 
       <div class="flex flex-col justify-between gap-5 border-b border-border pb-5 mb-5">
+        <!-- Page Header -->
         <div class="flex items-center justify-between">
           <div>
             <h1 class="text-3xl font-bold tracking-tighter ">
@@ -217,7 +218,7 @@
 </template>
 
 <script setup>
-import { ChevronDown, Search, Grid, List, Filter } from 'lucide-vue-next'
+import { ChevronDown, Search, Grid, List, Filter, ShoppingBagIcon, PackageIcon } from 'lucide-vue-next'
 import ProductCard from './ProductCard.vue'
 import ProductCloneModal from './ProductCloneModal.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'

@@ -2,16 +2,30 @@
 
 <!--  <ProductInfo />-->
 <!--  <Inventory />-->
-  <div class="bg-white">
+  <div class="">
 
-    <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
-        <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Create New Product</h1>
-        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Fill in the details below to add a new product to the inventory.</p>
+    <!-- Page Header -->
+    <div class="flex items-center justify-between pb-6">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+          <PlusCircleIcon :size="24" class="text-white" />
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Create New Product</h1>
+          <p class="text-sm text-gray-500 mt-0.5">Fill in the details below to add a new product to the inventory</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-50 text-cyan-600 text-xs font-medium">
+          <SparklesIcon :size="12" />
+          New Product
+        </span>
+      </div>
     </div>
 
     <div class="">
 
-      <div class="mb-8 p-4 border col-span-8 border-zinc-200 bg-white  transition-colors group ">
+      <div class="mb-8 common-card-new group ">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-1">
               <div class="w-10 h-10 rounded-lg  flex items-center justify-center">
@@ -111,7 +125,7 @@
         </div>
 
         <!-- Image Gallery -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="grid grid-cols-6 gap-4">
           <div class="relative group overflow-hidden rounded-lg bg-gray-100 h-40">
             <img src="/product/1.jpg" alt="Product" class="w-full h-full object-cover group-hover:scale-110 transition" />
           </div>
@@ -188,7 +202,7 @@ import { ref } from 'vue'
 import BaseInput from "@/components/form/BaseInput.vue";
 import BaseSelect from "@/components/form/BaseSelect.vue";
 import ProductInfo from "@/components/product/ProductInfo.vue";
-import {PackageIcon} from "lucide-vue-next";
+import { PackageIcon, PlusCircleIcon, SparklesIcon } from "lucide-vue-next";
 import BaseTextArea from "@/components/form/BaseTextArea.vue";
 import Inventory from "@/components/product/Inventory.vue";
 

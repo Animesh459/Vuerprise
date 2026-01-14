@@ -26,9 +26,10 @@
         <Dropdown ref="productDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+                class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
             >
-              Product <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
+              <Boxes :size="18" class="transition-colors" />
+              Product <ChevronDown :size="16" class="opacity-50 group-hover:opacity-70 transition-opacity"/>
             </button>
           </template>
 
@@ -43,14 +44,24 @@
           </template>
         </Dropdown>
 
-
+        <Dropdown ref="productSettingDropdown" contentClasses="w-56 left-0 right-auto">
+          <template #trigger>
+            <button
+                class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
+            >
+              <Settings2 :size="18" class="transition-colors" />
+              Product Setting <ChevronDown :size="16" class="opacity-50 group-hover:opacity-70 transition-opacity"/>
+            </button>
+          </template>
+        </Dropdown>
 
         <Dropdown ref="receivingDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+                class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
             >
-              Receiving <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
+              <PackageCheck :size="18" class="transition-colors" />
+              Receiving <ChevronDown :size="16" class="opacity-50 group-hover:opacity-70 transition-opacity"/>
             </button>
           </template>
 
@@ -65,15 +76,18 @@
           </template>
         </Dropdown>
 
-        <router-link to="/customer-orders" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+        <router-link to="/customer-orders" class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+          <ShoppingBag :size="18" />
           Customer Orders
         </router-link>
 
-        <router-link to="/inventory" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+        <router-link to="/inventory" class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+          <Warehouse :size="18" />
           Inventory
         </router-link>
 
-        <router-link to="/customers" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">
+        <router-link to="/customers" class="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+          <UsersRound :size="18" />
           Customers
         </router-link>
 
@@ -105,7 +119,7 @@
         <Dropdown ref="userDropdown">
           <template #trigger>
             <button
-                class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+                class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-blue-600 transition"
             >
               <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-gray-200">
                 <img
@@ -309,6 +323,6 @@ const buildCategoryTree = (cats) => {
 </script>
 <style scoped>
 .router-link-active {
-  color: #111827;
+  color: #2563eb;
 }
 </style>

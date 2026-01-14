@@ -15,8 +15,8 @@
         :required="required"
         :rows="rows"
         :class="[
-        'min-h-[100px] w-full border border-neutral-200 bg-neutral-50 p-4 text-sm transition-colors resize-none',
-        'placeholder:text-neutral-300 text-black focus:border-black focus:outline-none',
+        'min-h-[100px] rounded-xl w-full border border-border bg-white p-4 text-sm transition-colors resize-none',
+        'placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none',
         disabled ? 'opacity-50 cursor-not-allowed' : '',
         error ? 'border-red-500' : '',
         customClass

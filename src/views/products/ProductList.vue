@@ -1,10 +1,9 @@
 <template>
-  <div class="common-card p-0">
-<!--    <ProductItem />-->
-
+  <div class="">
     <ProductItemsTest />
-    <Pagination />
-
+    <div class="mt-8">
+      <Pagination />
+    </div>
   </div>
 </template>
 

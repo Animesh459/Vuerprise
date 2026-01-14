@@ -13,8 +13,8 @@
           @change="handleChange"
           :disabled="disabled"
           :class="[
-          'h-9 w-full appearance-none border border-neutral-200 bg-neutral-50 pl-4 pr-10 text-sm transition-colors',
-          'text-black focus:border-black focus:outline-none cursor-pointer',
+          'h-9 w-full rounded-xl appearance-none border border-border bg-white pl-4 pr-10 text-sm transition-colors',
+          'text-black focus:border-blue-600 focus:outline-none cursor-pointer',
           disabled ? 'opacity-50 cursor-not-allowed' : '',
           customClass
         ]"

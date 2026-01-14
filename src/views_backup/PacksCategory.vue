@@ -1,19 +1,37 @@
 <template>
 <div>
-  <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
-    <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Packs Manager</h1>
-    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product Packs Here</p>
+  <!-- Page Header -->
+  <div class="flex items-center justify-between pb-6">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+        <BoxesIcon :size="24" class="text-white" />
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Packs Manager</h1>
+        <p class="text-sm text-gray-500 mt-0.5">Organize your product packs here</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-medium">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+        Live
+      </span>
+    </div>
   </div>
 
   <main class="">
 
       <div class="common-card-new mb-8">
         <div class="mb-5">
-          <h2 class="text-xl font-semibold text-gray-700 flex items-center gap-2">
-            <span class="flex items-center justify-center ">+</span>
-            Create New Pack
-          </h2>
-          <p class="text-sm text-gray-700 mt-1">Configure size options and pack specifications</p>
+          <div class="flex items-center gap-3">
+            <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/25">
+              <PlusIcon :size="18" class="text-white" />
+            </div>
+            <div>
+              <h2 class="text-lg font-semibold text-gray-900">Create New Pack</h2>
+              <p class="text-sm text-gray-500">Configure size options and pack specifications</p>
+            </div>
+          </div>
         </div>
 
         <div class="space-y-5">
@@ -44,8 +62,10 @@
           </div>
 
           <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-6 border-t border-border">
-            <button class="text-blue-500 font-medium text-sm flex items-center gap-2 transition-colors">
-              <span class="text-lg">+</span>
+            <button class="text-blue-600 font-medium text-sm flex items-center gap-2 hover:text-blue-700 transition-colors group">
+              <span class="flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 group-hover:bg-blue-100 transition-colors">
+                <PlusIcon :size="14" />
+              </span>
               <span>Add More Options</span>
             </button>
             <div class="flex gap-3 w-full md:w-auto">
@@ -98,57 +118,59 @@
         </div>
       </div>
 
-      <div class="overflow-x-auto border border-border">
-        <table class="w-full text-sm">
-          <thead>
-          <tr class="border-b border-gray-200">
-            <th v-for="header in tableHeaders" :key="header" class="px-4 py-3 text-left font-semibold text-gray-700">
-              {{ header }}
-            </th>
-          </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-800/50">
-          <tr v-for="(row, index) in inventoryData" :key="index" class="border-b border-gray-100 hover:bg-gray-50 transition">
-            <td class="px-6 py-5">
-          <span class="text-sm font-semibold text-gray-700 tracking-tight">
-            {{ row.sizeName }}
-          </span>
-            </td>
-
-            <td class="px-6 py-5">
-          <span class="text-sm text-gray-700 font-medium">
-            {{ row.details }}
-          </span>
-            </td>
-
-            <td class="px-6 py-5">
-              <div class="inline-block text-gray-700 px-3 py-1 ">
-                {{ row.packConfig }}
-              </div>
-            </td>
-
-            <td class="px-6 py-5">
-              <div class="flex items-center gap-2">
-                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></div>
-                <span :class="statusColor(row.status)" class="text-xs font-bold tracking-wide">
-              {{ row.status }}
+      <div class="common-card-new mb-8">
+        <div class="table-container">
+          <table class="table">
+            <thead>
+            <tr class="">
+              <th v-for="header in tableHeaders" :key="header" class="">
+                {{ header }}
+              </th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+            <tr v-for="(row, index) in inventoryData" :key="index" class="">
+              <td class="px-6 py-5">
+            <span class="text-sm font-semibold text-gray-700 tracking-tight">
+              {{ row.sizeName }}
             </span>
-              </div>
-            </td>
+              </td>
 
-            <td class="px-6 py-5">
-              <div class="flex items-center gap-2">
-                <button class="p-2  text-gray-700  transition-all">
-                  <EditIcon :size="16" />
-                </button>
-                <button @click="deleteRow(index)" class="p-2  text-gray-700 hover:text-rose-500 transition-all">
-                  <TrashIcon :size="16" />
-                </button>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+              <td class="">
+            <span class="text-sm text-gray-700 font-medium">
+              {{ row.details }}
+            </span>
+              </td>
+
+              <td class="">
+                <div class="inline-block text-gray-700 px-3 py-1 ">
+                  {{ row.packConfig }}
+                </div>
+              </td>
+
+              <td class="">
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></div>
+                  <span :class="statusColor(row.status)" class="text-xs font-bold tracking-wide">
+                {{ row.status }}
+              </span>
+                </div>
+              </td>
+
+              <td class="">
+                <div class="flex items-center gap-2">
+                  <button class="p-2  text-gray-700  transition-all">
+                    <EditIcon :size="16" />
+                  </button>
+                  <button @click="deleteRow(index)" class="p-2  text-gray-700 hover:text-rose-500 transition-all">
+                    <TrashIcon :size="16" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <Pagination />
@@ -163,7 +185,7 @@ import { ref, computed } from 'vue'
 
 import {
   ZapIcon, ArrowDownCircleIcon, AlertCircleIcon,
-  ChevronDownIcon, TrashIcon, EditIcon, CalendarIcon
+  ChevronDownIcon, TrashIcon, EditIcon, CalendarIcon, PlusIcon, BoxesIcon
 } from 'lucide-vue-next';
 import Pagination from "@/components/Pagination.vue";
 import BaseSelect from "@/components/form/BaseSelect.vue";
