@@ -71,67 +71,68 @@
 
     <!-- Inventory Management Table -->
     <div v-if="inventories.length > 0" class="mt-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-1">Inventory Management</h3>
-      <p class="text-sm text-gray-600 mb-4">Manage stock levels for each color variant</p>
+      <div class="common-card-new">
+        <h3 class="text-lg font-bold text-gray-900 mb-1">Inventory Management</h3>
+        <p class="text-sm text-gray-600 mb-4">Manage stock levels for each color variant</p>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b border-t border-gray-200">
-              <th class="px-4 py-3 text-left font-semibold text-gray-700">Color</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-700">Physical Qty</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-700">Incoming Qty</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-700">Outgoing Qty</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-700">Projected Qty</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-700">Stock Status (Auto)</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-700">Preorder Date</th>
-              <th class="px-4 py-3 text-left font-semibold text-gray-700">Action</th>
+        <div class="table-container">
+          <table class="table">
+            <thead>
+            <tr class="">
+              <th class="">Color</th>
+              <th class="">Physical Qty</th>
+              <th class="">Incoming Qty</th>
+              <th class="">Outgoing Qty</th>
+              <th class="">Projected Qty</th>
+              <th class="">Stock Status (Auto)</th>
+              <th class="">Preorder Date</th>
+              <th class="">Action</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
             <tr
-              v-for="(inventory, index) in inventories"
-              :key="index"
-              class="border-b border-gray-100 hover:bg-gray-50 transition"
+                v-for="(inventory, index) in inventories"
+                :key="index"
+                class=""
             >
               <!-- Color -->
-              <td class="px-4 py-4 flex items-center gap-2">
+              <td class="">
                 <div
-                  class="w-4 h-4 rounded-full border border-gray-300"
-                  :style="{ backgroundColor: inventory.color?.master_color?.code || '#cccccc' }"
+                    class="w-4 h-4 rounded-full border border-gray-300"
+                    :style="{ backgroundColor: inventory.color?.master_color?.code || '#cccccc' }"
                 ></div>
                 <span class="font-medium text-gray-900">{{ inventory.color?.name }}</span>
               </td>
 
               <!-- Physical Qty -->
-              <td class="px-4 py-4">
+              <td class="">
                 <input
-                  type="number"
-                  min="0"
-                  v-model.number="inventory.physical_qty"
-                  @input="calculateProjected(index)"
-                  class="w-20 px-2 py-1 border border-gray-300 rounded text-right"
+                    type="number"
+                    min="0"
+                    v-model.number="inventory.physical_qty"
+                    @input="calculateProjected(index)"
+                    class="w-20 px-2 py-1 border border-gray-300 rounded text-right"
                 />
               </td>
 
               <!-- Incoming Qty (Read-only) -->
-              <td class="px-4 py-4">
+              <td class="">
                 <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">
                   {{ inventory.incoming_qty || 0 }}
                 </span>
               </td>
 
               <!-- Outgoing Qty (Read-only) -->
-              <td class="px-4 py-4">
+              <td class="">
                 <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded">
                   {{ inventory.outgoing_qty || 0 }}
                 </span>
               </td>
 
               <!-- Projected Qty (Auto-calculated) -->
-              <td class="px-4 py-4">
+              <td class="">
                 <span
-                  :class="[
+                    :class="[
                     'px-2 py-1 text-xs font-semibold rounded',
                     inventory.projected_qty > inventory.reorder_level
                       ? 'bg-green-100 text-green-700'
@@ -143,9 +144,9 @@
               </td>
 
               <!-- Stock Status (Auto-calculated, Read-only) -->
-              <td class="px-4 py-4">
+              <td class="">
                 <span
-                  :class="[
+                    :class="[
                     'px-2 py-1 text-xs font-semibold rounded',
                     getStockStatusColor(inventory.stock_status)
                   ]"
@@ -155,27 +156,29 @@
               </td>
 
               <!-- Expected Arrival -->
-              <td class="px-4 py-4">
+              <td class="">
                 <input
-                  type="date"
-                  v-model="inventory.expected_arrival_date"
-                  :disabled="!inventory.incoming_qty"
-                  class="px-2 py-1 border border-gray-300 rounded text-xs"
+                    type="date"
+                    v-model="inventory.expected_arrival_date"
+                    :disabled="!inventory.incoming_qty"
+                    class="px-2 py-1 border border-gray-300 rounded text-xs"
                 />
               </td>
 
               <!-- Action -->
-              <td class="px-4 py-4">
+              <td class="">
                 <button
-                  @click="removeInventory(index)"
-                  class="px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded hover:bg-red-600 transition"
+                    @click="removeInventory(index)"
+                    class="px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded hover:bg-red-600 transition"
                 >
                   DELETE
                 </button>
               </td>
             </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
+
       </div>
 
       <!-- Summary Stats -->
@@ -374,31 +377,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.btn-primary-new,
-.btn-secondary-new {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  font-size: 0.875rem;
-  transition: all 0.2s;
-}
 
-.btn-primary-new {
-  background-color: #000000;
-  color: white;
-}
-
-.btn-primary-new:hover {
-  background-color: #1f1f1f;
-}
-
-.btn-secondary-new {
-  background-color: #f3f4f6;
-  color: #374151;
-}
-
-.btn-secondary-new:hover {
-  background-color: #e5e7eb;
-}
-</style>

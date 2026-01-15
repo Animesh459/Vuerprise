@@ -14,14 +14,20 @@
       <div class="flex flex-col justify-between gap-5 border-b border-border pb-5 mb-5">
         <!-- Page Header -->
         <div class="flex items-center justify-between">
-          <div>
-            <h1 class="text-3xl font-bold tracking-tighter ">
-              {{ categoryBreadcrumb ? `${categoryBreadcrumb} Products` : 'Product Catalog' }}
-            </h1>
-            <p class="mt-2 font-semibold text-gray-600 uppercase">
-              {{ pagination.total || 0 }} items
-            </p>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+              <ShoppingBagIcon :size="24" class="text-white" />
+            </div>
+            <div>
+              <h1 class="text-3xl font-bold tracking-tighter ">
+                {{ categoryBreadcrumb ? `${categoryBreadcrumb} Products` : 'Product Catalog' }}
+              </h1>
+              <p class="mt-2 font-semibold text-gray-600 uppercase">
+                {{ pagination.total || 0 }} items
+              </p>
+            </div>
           </div>
+
           <router-link to="/products/create" class="btn-primary-new flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 5v14M5 12h14"/>
@@ -127,16 +133,18 @@
       <div v-if="!loading && products.length === 0" class="flex justify-center items-center py-20">
         <div class="text-gray-500">No products found {{ categoryName ? `in ${categoryName}` : '' }}</div>
       </div>
-      
-      <div v-if="!loading && products.length > 0" class="grid grid-cols-2 gap-x-4 gap-y-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10">
-        <ProductCard
-            v-for="product in products"
-            :key="product.id"
-            :product="product"
-            :selected="isSelected(product.id)"
-            @toggle-select="toggleSelect(product.id)"
-        />
+      <div class="common-card-new">
+        <div v-if="!loading && products.length > 0" class="grid gap-x-4 gap-y-4 grid-cols-10">
+          <ProductCard
+              v-for="product in products"
+              :key="product.id"
+              :product="product"
+              :selected="isSelected(product.id)"
+              @toggle-select="toggleSelect(product.id)"
+          />
+        </div>
       </div>
+
 
       <!-- Pagination -->
       <div v-if="pagination.last_page > 1" class="mt-8 flex items-center justify-between border-t border-gray-200 pt-6">

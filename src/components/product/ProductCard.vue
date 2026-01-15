@@ -1,13 +1,13 @@
 <template>
   <router-link 
     :to="`/products/${product.id}/edit`"
-    class="group relative flex flex-col border border-neutral-200 bg-white transition-all hover:border-gray-900 cursor-pointer"
+    class="group relative flex flex-col bg-white rounded-md overflow-hidden transition-all duration-300 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 cursor-pointer"
   >
-    <div class="relative aspect-[4/5] overflow-hidden bg-neutral-100">
+    <div class="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
       <img
           :src="productImage"
           :alt="product.product_name || product.style_no"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
 
       <!-- Gradient Overlay on Hover -->
