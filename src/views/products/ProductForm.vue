@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white min-h-screen">
+  <div class=" min-h-screen">
     <!-- Loading Overlay -->
     <div v-if="loading" class="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex items-center justify-center">
       <div class="text-center">
@@ -9,14 +9,20 @@
     </div>
 
     <!-- Header Section -->
-    <div class="flex flex-col border-b border-border pb-4 mb-6">
+    <div class="flex flex-col  pb-4">
       <div class="flex items-center justify-between">
-        <div>
-          <h1 class="text-3xl font-bold tracking-tighter text-gray-900">
-            {{ formTitle }}
-          </h1>
-          <p class="text-sm text-gray-600 mt-1">{{ formSubtitle }}</p>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+            <PlusCircleIcon :size="24" class="text-white" />
+          </div>
+          <div>
+            <h1 class="text-3xl font-bold tracking-tighter text-gray-900">
+              {{ formTitle }}
+            </h1>
+            <p class="text-sm text-gray-600 mt-1">{{ formSubtitle }}</p>
+          </div>
         </div>
+
         <div class="flex gap-2">
           <button
             @click="submit"
@@ -53,158 +59,161 @@
     <!-- All Content in One Page (No Tabs) -->
     <div class="space-y-8 pb-8">
       <!-- Product Info Section -->
-      <div class="p-6 border border-zinc-200 bg-white space-y-6">
-        <div class="flex items-center justify-between mb-6">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg flex items-center justify-center">
-              <PackageIcon class="text-blue-500" :size="24" />
+      <div class="common-card-new">
+        <div class=" space-y-6">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center">
+                <PackageIcon class="text-blue-500" :size="24" />
+              </div>
+              <h2 class="text-lg font-bold text-gray-900">Product Information</h2>
             </div>
-            <h2 class="text-lg font-bold text-gray-900">Product Information</h2>
-          </div>
-          <!-- Status Toggle -->
-          <div class="flex items-center gap-4 p-1.5 rounded-full border border-zinc-200">
-            <button
-              @click="form.status = 1"
-              :class="[
+            <!-- Status Toggle -->
+            <div class="flex items-center gap-4 p-1.5 rounded-full border border-zinc-200">
+              <button
+                  @click="form.status = 1"
+                  :class="[
                 'flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all',
                 form.status === 1 ? 'bg-blue-500 text-white' : 'text-slate-500 hover:text-slate-300'
               ]"
-            >
-              <div class="w-2 h-2 rounded-full" :class="form.status === 1 ? 'bg-white' : 'bg-slate-600'"></div>
-              ACTIVE
-            </button>
-            <button
-              @click="form.status = 0"
-              :class="[
+              >
+                <div class="w-2 h-2 rounded-full" :class="form.status === 1 ? 'bg-white' : 'bg-slate-600'"></div>
+                ACTIVE
+              </button>
+              <button
+                  @click="form.status = 0"
+                  :class="[
                 'flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold transition-all',
                 form.status === 0 ? 'bg-rose-500 text-white' : 'text-slate-500 hover:text-slate-300'
               ]"
-            >
-              <div class="w-2 h-2 rounded-full" :class="form.status === 0 ? 'bg-white' : 'bg-slate-600'"></div>
-              INACTIVE
-            </button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-12 gap-6">
-          <!-- Left Column -->
-          <div class="col-span-6 space-y-4">
-            
-            <!-- Style No & SKU -->
-            <div class="grid grid-cols-2 gap-4">
-              <BaseInput
-                label="Style No"
-                v-model="form.style_no"
-                :error="getError('style_no')"
-                required
-              />
-              <BaseInput
-                label="SKU"
-                v-model="form.sku"
-                :error="getError('sku')"
-              />
+              >
+                <div class="w-2 h-2 rounded-full" :class="form.status === 0 ? 'bg-white' : 'bg-slate-600'"></div>
+                INACTIVE
+              </button>
             </div>
-
-            <!-- Size & Pack -->
-            <div class="grid grid-cols-2 gap-4">
-              <BaseSelect
-                label="Size"
-                v-model="form.size_id"
-                :options="sizeOptions"
-                @change="onSizeChange"
-                :error="getError('size_id')"
-                required
-              />
-              <BaseSelect
-                label="Pack"
-                v-model="form.pack_id"
-                :options="packOptions"
-                :error="getError('pack_id')"
-                required
-              />
-            </div>
-
-            <!-- Pricing -->
-            <BaseInput
-              label="FOB Price"
-              type="number"
-              step="0.01"
-              v-model="form.fob_price"
-              :error="getError('fob_price')"
-              required
-            />
-            <BaseInput
-              label="Landed Price"
-              type="number"
-              step="0.01"
-              v-model="form.landed_price"
-              :error="getError('landed_price')"
-              required
-            />
-            <BaseInput
-              label="Resale Price"
-              type="number"
-              step="0.01"
-              v-model="form.resale_price"
-              :error="getError('resale_price')"
-              required
-            />
           </div>
 
-          <!-- Right Column -->
-          <div class="col-span-6 space-y-4">
-            <!-- Slug (Only for Edit) -->
-            <BaseInput
-              v-if="type === 'edit'"
-              label="Product Slug"
-              v-model="form.slug"
-              :error="getError('slug')"
-            />
-            <!-- Product Name -->
-            <BaseInput
-              label="Product Name"
-              v-model="form.product_name"
-              :error="getError('product_name')"
-            />
+          <div class="grid grid-cols-12 gap-6">
+            <!-- Left Column -->
+            <div class="col-span-6 space-y-4">
 
-            <!-- Category Selection -->
-            <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-700">Default Category <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-3 gap-2">
-                <BaseSelect
-                  v-model="form.parent_category_id"
-                  :options="parentCategoryOptions"
-                  placeholder="-- Select Parent --"
-                  @change="onParentCategoryChange"
-                  :error="getError('parent_category_id')"
+              <!-- Style No & SKU -->
+              <div class="grid grid-cols-2 gap-4">
+                <BaseInput
+                    label="Style No"
+                    v-model="form.style_no"
+                    :error="getError('style_no')"
+                    required
                 />
-                <BaseSelect
-                  v-model="form.second_category_id"
-                  :options="secondCategoryOptions"
-                  placeholder="-- Select Second --"
-                  @change="onSecondCategoryChange"
-                  :disabled="!form.parent_category_id"
-                />
-                <BaseSelect
-                  v-model="form.third_category_id"
-                  :options="thirdCategoryOptions"
-                  placeholder="-- Select Third --"
-                  :disabled="!form.second_category_id"
+                <BaseInput
+                    label="SKU"
+                    v-model="form.sku"
+                    :error="getError('sku')"
                 />
               </div>
+
+              <!-- Size & Pack -->
+              <div class="grid grid-cols-2 gap-4">
+                <BaseSelect
+                    label="Size"
+                    v-model="form.size_id"
+                    :options="sizeOptions"
+                    @change="onSizeChange"
+                    :error="getError('size_id')"
+                    required
+                />
+                <BaseSelect
+                    label="Pack"
+                    v-model="form.pack_id"
+                    :options="packOptions"
+                    :error="getError('pack_id')"
+                    required
+                />
+              </div>
+
+              <!-- Pricing -->
+              <BaseInput
+                  label="FOB Price"
+                  type="number"
+                  step="0.01"
+                  v-model="form.fob_price"
+                  :error="getError('fob_price')"
+                  required
+              />
+              <BaseInput
+                  label="Landed Price"
+                  type="number"
+                  step="0.01"
+                  v-model="form.landed_price"
+                  :error="getError('landed_price')"
+                  required
+              />
+              <BaseInput
+                  label="Resale Price"
+                  type="number"
+                  step="0.01"
+                  v-model="form.resale_price"
+                  :error="getError('resale_price')"
+                  required
+              />
             </div>
 
-            <!-- Description -->
-            <BaseTextArea
-              label="Description"
-              v-model="form.description"
-              rows="8"
-              placeholder="The following special characters are not allowed: <, >, {, }, ^, [, ], =, @, ;"
-              :error="getError('description')"
-              required
-            />
+            <!-- Right Column -->
+            <div class="col-span-6 space-y-4">
+              <!-- Slug (Only for Edit) -->
+              <BaseInput
+                  v-if="type === 'edit'"
+                  label="Product Slug"
+                  v-model="form.slug"
+                  :error="getError('slug')"
+              />
+              <!-- Product Name -->
+              <BaseInput
+                  label="Product Name"
+                  v-model="form.product_name"
+                  :error="getError('product_name')"
+              />
+
+              <!-- Category Selection -->
+              <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Default Category <span class="text-red-500">*</span></label>
+                <div class="grid grid-cols-3 gap-2">
+                  <BaseSelect
+                      v-model="form.parent_category_id"
+                      :options="parentCategoryOptions"
+                      placeholder="-- Select Parent --"
+                      @change="onParentCategoryChange"
+                      :error="getError('parent_category_id')"
+                  />
+                  <BaseSelect
+                      v-model="form.second_category_id"
+                      :options="secondCategoryOptions"
+                      placeholder="-- Select Second --"
+                      @change="onSecondCategoryChange"
+                      :disabled="!form.parent_category_id"
+                  />
+                  <BaseSelect
+                      v-model="form.third_category_id"
+                      :options="thirdCategoryOptions"
+                      placeholder="-- Select Third --"
+                      :disabled="!form.second_category_id"
+                  />
+                </div>
+              </div>
+
+              <!-- Description -->
+              <BaseTextArea
+                  label="Description"
+                  v-model="form.description"
+                  rows="8"
+                  placeholder="The following special characters are not allowed: <, >, {, }, ^, [, ], =, @, ;"
+                  :error="getError('description')"
+                  required
+              />
+            </div>
           </div>
         </div>
+
       </div>
 
       <!-- Colors & Inventory Section -->
@@ -246,7 +255,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { PackageIcon } from 'lucide-vue-next';
+import { PackageIcon, PlusCircleIcon } from 'lucide-vue-next';
 import apiClient from '@/utils/axios';
 import BaseInput from '@/components/form/BaseInput.vue';
 import BaseSelect from '@/components/form/BaseSelect.vue';
@@ -553,31 +562,3 @@ watch([() => route.params.id, () => props.type], () => {
 });
 </script>
 
-<style scoped>
-.btn-primary-new,
-.btn-secondary-new {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  font-size: 0.875rem;
-  transition: all 0.2s;
-}
-
-.btn-primary-new {
-  background-color: #000000;
-  color: white;
-}
-
-.btn-primary-new:hover {
-  background-color: #1f1f1f;
-}
-
-.btn-secondary-new {
-  background-color: #f3f4f6;
-  color: #374151;
-}
-
-.btn-secondary-new:hover {
-  background-color: #e5e7eb;
-}
-</style>

@@ -95,9 +95,10 @@
         <Dropdown ref="userManagementDropdown" contentClasses="w-56 left-0 right-auto">
           <template #trigger>
             <button
-                class="relative flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+                class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
             >
-              User Management <ChevronDown :size="16" class="text-zinc-500 group-hover:text-zinc-500 transition-colors"/>
+              <ContactRound :size="18" />
+              User Management <ChevronDown :size="16" class="opacity-50 group-hover:opacity-70 transition-opacity"/>
             </button>
           </template>
 
@@ -198,8 +199,7 @@
 <script setup>
 
  import {h, ref, watch, onMounted, computed} from 'vue'
- import {User, Settings, LogOut, ChevronDown} from 'lucide-vue-next'
-
+ import {User, ContactRound, Settings, LogOut, ChevronDown, Boxes, Settings2, PackageCheck, ShoppingBag, Warehouse, UsersRound} from 'lucide-vue-next'
  import Dropdown from "@/components/Dropdown.vue";
  import DropdownItem from "@/components/DropdownItem.vue";
  import ConfirmModal from "@/components/ConfirmModal.vue";
