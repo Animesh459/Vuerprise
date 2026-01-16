@@ -51,10 +51,10 @@
           :key="color.id"
           @click="toggleColor(color)"
           :class="[
-            'flex items-center gap-2 border p-3 rounded-lg cursor-pointer transition-all',
+            'flex items-center gap-2 border p-2 rounded-xl cursor-pointer transition-all',
             isColorSelected(color.id)
               ? 'border-blue-500 bg-blue-50'
-              : 'border-zinc-200 hover:border-blue-300'
+              : 'border-zinc-200 hover:border-blue-600'
           ]"
         >
           <div
@@ -98,11 +98,14 @@
               >
                 <!-- Color -->
                 <td class="">
-                  <div
-                      class="w-4 h-4 rounded-full border border-gray-300"
-                      :style="{ backgroundColor: inventory.color?.master_color?.code || '#cccccc' }"
-                  ></div>
-                  <span class="font-medium text-gray-900">{{ inventory.color?.name }}</span>
+                  <div class="flex gap-2 items-center">
+                    <div
+                        class="w-4 h-4 rounded-full border border-gray-300"
+                        :style="{ backgroundColor: inventory.color?.master_color?.code || '#cccccc' }"
+                    ></div>
+                    <span class="font-medium text-gray-900">{{ inventory.color?.name }}</span>
+                  </div>
+
                 </td>
 
                 <!-- Physical Qty -->
@@ -112,7 +115,7 @@
                       min="0"
                       v-model.number="inventory.physical_qty"
                       @input="calculateProjected(index)"
-                      class="w-20 px-2 py-1 border border-gray-300 rounded text-right"
+                      class="w-20 h-9 placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none border border-border rounded-xl bg-white  text-sm transition-colors text-right"
                   />
                 </td>
 
@@ -162,7 +165,7 @@
                       type="date"
                       v-model="inventory.expected_arrival_date"
                       :disabled="!inventory.incoming_qty"
-                      class="px-2 py-1 border border-gray-300 rounded text-xs"
+                      class="h-9 pl-4 pr-4 placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none border border-border rounded-xl bg-white  text-sm transition-colors"
                   />
                 </td>
 
@@ -170,7 +173,7 @@
                 <td class="">
                   <button
                       @click="removeInventory(index)"
-                      class="px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded hover:bg-red-600 transition"
+                      class="px-2 py-1 text-xs font-semibold rounded bg-red-100 text-red-700"
                   >
                     DELETE
                   </button>
@@ -183,7 +186,7 @@
         </div>
 
         <!-- Summary Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+        <div class="grid grid-cols-4 gap-6 mt-8">
           <div class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-blue-50 to-white">
             <div class="flex items-center justify-between mb-3">
               <h4 class="text-sm font-semibold text-gray-600">TOTAL COLORS</h4>
