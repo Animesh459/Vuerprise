@@ -106,14 +106,14 @@
       <button
         type="button"
         @click="emit('cancel')"
-        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+        class="btn-secondary-new"
       >
         Cancel
       </button>
       <button
         type="submit"
         :disabled="loading"
-        class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition disabled:opacity-50"
+        class="btn-primary-new"
       >
         {{ loading ? 'Adding...' : 'Add Color' }}
       </button>
