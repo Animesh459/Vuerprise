@@ -62,7 +62,7 @@
       <div class="common-card-new">
         <div class=" space-y-6">
           <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1">
               <div class="w-10 h-10 rounded-lg flex items-center justify-center">
                 <PackageIcon class="text-blue-500" :size="24" />
               </div>

@@ -77,7 +77,7 @@
           <select 
             v-model="filters.status" 
             @change="handleFilterChange"
-            class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-black"
+            class="px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="">All Status</option>
             <option value="1">Active</option>
@@ -88,7 +88,7 @@
           <select 
             v-model="filters.per_page" 
             @change="handleFilterChange"
-            class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-black"
+            class="px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="10">10 per page</option>
             <option value="30">30 per page</option>
@@ -100,7 +100,7 @@
           <select 
             v-model="filters.sort" 
             @change="handleFilterChange"
-            class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-black"
+            class="px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="id">Sort by ID</option>
             <option value="style_no">Sort by Style No</option>
@@ -111,7 +111,7 @@
           <select 
             v-model="filters.sort_order" 
             @change="handleFilterChange"
-            class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-black"
+            class="px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-black"
           >
             <option value="desc">Descending</option>
             <option value="asc">Ascending</option>
@@ -155,14 +155,14 @@
           <button 
             @click="goToPage(1)"
             :disabled="pagination.current_page === 1"
-            class="px-3 py-2 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+            class="px-3 py-2 border border-gray-300 rounded-xl text-sm hover:border-blue-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
           >
             First
           </button>
           <button 
             @click="goToPage(pagination.current_page - 1)"
             :disabled="pagination.current_page === 1"
-            class="px-3 py-2 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+            class="px-3 py-2 border border-gray-300 hover:border-blue-600 rounded-xl text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
           >
             Previous
           </button>
@@ -173,9 +173,9 @@
               v-if="page !== '...'"
               @click="goToPage(page)"
               :class="[
-                'px-3 py-2 border rounded-md text-sm',
+                'px-3 py-2 border rounded-xl text-sm',
                 pagination.current_page === page 
-                  ? 'bg-black text-white border-black' 
+                  ? 'bg-blue-600 text-white border-blue-600'
                   : 'border-gray-300 hover:bg-gray-50'
               ]"
             >
@@ -187,14 +187,14 @@
           <button 
             @click="goToPage(pagination.current_page + 1)"
             :disabled="pagination.current_page === pagination.last_page"
-            class="px-3 py-2 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+            class="px-3 py-2 border border-gray-300  hover:border-blue-600 rounded-xl text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
           >
             Next
           </button>
           <button 
             @click="goToPage(pagination.last_page)"
             :disabled="pagination.current_page === pagination.last_page"
-            class="px-3 py-2 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+            class="px-3 py-2 border border-gray-300 rounded-xl hover:border-blue-600 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
           >
             Last
           </button>
