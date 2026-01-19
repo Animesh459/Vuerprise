@@ -3,7 +3,7 @@
     <button 
       @click="$emit('change-page', pagination.current_page - 1)"
       :disabled="pagination.current_page === 1"
-      class="px-3 py-2 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+      class="px-3 py-2 text-sm border border-gray-300 rounded hover:border-blue-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
     >
       Previous
     </button>
@@ -17,9 +17,9 @@
       :key="page"
       @click="$emit('change-page', page)"
       :class="[
-        'px-3 py-2 text-sm border rounded transition-colors',
+        'px-3 py-2 text-sm border rounded transition-colors hover:border-blue-600',
         page === pagination.current_page 
-          ? 'bg-black text-white border-black' 
+          ? 'bg-blue-600 text-white border-blue-600'
           : 'border-gray-300 hover:bg-gray-50'
       ]"
     >
@@ -29,7 +29,7 @@
     <button 
       @click="$emit('change-page', pagination.current_page + 1)"
       :disabled="pagination.current_page === pagination.last_page"
-      class="px-3 py-2 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+      class="px-3 py-2 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:border-blue-600 hover:bg-gray-50 transition-colors"
     >
       Next
     </button>

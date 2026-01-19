@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 border border-zinc-200 bg-white">
+  <div class="common-card-new">
     <!-- Header -->
     <div class="flex items-center gap-3 mb-6">
       <div class="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center">
@@ -294,23 +294,3 @@ const getError = (index, field) => {
   return props.allErrors?.[errorKey]?.[0] || '';
 };
 </script>
-
-<style scoped>
-.btn-primary-new {
-  padding: 1.5rem 1rem;
-  background-color: #000000;
-  color: white;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.btn-primary-new:hover {
-  background-color: #1f1f1f;
-}
-
-.ghost {
-  opacity: 0.5;
-  background: #f0f9ff;
-}
-</style>

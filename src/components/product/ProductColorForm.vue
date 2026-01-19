@@ -2,38 +2,25 @@
   <form @submit.prevent="submit" class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <!-- Master Color Selection -->
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">
-        Master Color <span class="text-red-500">*</span>
-      </label>
-      <select
+      <BaseSelect
         v-model="colorForm.master_color_id"
+        label="Master Color"
+        placeholder="-- Select Master Color --"
+        :options="masterColorOptions"
+        :error="errors.master_color_id ? errors.master_color_id[0] : ''"
         @change="onMasterColorChange"
-        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-      >
-        <option value="">-- Select Master Color --</option>
-        <option
-          v-for="masterColor in masterColors"
-          :key="masterColor.id"
-          :value="masterColor.id"
-        >
-          {{ masterColor.name }}
-        </option>
-      </select>
-      <small v-if="errors.master_color_id" class="text-red-500 block mt-1">{{ errors.master_color_id[0] }}</small>
+      />
     </div>
 
     <!-- Color Name -->
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">
-        Color Name <span class="text-red-500">*</span>
-      </label>
-      <input
+      <BaseInput
         v-model="colorForm.name"
-        type="text"
+        label="Color Name"
         placeholder="e.g., Dark Blue, Light Green"
-        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        :required="true"
+        :error="errors.name ? errors.name[0] : ''"
       />
-      <small v-if="errors.name" class="text-red-500 block mt-1">{{ errors.name[0] }}</small>
     </div>
 
     <!-- Color Code -->
@@ -42,11 +29,12 @@
         Color Code <span class="text-red-500">*</span>
       </label>
       <div class="flex gap-2">
-        <input
+        <BaseInput
           v-model="colorForm.color_code"
-          type="text"
           placeholder="#000000"
-          class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          :required="true"
+          :error="errors.color_code ? errors.color_code[0] : ''"
+          custom-class="flex-1"
         />
         <input
           v-model="colorForm.color_code"
@@ -54,7 +42,6 @@
           class="w-12 h-10 border border-gray-300 rounded-lg cursor-pointer"
         />
       </div>
-      <small v-if="errors.color_code" class="text-red-500 block mt-1">{{ errors.color_code[0] }}</small>
     </div>
 
     <!-- Color Image Upload -->
@@ -106,14 +93,14 @@
       <button
         type="button"
         @click="emit('cancel')"
-        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+        class="btn-secondary-new"
       >
         Cancel
       </button>
       <button
         type="submit"
         :disabled="loading"
-        class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition disabled:opacity-50"
+        class="btn-primary-new"
       >
         {{ loading ? 'Adding...' : 'Add Color' }}
       </button>
@@ -122,9 +109,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import apiClient from '@/utils/axios';
 import { useToast } from '@/composables/useToast';
+import BaseInput from '@/components/form/BaseInput.vue';
+import BaseSelect from '@/components/form/BaseSelect.vue';
 
 const emit = defineEmits(['color-added', 'cancel']);
 const { success, error } = useToast();
@@ -142,6 +131,14 @@ const imagePreview = ref('');
 const selectedFileName = ref('');
 const imageInput = ref(null);
 
+// Computed property to format masterColors for BaseSelect
+const masterColorOptions = computed(() => {
+  return masterColors.value.map(mc => ({
+    label: mc.name,
+    value: mc.id
+  }));
+});
+
 const fetchMasterColors = async () => {
   try {
     const response = await apiClient.get('/master-colors');
@@ -151,8 +148,8 @@ const fetchMasterColors = async () => {
   }
 };
 
-const onMasterColorChange = () => {
-  const selectedMaster = masterColors.value.find(mc => mc.id == colorForm.value.master_color_id);
+const onMasterColorChange = (value) => {
+  const selectedMaster = masterColors.value.find(mc => mc.id == value);
   if (selectedMaster) {
     // Auto-fill code if available
     if (selectedMaster.color_code && !colorForm.value.color_code) {

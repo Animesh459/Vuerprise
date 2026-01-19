@@ -65,6 +65,7 @@
     <div class="flex gap-2">
       <button class="btn-secondary-new"> Unselect All </button>
       <button class="btn-primary-new"> Clone Selected </button>
+      <button class="btn-danger-new"> Clone Selected </button>
     </div>
   </div>
 
