@@ -1,250 +1,243 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 @import "tailwindcss";
 body {
-    color: #4B5563;
-    font-size: 14px;
-    background: #f9fafb;
+  color: #4b5563;
+  font-size: 14px;
+  background: #f9fafb;
 }
-
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0 0 0);
-    --primary: oklch(0.546 0.245 262.881);
-    --primary-foreground: oklch(1 0 0);
-    --secondary: oklch(0.95 0 0);
-    --secondary-foreground: oklch(0 0 0);
-    --muted: oklch(0.98 0 0);
-    --muted-foreground: oklch(0.4 0 0);
-    --accent: oklch(0.606 0.221 262.881);
-    --accent-foreground: oklch(1 0 0);
-    --destructive: oklch(0.546 0.245 262.881);
-    --destructive-foreground: oklch(1 0 0);
-    --border: oklch(0.1 0 0 / 0.1);
-    --input: oklch(0.1 0 0 / 0.1);
-    --ring: oklch(0.546 0.245 262.881);
-    --chart-1: oklch(0.546 0.245 262.881);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --radius: 0rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.546 0.245 262.881);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.546 0.245 262.881);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0.546 0.245 262.881);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.98 0 0);
+  --muted-foreground: oklch(0.4 0 0);
+  --accent: oklch(0.606 0.221 262.881);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.546 0.245 262.881);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.1 0 0 / 0.1);
+  --input: oklch(0.1 0 0 / 0.1);
+  --ring: oklch(0.546 0.245 262.881);
+  --chart-1: oklch(0.546 0.245 262.881);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.546 0.245 262.881);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.546 0.245 262.881);
 }
 
-
 @theme inline {
-    --font-sans: "Geist", "Geist Fallback";
-    --font-mono: "Geist Mono", "Geist Mono Fallback";
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-destructive: var(--destructive);
-    --color-destructive-foreground: var(--destructive-foreground);
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
-    --radius-sm: calc(var(--radius) - 4px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: "Geist", "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
-    * {
-        @apply border-border outline-ring/50;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .main-wrapper-inner {
-
 }
 
-
 @theme {
-    --font-dm: "Geist", sans-serif;
-    --text-primary: #7B7B7D;
+  --font-dm: "Geist", sans-serif;
+  --text-primary: #7b7b7d;
 }
 
 @layer components {
-    .common-card {
-        @apply bg-white  rounded-md p-6;
-    }
+  .common-card {
+    @apply bg-white  rounded-md p-6;
+  }
 
-    .common-card-new {
-        @apply bg-white rounded-xl shadow-sm border border-border  p-[15px];
-    }
+  .common-card-new {
+    @apply bg-white rounded-xl shadow-sm border border-border  p-[15px];
+  }
 
-    /*button new theme*/
-    .btn-secondary-new {
-        @apply h-9 leading-9 bg-blue-50 border border-blue-600 rounded-xl px-6 text-sm font-medium text-blue-700  transition-all  hover:bg-blue-500 hover:text-white;
-    }
-    .btn-danger-new {
-        @apply h-9 leading-9 bg-red-50 border border-red-600 hover:border-red-300 rounded-xl px-6 text-sm font-medium text-red-600  transition-all  hover:bg-red-300 hover:text-red-600;
-    }
-    .btn-primary-new {
-        @apply h-9 leading-9 bg-blue-600 rounded-xl px-6 text-sm font-medium  text-white transition-all hover:bg-blue-500
-    }
+  /*button new theme*/
+  .btn-secondary-new {
+    @apply h-9 leading-9 bg-blue-50 border border-blue-600 rounded-xl px-6 text-sm font-medium text-blue-700  transition-all  hover:bg-blue-500 hover:text-white flex items-center justify-center gap-2;
+  }
+  .btn-danger-new {
+    @apply h-9 leading-9 bg-red-50 border border-red-600 hover:border-red-300 rounded-xl px-6 text-sm font-medium text-red-600  transition-all  hover:bg-red-300 hover:text-red-600 flex items-center justify-center gap-2;
+  }
+  .btn-primary-new {
+    @apply h-9 leading-9 bg-blue-600 rounded-xl px-6 text-sm font-medium  text-white transition-all hover:bg-blue-500 flex items-center justify-center gap-2;
+  }
 
-    /*button*/
-    .btn-primary {
-        @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-orange-500 text-orange-500 bg-transparent hover:bg-orange-500/10 shadow-lg hover:shadow-orange-500/50 hover:shadow-lg transition-all duration-300;
-    }
-    .btn-secondary {
-        @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-gray-500 text-gray-400 bg-transparent hover:bg-gray-500/10 shadow-lg hover:shadow-gray-500/50 hover:shadow-lg transition-all duration-300
-    }
-    .btn-success {
-        @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-emerald-500 text-emerald-500 bg-transparent hover:bg-emerald-500/10 shadow-lg hover:shadow-emerald-500/50 hover:shadow-lg transition-all duration-300
-    }
-    .btn-info {
-        @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-400/10 shadow-lg hover:shadow-cyan-500/50 hover:shadow-lg transition-all duration-300
-    }
-    .btn-default {
-        @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-blue-500 text-blue-500 bg-transparent hover:bg-blue-500/10 shadow-lg hover:shadow-blue-500/50 hover:shadow-lg transition-all duration-300
-    }
-    .btn-danger {
-        @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-red-800 text-red-800 bg-transparent hover:bg-red-800/10 shadow-lg hover:shadow-red-500/50 hover:shadow-lg transition-all duration-300
-    }
+  /*button*/
+  .btn-primary {
+    @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-orange-500 text-orange-500 bg-transparent hover:bg-orange-500/10 shadow-lg hover:shadow-orange-500/50 hover:shadow-lg transition-all duration-300;
+  }
+  .btn-secondary {
+    @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-gray-500 text-gray-400 bg-transparent hover:bg-gray-500/10 shadow-lg hover:shadow-gray-500/50 hover:shadow-lg transition-all duration-300;
+  }
+  .btn-success {
+    @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-emerald-500 text-emerald-500 bg-transparent hover:bg-emerald-500/10 shadow-lg hover:shadow-emerald-500/50 hover:shadow-lg transition-all duration-300;
+  }
+  .btn-info {
+    @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-400/10 shadow-lg hover:shadow-cyan-500/50 hover:shadow-lg transition-all duration-300;
+  }
+  .btn-default {
+    @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-blue-500 text-blue-500 bg-transparent hover:bg-blue-500/10 shadow-lg hover:shadow-blue-500/50 hover:shadow-lg transition-all duration-300;
+  }
+  .btn-danger {
+    @apply text-[14px] cursor-pointer px-6 py-1 rounded-full border border-red-800 text-red-800 bg-transparent hover:bg-red-800/10 shadow-lg hover:shadow-red-500/50 hover:shadow-lg transition-all duration-300;
+  }
 
-    /* Primary - Orange Theme */
-    .btn-primary-transparent {
-        @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-500/30 rounded-md text-sm font-medium text-orange-400 transition-all duration-300 hover:bg-orange-500/30;
-    }
+  /* Primary - Orange Theme */
+  .btn-primary-transparent {
+    @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-500/30 rounded-md text-sm font-medium text-orange-400 transition-all duration-300 hover:bg-orange-500/30;
+  }
 
-    /* Secondary - Gray Theme */
-    .btn-secondary-transparent {
-        @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-slate-500/20 to-gray-500/20 border border-gray-500/30 rounded-md text-sm font-medium text-gray-300 transition-all duration-300 hover:bg-gray-500/30;
-    }
+  /* Secondary - Gray Theme */
+  .btn-secondary-transparent {
+    @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-slate-500/20 to-gray-500/20 border border-gray-500/30 rounded-md text-sm font-medium text-gray-300 transition-all duration-300 hover:bg-gray-500/30;
+  }
 
-    /* Success - Emerald Theme */
-    .btn-success-transparent {
-        @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-md text-sm font-medium text-emerald-300 transition-all duration-300 hover:bg-emerald-500/30;
-    }
+  /* Success - Emerald Theme */
+  .btn-success-transparent {
+    @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-md text-sm font-medium text-emerald-300 transition-all duration-300 hover:bg-emerald-500/30;
+  }
 
-    .btn-info-transparent {
-        @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-md text-sm font-medium text-cyan-300
-    }
+  .btn-info-transparent {
+    @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-md text-sm font-medium text-cyan-300;
+  }
 
-    /* Default - Blue Theme */
-    .btn-default-transparent {
-        @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-md text-sm font-medium text-blue-300 transition-all duration-300 hover:bg-blue-500/30;
-    }
+  /* Default - Blue Theme */
+  .btn-default-transparent {
+    @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-md text-sm font-medium text-blue-300 transition-all duration-300 hover:bg-blue-500/30;
+  }
 
-    /* Danger - Red Theme */
-    .btn-danger-transparent {
-        @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-red-500/20 to-rose-500/20 border border-red-500/30 rounded-md text-sm font-medium text-red-300 transition-all duration-300 hover:bg-red-500/30;
-    }
+  /* Danger - Red Theme */
+  .btn-danger-transparent {
+    @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-red-500/20 to-rose-500/20 border border-red-500/30 rounded-md text-sm font-medium text-red-300 transition-all duration-300 hover:bg-red-500/30;
+  }
 
-    .btn-custom-transparent {
-        @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-[#00b8db]/20 to-[#00d4ff]/20 border border-[#00b8db]/30 rounded-md text-sm font-medium text-[#00b8db] transition-all duration-300 hover:bg-[#00b8db]/30;
-    }
+  .btn-custom-transparent {
+    @apply cursor-pointer px-4 py-2 bg-gradient-to-r from-[#00b8db]/20 to-[#00d4ff]/20 border border-[#00b8db]/30 rounded-md text-sm font-medium text-[#00b8db] transition-all duration-300 hover:bg-[#00b8db]/30;
+  }
 
-    .btn-common {
-        @apply flex items-center justify-center px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20  gap-2
-    }
+  .btn-common {
+    @apply flex items-center justify-center px-6 py-2 bg-cyan-600 hover:bg-cyan-500 font-medium text-white text-[14px]  rounded-md transition-all shadow-lg shadow-cyan-900/20  gap-2;
+  }
 
-    /*input*/
-    .label {
-        @apply block mb-1 text-sm text-gray-300;
-    }
+  /*input*/
+  .label {
+    @apply block mb-1 text-sm text-gray-300;
+  }
 
-    .input {
-        @apply w-full bg-white border border-gray-700 rounded-md px-3 py-2
+  .input {
+    @apply w-full bg-white border border-gray-700 rounded-md px-3 py-2
         focus:ring-2 focus:ring-blue-500 outline-none transition;
-    }
+  }
 
-    .radio {
-        @apply h-4 w-4 text-blue-500 focus:ring-blue-500;
-    }
+  .radio {
+    @apply h-4 w-4 text-blue-500 focus:ring-blue-500;
+  }
 
-    .common-card {
-        @apply  p-6 bg-white rounded-xl mb-10 overflow-hidden;
-    }
+  .common-card {
+    @apply p-6 bg-white rounded-xl mb-10 overflow-hidden;
+  }
 
-    .table-container {
-        @apply overflow-x-auto rounded-[5px] border border-gray-200 ;
-    }
+  .table-container {
+    @apply overflow-x-auto rounded-[5px] border border-gray-200;
+  }
 
-    .table {
-        @apply min-w-full divide-y divide-gray-200 ;
-    }
+  .table {
+    @apply min-w-full divide-y divide-gray-200;
+  }
 
-    .table th {
-        @apply px-6 py-3 text-left text-xs font-medium text-gray-500  uppercase tracking-wider bg-gray-50 ;
-    }
+  .table th {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500  uppercase tracking-wider bg-gray-50;
+  }
 
-    .table td {
-        @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900 ;
-    }
+  .table td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+  }
 
-    .table tbody tr {
-        @apply bg-white  hover:bg-gray-50 transition-colors;
-    }
-
+  .table tbody tr {
+    @apply bg-white  hover:bg-gray-50 transition-colors;
+  }
 }
-
 
 /* -------------------------------------- */
 /* 1. Modal Overlay Fade Effect */
 /* -------------------------------------- */
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-    transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 .modal-fade-enter-from,
 .modal-fade-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
 
 /* -------------------------------------- */
@@ -252,22 +245,24 @@ body {
 /* -------------------------------------- */
 .modal-slide-enter-active,
 .modal-slide-leave-active {
-    transition: all 0.3s cubic-bezier(0.5, 0, 0.5, 1); /* Custom, smooth ease */
+  transition: all 0.3s cubic-bezier(0.5, 0, 0.5, 1); /* Custom, smooth ease */
 }
 .modal-slide-enter-from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
 }
 .modal-slide-leave-to {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
 }
 /* -------------------------------------- */
 /* 3. Page Fade Transition                */
 /* -------------------------------------- */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
 }
 
 .fade-enter-from,

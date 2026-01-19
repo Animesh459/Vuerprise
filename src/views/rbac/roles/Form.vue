@@ -22,25 +22,15 @@
       <!-- Role Name Card -->
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <h2 class="text-lg font-semibold text-gray-900 mb-4">Role Information</h2>
-        <div>
-          <label for="role-name" class="block text-sm font-medium text-gray-700 mb-2">
-            Role Name <span class="text-red-500">*</span>
-          </label>
-          <input
-            id="role-name"
-            v-model="form.name"
-            type="text"
-            :disabled="editingRole?.name === 'Super Admin'"
-            :class="{
-              'border-red-300 bg-red-50': errors.name,
-              'border-gray-200': !errors.name,
-              'bg-gray-100 cursor-not-allowed': editingRole?.name === 'Super Admin'
-            }"
-            class="w-full max-w-md px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-            placeholder="Enter role name (e.g., Manager, Sales)"
-          />
-          <ErrorMessage :error="errors.name" />
-        </div>
+        <BaseInput
+          v-model="form.name"
+          label="Role Name"
+          placeholder="Enter role name (e.g., Manager, Sales)"
+          required
+          :disabled="editingRole?.name === 'Super Admin'"
+          :error="errors.name?.[0]"
+          custom-class="max-w-md"
+        />
       </div>
 
       <!-- Permissions Card -->
@@ -210,26 +200,23 @@
           </div>
         </div>
 
-        <ErrorMessage :error="errors.permissions" />
+
+        <small v-if="errors.permissions" class="text-red-500 text-xs mt-1 block">{{ errors.permissions[0] }}</small>
       </div>
 
-      <!-- Actions -->
-      <div class="flex gap-3 pt-4">
+      <!-- Actions - Sticky Bar -->
+      <div class="sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex gap-3 z-10">
         <button
           type="submit"
           :disabled="submitting || loadingPermissions"
-          class="px-6 py-3 bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+          class="btn-primary-new"
         >
-          <span v-if="!submitting">{{ isEditing ? 'Update Role' : 'Create Role' }}</span>
-          <span v-else class="flex items-center gap-2">
-            <span class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"/>
-            {{ isEditing ? 'Updating...' : 'Creating...' }}
-          </span>
+          {{ submitting ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Role' : 'Create Role') }}
         </button>
         <button
           type="button"
           @click="goBack"
-          class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
+          class="btn-secondary-new"
         >
           Cancel
         </button>
@@ -243,7 +230,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { roleService } from '@/services/roleService'
 import { useToast } from '@/composables/useToast'
-import ErrorMessage from '@/components/ErrorMessage.vue'
+import BaseInput from '@/components/form/BaseInput.vue'
 
 const router = useRouter()
 const route = useRoute()

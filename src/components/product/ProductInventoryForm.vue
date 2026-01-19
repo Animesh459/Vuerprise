@@ -240,6 +240,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import { settingsService } from '@/services'
 import { LayersIcon, Search, PlusIcon, CheckIcon, BoxIcon, ZapIcon, ActivityIcon, AlertTriangleIcon } from 'lucide-vue-next';
 import apiClient from '@/utils/axios';
 import ProductColorForm from './ProductColorForm.vue';
@@ -288,15 +289,15 @@ const colorsNeedReorder = computed(() => {
 });
 
 // Methods
-const fetchSettings = async () => {
+const fetchInventorySettings = async () => {
   try {
-    const response = await apiClient.get('/settings');
-    if (response.data.data) {
-      lowStockQty.value = response.data.data.low_stock_qty || 10;
-      reorderQty.value = response.data.data.reorder_qty || 50;
+    const inventoryResponse = await settingsService.getInventorySettings()
+    if (inventoryResponse.data.data) {
+      lowStockQty.value = inventoryResponse.data.data.low_stock_qty || 10;
+      reorderQty.value = inventoryResponse.data.data.reorder_qty || 50;
     }
   } catch (error) {
-    console.error('Failed to fetch settings:', error);
+    console.error('Failed to fetch inventory settings:', error);
     // Keep default values
   }
 };
@@ -377,7 +378,7 @@ const handleColorAdded = (newColor) => {
 
 // Lifecycle
 onMounted(() => {
-  fetchSettings();
+  fetchInventorySettings();
   fetchColors();
 });
 </script>

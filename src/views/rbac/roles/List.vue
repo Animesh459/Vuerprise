@@ -3,8 +3,9 @@
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold text-gray-900">Roles & Permissions</h1>
       <button
+        v-if="hasPermission('roles.create')"
         @click="createRole"
-        class="px-4 py-2.5 bg-black hover:bg-gray-800 text-white font-medium rounded-lg transition-colors flex items-center gap-2"
+        class="btn-primary-new"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -48,13 +49,14 @@
       <!-- Actions Column -->
       <template #cell-actions="{ item }">
         <button
+          v-if="hasPermission('roles.update')"
           @click="editRole(item)"
           class="text-gray-600 hover:text-gray-900 mr-4"
         >
           Edit
         </button>
         <button
-          v-if="item.name !== 'Super Admin'"
+          v-if="hasPermission('roles.delete') && item.name !== 'Super Admin'"
           @click="confirmDelete(item)"
           class="text-red-600 hover:text-red-900"
         >
@@ -81,11 +83,13 @@ import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { roleService } from '@/services/roleService'
 import { useToast } from '@/composables/useToast'
+import { useAuth } from '@/composables/useAuth'
 import DataTable from '@/components/DataTable.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
 
 const router = useRouter()
 const toast = useToast()
+const { hasPermission } = useAuth()
 
 const columns = [
   { key: 'name', label: 'Role Name' },

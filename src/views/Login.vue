@@ -34,25 +34,16 @@
           </transition>
 
           <!-- Email Input -->
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-              Email Address <span class="text-red-500">*</span>
-            </label>
-            <input
-                id="email"
-                v-model="email"
-                @input="handleEmailInput"
-                @blur="validateEmail"
-                type="email"
-                placeholder="admin@example.com"
-                :class="{
-                  'border-red-300 bg-red-50 focus:border-red-500': fieldErrors.email,
-                  'border-gray-200 focus:border-gray-700': !fieldErrors.email
-                }"
-                class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none transition-all"
-            />
-            <ErrorMessage :error="fieldErrors.email" />
-          </div>
+          <BaseInput
+            v-model="email"
+            type="email"
+            label="Email Address"
+            placeholder="admin@example.com"
+            required
+            :error="fieldErrors.email"
+            @input="handleEmailInput"
+            @blur="validateEmail"
+          />
 
           <!-- Password Input -->
           <div>
@@ -68,10 +59,10 @@
                   :type="showPassword ? 'text' : 'password'"
                   placeholder="••••••••"
                   :class="{
-                    'border-red-300 bg-red-50 focus:border-red-500': fieldErrors.password,
-                    'border-gray-200 focus:border-gray-700': !fieldErrors.password
+                    'border-red-500': fieldErrors.password,
+                    'border-border': !fieldErrors.password
                   }"
-                  class="w-full px-4 py-3 pr-12 bg-gray-50 border rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none transition-all"
+                  class="h-9 w-full border rounded-xl bg-white pl-4 pr-12 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none"
               />
               <button
                   type="button"
@@ -87,7 +78,7 @@
                 </svg>
               </button>
             </div>
-            <ErrorMessage :error="fieldErrors.password" />
+            <small v-if="fieldErrors.password" class="text-red-500 text-xs mt-1 block">{{ fieldErrors.password }}</small>
           </div>
 
           <!-- Remember & Forgot -->
@@ -120,8 +111,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
+import BaseInput from '@/components/form/BaseInput.vue'
 import BaseCheckbox from "@/components/form/BaseCheckbox.vue"
-import ErrorMessage from "@/components/ErrorMessage.vue"
 
 const router = useRouter()
 const { login } = useAuth()

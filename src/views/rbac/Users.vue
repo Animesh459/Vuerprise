@@ -3,8 +3,9 @@
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold text-gray-900">Users</h1>
       <button
+        v-if="hasPermission('users.create')"
         @click="openCreateModal"
-        class="px-4 py-2.5 bg-black hover:bg-gray-800 text-white font-medium rounded-lg transition-colors flex items-center gap-2"
+        class="btn-primary-new"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -72,7 +73,7 @@
       <!-- Actions Column -->
       <template #cell-actions="{ item }">
         <button
-          v-if="!item.roles?.some(role => role.name === 'Super Admin')"
+          v-if="hasPermission('users.update') && !item.roles?.some(role => role.name === 'Super Admin')"
           @click="toggleStatus(item)"
           :class="item.status === 1 ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'"
           class="mr-4"
@@ -80,13 +81,14 @@
           {{ item.status === 1 ? 'Deactivate' : 'Activate' }}
         </button>
         <button
+          v-if="hasPermission('users.update')"
           @click="openEditModal(item)"
           class="text-gray-600 hover:text-gray-900 mr-4"
         >
           Edit
         </button>
         <button
-          v-if="!item.roles?.some(role => role.name === 'Super Admin')"
+          v-if="hasPermission('users.delete') && !item.roles?.some(role => role.name === 'Super Admin')"
           @click="confirmDelete(item)"
           class="text-red-600 hover:text-red-900"
         >
@@ -96,51 +98,38 @@
     </DataTable>
 
     <!-- User Modal -->
-    <CustomModal
+    <BaseModal
       :show="showModal"
       @close="closeModal"
-      :title="isEditing ? 'Edit User' : 'Create User'"
       size="2xl"
+      scrollable
     >
+      <template #header>
+        <h3 class="text-xl font-bold text-gray-900">
+          {{ isEditing ? 'Edit User' : 'Create User' }}
+        </h3>
+      </template>
+
       <form @submit.prevent="handleSubmit" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Name -->
-          <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-              Full Name <span class="text-red-500">*</span>
-            </label>
-            <input
-              id="name"
-              v-model="form.name"
-              type="text"
-              :class="{
-                'border-red-300 bg-red-50': errors.name,
-                'border-gray-200': !errors.name
-              }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-              placeholder="Enter full name"
-            />
-            <ErrorMessage :error="errors.name" />
-          </div>
+          <BaseInput
+            v-model="form.name"
+            label="Full Name"
+            placeholder="Enter full name"
+            required
+            :error="errors.name?.[0]"
+          />
 
           <!-- Email -->
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-              Email Address <span class="text-red-500">*</span>
-            </label>
-            <input
-              id="email"
-              v-model="form.email"
-              type="email"
-              :class="{
-                'border-red-300 bg-red-50': errors.email,
-                'border-gray-200': !errors.email
-              }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-              placeholder="Enter email address"
-            />
-            <ErrorMessage :error="errors.email" />
-          </div>
+          <BaseInput
+            v-model="form.email"
+            type="email"
+            label="Email Address"
+            placeholder="Enter email address"
+            required
+            :error="errors.email?.[0]"
+          />
 
           <!-- Password -->
           <div>
@@ -153,13 +142,13 @@
               v-model="form.password"
               type="password"
               :class="{
-                'border-red-300 bg-red-50': errors.password,
-                'border-gray-200': !errors.password
+                'border-red-500': errors.password,
+                'border-border': !errors.password
               }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
+              class="h-9 w-full border rounded-xl bg-white pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none"
               placeholder="Enter password"
             />
-            <ErrorMessage :error="errors.password" />
+            <small v-if="errors.password" class="text-red-500 text-xs mt-1 block">{{ errors.password[0] }}</small>
           </div>
 
           <!-- Role -->
@@ -172,18 +161,18 @@
               v-model="form.role_id"
               :disabled="isEditing && editingUser?.roles?.some(r => r.name === 'Super Admin')"
               :class="{
-                'border-red-300 bg-red-50': errors.role_id,
-                'border-gray-200': !errors.role_id,
+                'border-red-500': errors.role_id,
+                'border-border': !errors.role_id,
                 'bg-gray-100 cursor-not-allowed': isEditing && editingUser?.roles?.some(r => r.name === 'Super Admin')
               }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
+              class="h-9 w-full rounded-xl appearance-none border bg-white pl-4 pr-10 text-sm transition-colors text-black focus:border-blue-600 focus:outline-none cursor-pointer"
             >
               <option :value="null">Select a role</option>
               <option v-for="role in allRoles" :key="role.id" :value="role.id">
                 {{ role.name }}
               </option>
             </select>
-            <ErrorMessage :error="errors.role_id" />
+            <small v-if="errors.role_id" class="text-red-500 text-xs mt-1 block">{{ errors.role_id[0] }}</small>
           </div>
 
           <!-- Status -->
@@ -263,33 +252,28 @@
                 <p class="mt-2 text-xs text-center text-gray-500">Max 2MB</p>
               </div>
             </div>
-            <ErrorMessage :error="errors.profile_image" />
+            <small v-if="errors.profile_image" class="text-red-500 text-xs mt-1 block">{{ errors.profile_image[0] }}</small>
           </div>
         </div>
-
-        <!-- Actions -->
-        <div class="flex gap-3 pt-4 border-t">
-          <button
-            type="submit"
-            :disabled="submitting"
-            class="px-6 py-2.5 bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
-          >
-            <span v-if="!submitting">{{ isEditing ? 'Update User' : 'Create User' }}</span>
-            <span v-else class="flex items-center gap-2">
-              <span class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"/>
-              {{ isEditing ? 'Updating...' : 'Creating...' }}
-            </span>
-          </button>
-          <button
-            type="button"
-            @click="closeModal"
-            class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
-          >
-            Cancel
-          </button>
-        </div>
       </form>
-    </CustomModal>
+
+      <template #footer>
+        <button
+          @click="handleSubmit"
+          :disabled="submitting"
+          class="btn-primary-new"
+        >
+          {{ submitting ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update User' : 'Create User') }}
+        </button>
+        <button
+          type="button"
+          @click="closeModal"
+          class="btn-secondary-new"
+        >
+          Cancel
+        </button>
+      </template>
+    </BaseModal>
 
     <!-- Delete Confirmation Modal -->
     <ConfirmModal
@@ -309,12 +293,14 @@ import { ref, computed, onMounted } from 'vue'
 import { userService } from '@/services/userService'
 import { roleService } from '@/services/roleService'
 import { useToast } from '@/composables/useToast'
+import { useAuth } from '@/composables/useAuth'
 import DataTable from '@/components/DataTable.vue'
-import CustomModal from '@/components/CustomModal.vue'
+import BaseModal from '@/components/BaseModal.vue'
+import BaseInput from '@/components/form/BaseInput.vue'
 import ConfirmModal from '@/components/ConfirmModal.vue'
-import ErrorMessage from '@/components/ErrorMessage.vue'
 
 const toast = useToast()
+const { hasPermission } = useAuth()
 
 const columns = [
   { key: 'user', label: 'User' },
