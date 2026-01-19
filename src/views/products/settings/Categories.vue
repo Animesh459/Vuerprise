@@ -1,19 +1,27 @@
 <template>
   <div>
-    <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
-      <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Category Manager</h1>
-      <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Organize your product categories with drag and drop</p>
-    </div>
+
+    <section class="flex items-center justify-between pb-6">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+          <FolderTree :size="24" class="text-white" />
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Category Manager</h1>
+          <p class="text-sm text-gray-500 mt-0.5">Organize your product categories with drag and drop</p>
+        </div>
+      </div>
+    </section>
     <div class="common-card-new">
       <div class="">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-3 gap-8">
 
           <!-- Left Panel - Categories List with Collapsible -->
-          <div class="lg:col-span-1">
-            <div class="bg-white border border-gray-200 rounded-2xl p-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto">
+          <div class="col-span-1">
+            <div class="bg-white border border-gray-200 rounded-xl p-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto">
               <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-gray-900">Categories</h2>
-                <button @click="openCreateModal" class="btn-primary-new !px-3 !py-2 !text-xs">+ Add New</button>
+                <button @click="openCreateModal" class="btn-primary-new whitespace-nowrap flex gap-1 items-center"><Plus :size = "16" class="text-white" /> <span>Add New</span> </button>
               </div>
 
               <p class="text-xs text-gray-500 mb-6 flex items-center gap-2">
@@ -236,8 +244,8 @@
           </div>
 
           <!-- Right Panel - Category Details -->
-          <div class="lg:col-span-2">
-            <div class="bg-white border border-gray-200 rounded-2xl p-8">
+          <div class="col-span-2">
+            <div class="bg-white border border-gray-200 rounded-xl p-6">
               <div class="flex items-center gap-3 mb-8" v-if="selectedCategory !== null">
                 <div>
                   <h3 class="text-2xl font-bold text-gray-900">{{ categories[selectedCategory].name }}</h3>
@@ -246,7 +254,7 @@
               </div>
 
               <div v-if="selectedCategory !== null" class="space-y-6">
-                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
                   <p class="text-sm font-semibold text-gray-700 mb-4">Category Information</p>
                   <div class="grid grid-cols-2 gap-4 text-sm">
                     <div>
@@ -266,13 +274,13 @@
                   </div>
                 </div>
 
-                <div v-if="categories[selectedCategory].sub_categories && categories[selectedCategory].sub_categories.length > 0" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <div v-if="categories[selectedCategory].sub_categories && categories[selectedCategory].sub_categories.length > 0" class="bg-gray-50 border border-gray-200 rounded-xl p-6">
                   <p class="text-sm text-gray-600 mb-2">Subcategories</p>
                   <div class="flex flex-wrap gap-2">
                     <span
                         v-for="sub in categories[selectedCategory].sub_categories"
                         :key="sub.id"
-                        class="px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm font-medium text-blue-700"
+                        class="btn-secondary-new"
                     >
                       {{ sub.name }}
                     </span>
@@ -305,7 +313,7 @@
           <!-- Modal Header -->
           <div class="sticky top-0 bg-white/80 backdrop-blur-lg border-b border-gray-200 p-5 flex items-center justify-between z-10">
             <div class="flex items-center gap-3">
-              <h3 class="text-2xl font-bold text-gray-900">{{ editingId ? 'Edit Category' : 'Create New Category' }}</h3>
+              <h3 class="text-xl font-bold text-gray-900">{{ editingId ? 'Edit Category' : 'Create New Category' }}</h3>
             </div>
             <button
                 @click="closeEditModal"
@@ -356,20 +364,21 @@
                   v-model="form.name"
                   type="text"
                   placeholder="Enter category name"
-                  class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-black focus:outline-none rounded"
+                  class="h-9 w-full border border-border bg-white pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none rounded"
               />
               <ErrorMessage :error="errors.name" />
             </div>
 
             <!-- Parent Category -->
             <div class="space-y-2">
+
               <label class="block text-sm font-medium text-gray-700 mb-2">
                 Parent Category
               </label>
               <div class="relative">
                 <select
                     v-model="form.parent"
-                    class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-10 text-sm transition-colors text-black focus:border-black focus:outline-none rounded appearance-none"
+                    class="h-9 w-full border border-border bg-white pl-4 pr-10 text-sm transition-colors text-black focus:border-blue-600 focus:outline-none rounded appearance-none"
                 >
                   <option value="">Select Parent Category</option>
                   <option
@@ -394,7 +403,7 @@
                 <select
                     v-model="form.second_parent_id"
                     :disabled="!form.parent"
-                    class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-10 text-sm transition-colors text-black focus:border-black focus:outline-none rounded appearance-none disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="h-9 w-full border border-border bg-white pl-4 pr-10 text-sm transition-colors text-black focus:border-blue-600 focus:outline-none rounded appearance-none disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <option value="">Select Secondary Parent</option>
                   <option
@@ -419,7 +428,7 @@
                   v-model="form.description"
                   placeholder="Enter category description..."
                   rows="3"
-                  class="w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 pt-2 pb-2 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-black focus:outline-none rounded"
+                  class="w-full border border-border bg-white pl-4 pr-4 pt-2 pb-2 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none rounded"
               ></textarea>
               <ErrorMessage :error="errors.description" />
             </div>
@@ -434,7 +443,7 @@
                   @change="handleImageChange"
                   accept="image/*"
                   ref="fileInput"
-                  class="h-9 w-full border border-neutral-200 bg-neutral-50 pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-black focus:outline-none"
+                  class="h-9 w-full border border-border bg-white pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none"
               />
               <ErrorMessage :error="errors.image" />
 
@@ -455,7 +464,7 @@
           </div>
 
           <!-- Modal Footer -->
-          <div class="sticky bottom-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 px-8 py-6 flex items-end justify-end gap-4">
+          <div class="sticky bottom-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 px-5 py-5 flex items-end justify-end gap-4">
             <button
                 @click="closeEditModal"
                 class="btn-secondary-new"
@@ -490,7 +499,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { ChevronDown } from "lucide-vue-next"
+import {ChevronDown, FolderTree, Plus,  LayoutDashboard} from "lucide-vue-next"
 import ErrorMessage from "@/components/ErrorMessage.vue"
 import ConfirmModal from "@/components/ConfirmModal.vue"
 import { categoryService } from '@/services'

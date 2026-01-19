@@ -1,10 +1,17 @@
 <template>
   <div>
-    <div class="space-y-6">
-      <div class="flex flex-col  border-b border-b-border pb-4 mb-4 ">
-        <h1 class="text-3xl font-bold tracking-tighter text-gray-900">Master Colors</h1>
-        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Manage master colors</p>
+    <section class="flex items-center justify-between pb-6">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
+          <Palette  :size="24" class="text-white" />
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Master Colors</h1>
+          <p class="text-sm text-gray-500 mt-0.5">Manage master colors</p>
+        </div>
       </div>
+    </section>
+    <div class="space-y-6">
 
       <!-- Add/Edit Form -->
       <div v-if="showForm" class="common-card-new">
@@ -192,7 +199,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { Search, ChevronDown } from "lucide-vue-next"
+import {Search, ChevronDown, Palette} from "lucide-vue-next"
 import ErrorMessage from "@/components/ErrorMessage.vue"
 import ConfirmModal from "@/components/ConfirmModal.vue"
 import Pagination from "@/components/Pagination.vue"

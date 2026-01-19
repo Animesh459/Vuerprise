@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+  <div class="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
     <!-- Header with Search -->
-    <div v-if="searchable || $slots.header" class="p-6 border-b border-gray-200">
+    <div v-if="searchable || $slots.header" class="p-4 border-b border-border">
       <slot name="header">
         <div class="flex items-center gap-4">
           <div v-if="searchable" class="flex-1">
@@ -10,7 +10,7 @@
               @input="$emit('update:searchQuery', $event.target.value)"
               type="text"
               :placeholder="searchPlaceholder"
-              class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
+              class="h-9 w-full border border-border rounded-xl bg-white pl-4 pr-4 text-sm transition-colors placeholder:text-neutral-300 text-black focus:border-blue-600 focus:outline-none"
             />
           </div>
           <slot name="actions"></slot>
@@ -20,7 +20,7 @@
 
     <!-- Loading State -->
     <div v-if="loading" class="p-12 text-center">
-      <div class="inline-block w-8 h-8 border-4 border-gray-200 border-t-black rounded-full animate-spin"/>
+      <div class="inline-block w-8 h-8 border-4 border-border border-t-blue-600 rounded-full animate-spin"/>
       <p class="mt-4 text-gray-600">{{ loadingText }}</p>
     </div>
 
@@ -32,42 +32,48 @@
     </div>
 
     <!-- Table -->
-    <table v-else class="w-full">
-      <thead class="bg-gray-50 border-b border-gray-200">
-        <tr>
-          <th
-            v-for="column in columns"
-            :key="column.key"
-            :class="[
-              'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+    <div v-else class="w-full p-4" >
+      <div class="table-container">
+
+        <table  class="table">
+          <thead class="">
+          <tr>
+            <th
+                v-for="column in columns"
+                :key="column.key"
+                :class="[
+              '',
               column.headerClass
             ]"
+            >
+              {{ column.label }}
+            </th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+          <tr
+              v-for="(item, index) in items"
+              :key="getItemKey(item, index)"
+              class=""
           >
-            {{ column.label }}
-          </th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-200">
-        <tr
-          v-for="(item, index) in items"
-          :key="getItemKey(item, index)"
-          class="hover:bg-gray-50 transition-colors"
-        >
-          <td
-            v-for="column in columns"
-            :key="column.key"
-            :class="['px-6 py-4 whitespace-nowrap', column.cellClass]"
-          >
-            <slot :name="`cell-${column.key}`" :item="item" :index="index">
-              {{ getCellValue(item, column.key) }}
-            </slot>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td
+                v-for="column in columns"
+                :key="column.key"
+                :class="['', column.cellClass]"
+            >
+              <slot :name="`cell-${column.key}`" :item="item" :index="index">
+                {{ getCellValue(item, column.key) }}
+              </slot>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
 
     <!-- Pagination -->
-    <div v-if="pagination && pagination.total > pagination.per_page" class="px-6 py-4 border-t border-gray-200">
+    <div v-if="pagination && pagination.total > pagination.per_page" class="px-6 py-4 border-t border-border">
       <div class="flex items-center justify-between">
         <div class="text-sm text-gray-600">
           Showing {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }} {{ itemName }}
