@@ -1,32 +1,73 @@
-
 <template>
-<!--  <div class="flex items-center gap-4 text-xs font-bold text-slate-500">-->
-<!--    <span class="uppercase tracking-widest">1-6 off 6</span>-->
-<!--    <div class="flex bg-slate-900/50 rounded-lg p-1 gap-1 border border-slate-800">-->
-<!--      <button class="p-1.5 hover:bg-slate-800 rounded-md transition-colors"><ChevronLeftIcon :size="14" /></button>-->
-<!--      <button class="px-3 py-1 bg-slate-800 rounded-md text-white border border-slate-700">1</button>-->
-<!--      <button class="px-3 py-1 bg-slate-800 rounded-md text-white border border-slate-700">2</button>-->
-<!--      <button class="px-3 py-1 bg-slate-800 rounded-md text-white border border-slate-700">3</button>-->
-<!--      <button class="p-1.5 hover:bg-slate-800 rounded-md transition-colors"><ChevronRightIcon :size="14" /></button>-->
-<!--    </div>-->
-<!--  </div>-->
-
-  <!-- Pagination -->
-  <div class="mt-6 flex  items-center justify-between gap-6 border-t border-border pt-6 flex-row">
-    <p class="text-xs font-semibold text-gray-600 uppercase tracking-widest">1-18 of 50 Results</p>
-    <div class="flex items-center gap-1">
-      <button class="h-9 border border-border px-4 text-xs font-semibold uppercase hover:border-black transition-colors">Prev</button>
-      <button class="h-9 w-9 bg-black text-xs font-semibold text-white">1</button>
-      <button class="h-9 w-9 border border-border text-xs font-semibold hover:border-black transition-colors">2</button>
-      <button class="h-9 w-9 border border-border text-xs font-semibold hover:border-black transition-colors">3</button>
-      <button class="h-9 border border-border px-4 text-xs font-semibold uppercase hover:border-black transition-colors">Next</button>
-    </div>
+  <div v-if="pagination && pagination.last_page > 1" class="flex justify-center items-center gap-2 pt-4">
+    <button 
+      @click="$emit('change-page', pagination.current_page - 1)"
+      :disabled="pagination.current_page === 1"
+      class="px-3 py-2 text-sm border border-gray-300 rounded hover:border-blue-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+    >
+      Previous
+    </button>
+    
+    <span class="text-sm text-gray-600">
+      Page {{ pagination.current_page }} of {{ pagination.last_page }}
+    </span>
+    
+    <button 
+      v-for="page in paginationPages"
+      :key="page"
+      @click="$emit('change-page', page)"
+      :class="[
+        'px-3 py-2 text-sm border rounded transition-colors hover:border-blue-600',
+        page === pagination.current_page 
+          ? 'bg-blue-600 text-white border-blue-600'
+          : 'border-gray-300 hover:bg-gray-50'
+      ]"
+    >
+      {{ page }}
+    </button>
+    
+    <button 
+      @click="$emit('change-page', pagination.current_page + 1)"
+      :disabled="pagination.current_page === pagination.last_page"
+      class="px-3 py-2 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:border-blue-600 hover:bg-gray-50 transition-colors"
+    >
+      Next
+    </button>
   </div>
-
 </template>
 
 <script setup>
-import {
-  ChevronLeftIcon, ChevronRightIcon
-} from 'lucide-vue-next'
+import { computed } from 'vue'
+
+const props = defineProps({
+  pagination: {
+    type: [Object, null],
+    required: false,
+    default: null
+  }
+})
+
+defineEmits(['change-page'])
+
+const paginationPages = computed(() => {
+  if (!props.pagination) return []
+  
+  const current = props.pagination.current_page
+  const last = props.pagination.last_page
+  const pages = []
+  
+  // Show max 5 pages
+  let start = Math.max(1, current - 2)
+  let end = Math.min(last, start + 4)
+  
+  if (end - start < 4) {
+    start = Math.max(1, end - 4)
+  }
+  
+  for (let i = start; i <= end; i++) {
+    pages.push(i)
+  }
+  
+  return pages
+})
 </script>

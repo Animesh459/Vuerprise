@@ -66,7 +66,7 @@ const stats = [
 </script>
 
 <template>
-  <div class="flex flex-col gap-6 mb-8 p-4 border  border-zinc-200 bg-white  transition-colors group">
+  <div class="flex flex-col gap-6 mb-8 p-4 bg-white  transition-colors common-card-new group">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="space-y-4 flex-1">
         <h1 class="text-lg items-center flex gap-1 font-bold text-gray-900">
@@ -125,56 +125,56 @@ const stats = [
       <p class="text-sm text-gray-700 mb-6">Manage stock levels for each color variant</p>
 
       <!-- Table -->
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
+      <div class="table-container">
+        <table class="table">
           <thead>
-          <tr class="border-b border-t border-gray-200">
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Color</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Physical qty</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Incoming qty</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Outgoing qty</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Projected qty</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Stock status</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Reorder level</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Expected arrival</th>
-            <th class="px-4 py-3 text-left font-semibold text-gray-700">Action</th>
+          <tr class="">
+            <th class="">Color</th>
+            <th class="">Physical qty</th>
+            <th class="">Incoming qty</th>
+            <th class="">Outgoing qty</th>
+            <th class="">Projected qty</th>
+            <th class="">Stock status</th>
+            <th class="">Reorder level</th>
+            <th class="">Expected arrival</th>
+            <th class="">Action</th>
           </tr>
           </thead>
-          <tbody>
-          <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-            <td class="px-4 py-4 flex items-center gap-2">
+          <tbody class="divide-y divide-gray-200">
+          <tr class="">
+            <td class="">
               <div class="w-3 h-3 rounded-full bg-green-500"></div>
               <span class="font-medium text-gray-900">GREEN</span>
             </td>
-            <td class="px-4 py-4 text-gray-600">0</td>
-            <td class="px-4 py-4"><span class="text-blue-600 font-semibold">0</span></td>
-            <td class="px-4 py-4"><span class="text-orange-600 font-semibold">0</span></td>
-            <td class="px-4 py-4"><span class="text-red-600 font-semibold">0</span></td>
-            <td class="px-4 py-4"><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
-            <td class="px-4 py-4 text-gray-600">0</td>
-            <td class="px-4 py-4 text-gray-400">yyyy-mm-dd</td>
-            <td class="px-4 py-4"><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
+            <td class="">0</td>
+            <td class=""><span class="text-blue-600 font-semibold">0</span></td>
+            <td class=""><span class="text-orange-600 font-semibold">0</span></td>
+            <td class=""><span class="text-red-600 font-semibold">0</span></td>
+            <td class=""><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
+            <td class="">0</td>
+            <td class=" text-gray-400">yyyy-mm-dd</td>
+            <td class=""><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
           </tr>
           <tr class="hover:bg-gray-50 transition border-b border-gray-100">
-            <td class="px-4 py-4 flex items-center gap-2">
+            <td class="">
               <div class="w-3 h-3 rounded-full bg-yellow-200"></div>
               <span class="font-medium text-gray-900">IVORY</span>
             </td>
-            <td class="px-4 py-4 text-gray-600">0</td>
-            <td class="px-4 py-4"><span class="text-blue-600 font-semibold">0</span></td>
-            <td class="px-4 py-4"><span class="text-orange-600 font-semibold">0</span></td>
-            <td class="px-4 py-4"><span class="text-red-600 font-semibold">0</span></td>
-            <td class="px-4 py-4"><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
-            <td class="px-4 py-4 text-gray-600">0</td>
-            <td class="px-4 py-4 text-gray-400">yyyy-mm-dd</td>
-            <td class="px-4 py-4"><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
+            <td class="">0</td>
+            <td class=""><span class="text-blue-600 font-semibold">0</span></td>
+            <td class=""><span class="text-orange-600 font-semibold">0</span></td>
+            <td class=""><span class="text-red-600 font-semibold">0</span></td>
+            <td class=""><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
+            <td class="">0</td>
+            <td class=" text-gray-400">yyyy-mm-dd</td>
+            <td class=""><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
           </tr>
           </tbody>
         </table>
       </div>
 
       <!-- Stats Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+      <div class="grid grid-cols-4 gap-6 mt-8">
         <div class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-blue-50 to-white">
           <div class="flex items-center justify-between mb-3">
             <h4 class="text-sm font-semibold text-gray-600">TOTAL COLORS</h4>

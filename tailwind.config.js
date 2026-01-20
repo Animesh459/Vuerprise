@@ -12,6 +12,9 @@ export default {
         colors: {
             'main-bg': '#0D121C',
             'primary': 'var(--text-primary)',
+            'theme-primary': '#2563EB',
+            'theme-primary-light': '#3B82F6',
+            'theme-primary-dark': '#1D4ED8',
             'header-bg': '#f8f9fa',
             'header-text': '#000000',
             'table-header-bg': '#e9ecef',
@@ -19,7 +22,7 @@ export default {
             'table-row-even-bg': '#f8f9fa',
             'table-row-odd-bg': '#ffffff',
             'border-primary': '#dee2e6',
-            'button-primary-bg': '#007bff',
+            'button-primary-bg': '#2563EB',
             'button-primary-text': '#ffffff',
             'button-secondary-bg': '#6c757d',
             'button-secondary-text': '#ffffff',

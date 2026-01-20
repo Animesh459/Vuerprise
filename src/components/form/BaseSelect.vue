@@ -10,14 +10,16 @@
     <div class="relative">
       <select
           :value="modelValue"
-          @change="$emit('update:modelValue', $event.target.value)"
+          @change="handleChange"
+          :disabled="disabled"
           :class="[
-          'h-9 w-full appearance-none border border-neutral-200 bg-neutral-50 pl-4 pr-10 text-sm transition-colors',
-          'text-black focus:border-black focus:outline-none cursor-pointer',
+          'h-9 w-full rounded-xl appearance-none border border-border bg-white pl-4 pr-10 text-sm transition-colors',
+          'text-black focus:border-blue-600 focus:outline-none cursor-pointer',
+          disabled ? 'opacity-50 cursor-not-allowed' : '',
           customClass
         ]"
       >
-        <option v-if="placeholder" value="" disabled selected>{{ placeholder }}</option>
+        <option v-if="placeholder" value="">{{ placeholder }}</option>
 
         <option
             v-for="option in options"
@@ -34,21 +36,31 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
       </div>
     </div>
+    
+    <small v-if="error" class="text-red-500 text-xs mt-1 block">{{ error }}</small>
   </div>
 </template>
 
 <script setup>
+const emit = defineEmits(['update:modelValue', 'change']);
+
 defineProps({
   modelValue: [String, Number],
   label: { type: String, default: '' },
   placeholder: { type: String, default: 'Select an option' },
   customClass: { type: String, default: '' },
   isInline: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  error: { type: String, default: '' },
   options: {
     type: Array,
     default: () => [] // Format: [{label: 'Vendor A', value: 'a'}] or ['Vendor A', 'Vendor B']
   }
 });
 
-defineEmits(['update:modelValue']);
+const handleChange = (event) => {
+  const value = event.target.value;
+  emit('update:modelValue', value);
+  emit('change', value);
+};
 </script>

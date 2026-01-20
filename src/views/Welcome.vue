@@ -1,12 +1,9 @@
 
 
 <template>
-  <div class="common-card p-0">
-
     <div class="relative">
 
       <Dashboard/>
-    </div>
 
   </div>
 </template>

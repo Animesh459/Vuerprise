@@ -65,6 +65,7 @@
     <div class="flex gap-2">
       <button class="btn-secondary-new"> Unselect All </button>
       <button class="btn-primary-new"> Clone Selected </button>
+      <button class="btn-danger-new"> Clone Selected </button>
     </div>
   </div>
 
@@ -334,49 +335,49 @@
 <!--    </div>-->
 
 
-    <div class="overflow-x-auto border border-border">
-      <table class="w-full text-sm">
+    <div class="table-container">
+      <table class="table ">
         <thead>
-        <tr class="border-b border-gray-200">
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Color</th>
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Physical qty</th>
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Incoming qty</th>
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Outgoing qty</th>
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Projected qty</th>
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Stock status</th>
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Reorder level</th>
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Expected arrival</th>
-          <th class="px-4 py-3 text-left font-semibold text-gray-700">Action</th>
+        <tr class="">
+          <th class="">Color</th>
+          <th class="">Physical qty</th>
+          <th class="">Incoming qty</th>
+          <th class="">Outgoing qty</th>
+          <th class="">Projected qty</th>
+          <th class="">Stock status</th>
+          <th class="">Reorder level</th>
+          <th class="">Expected arrival</th>
+          <th class="">Action</th>
         </tr>
         </thead>
-        <tbody>
-        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-          <td class="px-4 py-4 flex items-center gap-2">
+        <tbody class="divide-y divide-gray-200">
+        <tr class="">
+          <td class="">
             <div class="w-3 h-3 rounded-full bg-green-500"></div>
             <span class="font-medium text-gray-900">GREEN</span>
           </td>
-          <td class="px-4 py-4 text-gray-600">0</td>
-          <td class="px-4 py-4"><span class="text-blue-600 font-semibold">0</span></td>
-          <td class="px-4 py-4"><span class="text-orange-600 font-semibold">0</span></td>
-          <td class="px-4 py-4"><span class="text-red-600 font-semibold">0</span></td>
-          <td class="px-4 py-4"><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
-          <td class="px-4 py-4 text-gray-600">0</td>
-          <td class="px-4 py-4 text-gray-400">yyyy-mm-dd</td>
-          <td class="px-4 py-4"><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
+          <td class="">0</td>
+          <td class=""><span class="text-blue-600 font-semibold">0</span></td>
+          <td class=""><span class="text-orange-600 font-semibold">0</span></td>
+          <td class=""><span class="text-red-600 font-semibold">0</span></td>
+          <td class=""><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
+          <td class="">0</td>
+          <td class=" text-gray-400">yyyy-mm-dd</td>
+          <td class=""><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
         </tr>
         <tr class="hover:bg-gray-50 transition border-b border-gray-100">
-          <td class="px-4 py-4 flex items-center gap-2">
+          <td class="">
             <div class="w-3 h-3 rounded-full bg-yellow-200"></div>
             <span class="font-medium text-gray-900">IVORY</span>
           </td>
-          <td class="px-4 py-4 text-gray-600">0</td>
-          <td class="px-4 py-4"><span class="text-blue-600 font-semibold">0</span></td>
-          <td class="px-4 py-4"><span class="text-orange-600 font-semibold">0</span></td>
-          <td class="px-4 py-4"><span class="text-red-600 font-semibold">0</span></td>
-          <td class="px-4 py-4"><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
-          <td class="px-4 py-4 text-gray-600">0</td>
-          <td class="px-4 py-4 text-gray-400">yyyy-mm-dd</td>
-          <td class="px-4 py-4"><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
+          <td class="">0</td>
+          <td class=""><span class="text-blue-600 font-semibold">0</span></td>
+          <td class=""><span class="text-orange-600 font-semibold">0</span></td>
+          <td class=""><span class="text-red-600 font-semibold">0</span></td>
+          <td class=""><span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded">OUT OF STOCK</span></td>
+          <td class="">0</td>
+          <td class=" text-gray-400">yyyy-mm-dd</td>
+          <td class=""><span class="text-red-600 font-semibold cursor-pointer hover:text-red-700">DELETE</span></td>
         </tr>
         </tbody>
       </table>
