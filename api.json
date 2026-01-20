@@ -78,11 +78,45 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "`User`",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "type": "integer"
+                                        },
+                                        "profile_image": {
+                                            "type": "string"
+                                        },
+                                        "permissions": {
+                                            "type": "object",
+                                            "additionalProperties": {}
+                                        },
+                                        "roles": {
+                                            "type": "object",
+                                            "additionalProperties": {}
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "name",
+                                        "email",
+                                        "status",
+                                        "profile_image",
+                                        "permissions",
+                                        "roles"
+                                    ]
                                 }
                             }
                         }
@@ -4717,6 +4751,138 @@
                 }
             }
         },
+        "/roles": {
+            "get": {
+                "operationId": "role.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Role"
+                ],
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LengthAwarePaginator"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "role.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Role"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "permissions": {
+                                        "type": [
+                                            "array",
+                                            "null"
+                                        ],
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "name"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Role created successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Validation failed"
+                                            ]
+                                        },
+                                        "errors": {
+                                            "$ref": "#/components/schemas/MessageBag"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "errors"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
         "/roles/all": {
             "get": {
                 "operationId": "role.getAllRoles",
@@ -4747,7 +4913,6 @@
         "/roles/permissions": {
             "get": {
                 "operationId": "role.getPermissions",
-                "summary": "Get all permissions in hierarchical structure",
                 "tags": [
                     "Role"
                 ],
@@ -4759,6 +4924,91 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
+                                        "User Management": {
+                                            "type": "object",
+                                            "properties": {
+                                                "Users": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "users.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Roles": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "roles.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                }
+                                            },
+                                            "required": [
+                                                "Users",
+                                                "Roles"
+                                            ]
+                                        },
                                         "Products": {
                                             "type": "object",
                                             "properties": {
@@ -4768,13 +5018,19 @@
                                                         {
                                                             "type": "string",
                                                             "enum": [
-                                                                "products.view"
+                                                                "products.list"
                                                             ]
                                                         },
                                                         {
                                                             "type": "string",
                                                             "enum": [
                                                                 "products.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "products.view"
                                                             ]
                                                         },
                                                         {
@@ -4802,8 +5058,8 @@
                                                             ]
                                                         }
                                                     ],
-                                                    "minItems": 6,
-                                                    "maxItems": 6,
+                                                    "minItems": 7,
+                                                    "maxItems": 7,
                                                     "additionalItems": false
                                                 },
                                                 "Product Settings": {
@@ -4815,13 +5071,19 @@
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
-                                                                        "categories.view"
+                                                                        "categories.list"
                                                                     ]
                                                                 },
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
                                                                         "categories.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "categories.view"
                                                                     ]
                                                                 },
                                                                 {
@@ -4835,12 +5097,6 @@
                                                                     "enum": [
                                                                         "categories.delete"
                                                                     ]
-                                                                },
-                                                                {
-                                                                    "type": "string",
-                                                                    "enum": [
-                                                                        "categories.sort"
-                                                                    ]
                                                                 }
                                                             ],
                                                             "minItems": 5,
@@ -4853,13 +5109,19 @@
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
-                                                                        "master-colors.view"
+                                                                        "master-colors.list"
                                                                     ]
                                                                 },
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
                                                                         "master-colors.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "master-colors.view"
                                                                     ]
                                                                 },
                                                                 {
@@ -4875,8 +5137,8 @@
                                                                     ]
                                                                 }
                                                             ],
-                                                            "minItems": 4,
-                                                            "maxItems": 4,
+                                                            "minItems": 5,
+                                                            "maxItems": 5,
                                                             "additionalItems": false
                                                         },
                                                         "Colors": {
@@ -4885,13 +5147,19 @@
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
-                                                                        "colors.view"
+                                                                        "colors.list"
                                                                     ]
                                                                 },
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
                                                                         "colors.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "colors.view"
                                                                     ]
                                                                 },
                                                                 {
@@ -4905,12 +5173,6 @@
                                                                     "enum": [
                                                                         "colors.delete"
                                                                     ]
-                                                                },
-                                                                {
-                                                                    "type": "string",
-                                                                    "enum": [
-                                                                        "colors.status"
-                                                                    ]
                                                                 }
                                                             ],
                                                             "minItems": 5,
@@ -4923,13 +5185,19 @@
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
-                                                                        "sizes.view"
+                                                                        "sizes.list"
                                                                     ]
                                                                 },
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
                                                                         "sizes.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "sizes.view"
                                                                     ]
                                                                 },
                                                                 {
@@ -4943,22 +5211,10 @@
                                                                     "enum": [
                                                                         "sizes.delete"
                                                                     ]
-                                                                },
-                                                                {
-                                                                    "type": "string",
-                                                                    "enum": [
-                                                                        "sizes.status"
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    "type": "string",
-                                                                    "enum": [
-                                                                        "sizes.default"
-                                                                    ]
                                                                 }
                                                             ],
-                                                            "minItems": 6,
-                                                            "maxItems": 6,
+                                                            "minItems": 5,
+                                                            "maxItems": 5,
                                                             "additionalItems": false
                                                         },
                                                         "Packs": {
@@ -4967,13 +5223,19 @@
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
-                                                                        "packs.view"
+                                                                        "packs.list"
                                                                     ]
                                                                 },
                                                                 {
                                                                     "type": "string",
                                                                     "enum": [
                                                                         "packs.create"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "packs.view"
                                                                     ]
                                                                 },
                                                                 {
@@ -4989,8 +5251,8 @@
                                                                     ]
                                                                 }
                                                             ],
-                                                            "minItems": 4,
-                                                            "maxItems": 4,
+                                                            "minItems": 5,
+                                                            "maxItems": 5,
                                                             "additionalItems": false
                                                         }
                                                     },
@@ -5008,22 +5270,565 @@
                                                 "Product Settings"
                                             ]
                                         },
-                                        "Settings": {
+                                        "Receiving": {
                                             "type": "object",
                                             "properties": {
+                                                "Purchase Orders": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "purchase-orders.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "purchase-orders.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "purchase-orders.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "purchase-orders.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "purchase-orders.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Vendor Shipments": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-shipments.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-shipments.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-shipments.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-shipments.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-shipments.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Warehouse Receivings": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouse-receivings.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouse-receivings.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouse-receivings.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouse-receivings.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "warehouse-receivings.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Vendor Returns": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-returns.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-returns.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-returns.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-returns.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendor-returns.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Vendors": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendors.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendors.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendors.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendors.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "vendors.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                }
+                                            },
+                                            "required": [
+                                                "Purchase Orders",
+                                                "Vendor Shipments",
+                                                "Warehouse Receivings",
+                                                "Vendor Returns",
+                                                "Vendors"
+                                            ]
+                                        },
+                                        "Sales": {
+                                            "type": "object",
+                                            "properties": {
+                                                "Customer Orders": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customer-orders.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customer-orders.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customer-orders.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customer-orders.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customer-orders.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Order Shipments": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "order-shipments.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "order-shipments.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "order-shipments.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "order-shipments.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "order-shipments.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Invoices": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoices.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoices.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoices.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoices.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoices.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Invoice Payments": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-payments.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-payments.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-payments.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-payments.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-payments.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Invocie Refunds": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-refunds.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-refunds.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-refunds.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-refunds.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "invoice-refunds.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Customers": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customers.list"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customers.create"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customers.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customers.update"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "customers.delete"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 5,
+                                                    "maxItems": 5,
+                                                    "additionalItems": false
+                                                },
+                                                "Inventory": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "inventory.physical"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "inventory.incoming"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "inventory.outgoing"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "inventory.projected"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 4,
+                                                    "maxItems": 4,
+                                                    "additionalItems": false
+                                                }
+                                            },
+                                            "required": [
+                                                "Customer Orders",
+                                                "Order Shipments",
+                                                "Invoices",
+                                                "Invoice Payments",
+                                                "Invocie Refunds",
+                                                "Customers",
+                                                "Inventory"
+                                            ]
+                                        },
+                                        "Settings": {
+                                            "type": "object",
+                                            "description": "Settings Module (Main Module)",
+                                            "properties": {
+                                                "Dashboard Reports": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "dashboard.summary"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "dashboard.reports"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "dashboard.tables"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 3,
+                                                    "maxItems": 3,
+                                                    "additionalItems": false
+                                                },
+                                                "Profile Settings": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "profile.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "profile.update"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 2,
+                                                    "maxItems": 2,
+                                                    "additionalItems": false
+                                                },
                                                 "General Settings": {
                                                     "type": "array",
                                                     "prefixItems": [
                                                         {
                                                             "type": "string",
                                                             "enum": [
-                                                                "settings.view"
+                                                                "general-settings.view"
                                                             ]
                                                         },
                                                         {
                                                             "type": "string",
                                                             "enum": [
-                                                                "settings.update"
+                                                                "general-settings.update"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "minItems": 2,
+                                                    "maxItems": 2,
+                                                    "additionalItems": false
+                                                },
+                                                "Inventory Settings": {
+                                                    "type": "array",
+                                                    "prefixItems": [
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "inventory-settings.view"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "inventory-settings.update"
                                                             ]
                                                         }
                                                     ],
@@ -5147,228 +5952,22 @@
                                                 }
                                             },
                                             "required": [
+                                                "Dashboard Reports",
+                                                "Profile Settings",
                                                 "General Settings",
+                                                "Inventory Settings",
                                                 "Payment Terms",
                                                 "Shipping Methods",
                                                 "Warehouses"
                                             ]
-                                        },
-                                        "User Management": {
-                                            "type": "object",
-                                            "properties": {
-                                                "Users": {
-                                                    "type": "array",
-                                                    "prefixItems": [
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "users.view"
-                                                            ]
-                                                        },
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "users.create"
-                                                            ]
-                                                        },
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "users.update"
-                                                            ]
-                                                        },
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "users.delete"
-                                                            ]
-                                                        },
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "users.status"
-                                                            ]
-                                                        }
-                                                    ],
-                                                    "minItems": 5,
-                                                    "maxItems": 5,
-                                                    "additionalItems": false
-                                                },
-                                                "Roles": {
-                                                    "type": "array",
-                                                    "prefixItems": [
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "roles.view"
-                                                            ]
-                                                        },
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "roles.create"
-                                                            ]
-                                                        },
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "roles.update"
-                                                            ]
-                                                        },
-                                                        {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "roles.delete"
-                                                            ]
-                                                        }
-                                                    ],
-                                                    "minItems": 4,
-                                                    "maxItems": 4,
-                                                    "additionalItems": false
-                                                }
-                                            },
-                                            "required": [
-                                                "Users",
-                                                "Roles"
-                                            ]
                                         }
                                     },
                                     "required": [
+                                        "User Management",
                                         "Products",
-                                        "Settings",
-                                        "User Management"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            }
-        },
-        "/roles": {
-            "get": {
-                "operationId": "roles.index",
-                "summary": "Display a listing of the resource",
-                "tags": [
-                    "Role"
-                ],
-                "parameters": [
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "default": 10
-                        }
-                    },
-                    {
-                        "name": "search",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "default": ""
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/LengthAwarePaginator"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            },
-            "post": {
-                "operationId": "roles.store",
-                "summary": "Store a newly created resource in storage",
-                "tags": [
-                    "Role"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "maxLength": 255
-                                    },
-                                    "permissions": {
-                                        "type": [
-                                            "array",
-                                            "null"
-                                        ],
-                                        "items": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "required": [
-                                    "name"
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "enum": [
-                                                "Role created successfully"
-                                            ]
-                                        },
-                                        "data": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "message",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "enum": [
-                                                "Validation failed"
-                                            ]
-                                        },
-                                        "errors": {
-                                            "$ref": "#/components/schemas/MessageBag"
-                                        }
-                                    },
-                                    "required": [
-                                        "message",
-                                        "errors"
+                                        "Receiving",
+                                        "Sales",
+                                        "Settings"
                                     ]
                                 }
                             }
@@ -5382,7 +5981,7 @@
         },
         "/roles/{id}": {
             "get": {
-                "operationId": "roles.show",
+                "operationId": "role.show",
                 "summary": "Display the specified resource",
                 "tags": [
                     "Role"
@@ -5417,7 +6016,7 @@
                 }
             },
             "put": {
-                "operationId": "roles.update",
+                "operationId": "role.update",
                 "summary": "Update the specified resource in storage",
                 "tags": [
                     "Role"
@@ -5538,7 +6137,7 @@
                 }
             },
             "delete": {
-                "operationId": "roles.destroy",
+                "operationId": "role.destroy",
                 "summary": "Remove the specified resource from storage",
                 "tags": [
                     "Role"
@@ -5623,10 +6222,10 @@
                 }
             }
         },
-        "/settings": {
+        "/settings/general": {
             "get": {
-                "operationId": "setting.index",
-                "summary": "Get site settings",
+                "operationId": "setting.getGeneralSettings",
+                "summary": "Get general settings (site name, logo)",
                 "tags": [
                     "Setting"
                 ],
@@ -5642,7 +6241,22 @@
                                             "type": "boolean"
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/Setting"
+                                            "type": "object",
+                                            "properties": {
+                                                "site_name": {
+                                                    "type": "string"
+                                                },
+                                                "logo": {
+                                                    "type": [
+                                                        "string",
+                                                        "null"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "site_name",
+                                                "logo"
+                                            ]
                                         }
                                     },
                                     "required": [
@@ -5659,7 +6273,8 @@
                 }
             },
             "post": {
-                "operationId": "setting.update",
+                "operationId": "setting.updateGeneralSettings",
+                "summary": "Update general settings (site name, logo)",
                 "tags": [
                     "Setting"
                 ],
@@ -5682,20 +6297,6 @@
                                         "format": "binary",
                                         "contentMediaType": "application/octet-stream",
                                         "maxLength": 2048
-                                    },
-                                    "low_stock_qty": {
-                                        "type": [
-                                            "integer",
-                                            "null"
-                                        ],
-                                        "minimum": 0
-                                    },
-                                    "reorder_qty": {
-                                        "type": [
-                                            "integer",
-                                            "null"
-                                        ],
-                                        "minimum": 0
                                     }
                                 },
                                 "required": [
@@ -5719,11 +6320,154 @@
                                         "message": {
                                             "type": "string",
                                             "enum": [
-                                                "Settings updated successfully"
+                                                "General settings updated successfully"
                                             ]
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/Setting"
+                                            "type": "object",
+                                            "properties": {
+                                                "site_name": {
+                                                    "type": "string"
+                                                },
+                                                "logo": {
+                                                    "type": [
+                                                        "string",
+                                                        "null"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "site_name",
+                                                "logo"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/settings/inventory": {
+            "get": {
+                "operationId": "setting.getInventorySettings",
+                "summary": "Get inventory settings (low stock, reorder quantities)",
+                "tags": [
+                    "Setting"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "low_stock_qty": {
+                                                    "type": "integer"
+                                                },
+                                                "reorder_qty": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "required": [
+                                                "low_stock_qty",
+                                                "reorder_qty"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "setting.updateInventorySettings",
+                "summary": "Update inventory settings (low stock, reorder quantities)",
+                "tags": [
+                    "Setting"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "low_stock_qty": {
+                                        "type": "integer",
+                                        "minimum": 0
+                                    },
+                                    "reorder_qty": {
+                                        "type": "integer",
+                                        "minimum": 0
+                                    }
+                                },
+                                "required": [
+                                    "low_stock_qty",
+                                    "reorder_qty"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Inventory settings updated successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "low_stock_qty": {
+                                                    "type": "integer"
+                                                },
+                                                "reorder_qty": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "required": [
+                                                "low_stock_qty",
+                                                "reorder_qty"
+                                            ]
                                         }
                                     },
                                     "required": [
@@ -6626,7 +7370,7 @@
         },
         "/users": {
             "get": {
-                "operationId": "users.index",
+                "operationId": "user.index",
                 "summary": "Display a listing of the resource",
                 "tags": [
                     "User"
@@ -6659,7 +7403,7 @@
                 }
             },
             "post": {
-                "operationId": "users.store",
+                "operationId": "user.store",
                 "summary": "Store a newly created resource in storage",
                 "tags": [
                     "User"
@@ -6693,16 +7437,14 @@
                                         "maxLength": 2048
                                     },
                                     "role_id": {
-                                        "type": [
-                                            "integer",
-                                            "null"
-                                        ]
+                                        "type": "integer"
                                     }
                                 },
                                 "required": [
                                     "name",
                                     "email",
-                                    "password"
+                                    "password",
+                                    "role_id"
                                 ]
                             }
                         }
@@ -6730,7 +7472,7 @@
         },
         "/users/{user}": {
             "get": {
-                "operationId": "users.show",
+                "operationId": "user.show",
                 "summary": "Display the specified resource",
                 "tags": [
                     "User"
@@ -6774,7 +7516,7 @@
                 }
             },
             "put": {
-                "operationId": "users.update",
+                "operationId": "user.user.update_1",
                 "summary": "Update the specified resource in storage",
                 "tags": [
                     "User"
@@ -6812,15 +7554,86 @@
                                         ]
                                     },
                                     "role_id": {
-                                        "type": [
-                                            "integer",
-                                            "null"
-                                        ]
+                                        "type": "integer"
                                     }
                                 },
                                 "required": [
                                     "name",
-                                    "email"
+                                    "email",
+                                    "role_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "user.user.update_2",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "required": true,
+                        "description": "The user ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "profile_image": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    },
+                                    "role_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "role_id"
                                 ]
                             }
                         }
@@ -6849,7 +7662,7 @@
                 }
             },
             "delete": {
-                "operationId": "users.destroy",
+                "operationId": "user.destroy",
                 "summary": "Remove the specified resource from storage",
                 "tags": [
                     "User"
@@ -8424,6 +9237,398 @@
                 }
             }
         },
+        "/warehouses": {
+            "get": {
+                "operationId": "warehouses.index",
+                "tags": [
+                    "Warehouse"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `WarehouseResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/WarehouseResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "post": {
+                "operationId": "warehouses.store",
+                "tags": [
+                    "Warehouse"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "maxLength": 50
+                                    },
+                                    "address": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    },
+                                    "city": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 100
+                                    },
+                                    "country": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 100
+                                    },
+                                    "postal_code": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 20
+                                    },
+                                    "manager_name": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 255
+                                    },
+                                    "phone": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 50
+                                    },
+                                    "status": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "code",
+                                    "status"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Warehouse created successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/WarehouseResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/warehouses/{warehouse}": {
+            "get": {
+                "operationId": "warehouses.show",
+                "tags": [
+                    "Warehouse"
+                ],
+                "parameters": [
+                    {
+                        "name": "warehouse",
+                        "in": "path",
+                        "required": true,
+                        "description": "The warehouse ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`WarehouseResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/WarehouseResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "warehouses.update",
+                "tags": [
+                    "Warehouse"
+                ],
+                "parameters": [
+                    {
+                        "name": "warehouse",
+                        "in": "path",
+                        "required": true,
+                        "description": "The warehouse ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "maxLength": 50
+                                    },
+                                    "address": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ]
+                                    },
+                                    "city": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 100
+                                    },
+                                    "country": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 100
+                                    },
+                                    "postal_code": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 20
+                                    },
+                                    "manager_name": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 255
+                                    },
+                                    "phone": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "maxLength": 50
+                                    },
+                                    "status": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "code",
+                                    "status"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Warehouse updated successfully"
+                                            ]
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/WarehouseResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "warehouses.destroy",
+                "tags": [
+                    "Warehouse"
+                ],
+                "parameters": [
+                    {
+                        "name": "warehouse",
+                        "in": "path",
+                        "required": true,
+                        "description": "The warehouse ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Warehouse deleted successfully"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Cannot delete warehouse with existing shipments"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
         "/receivings": {
             "get": {
                 "operationId": "receivings.index",
@@ -8771,6 +9976,12 @@
                     },
                     "profile_image": {
                         "type": "string"
+                    },
+                    "permissions": {
+                        "type": "string"
+                    },
+                    "roles": {
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -8779,7 +9990,9 @@
                     "email",
                     "token",
                     "status",
-                    "profile_image"
+                    "profile_image",
+                    "permissions",
+                    "roles"
                 ],
                 "title": "AuthResource"
             },
@@ -10020,53 +11233,6 @@
                 ],
                 "title": "Role"
             },
-            "Setting": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "site_name": {
-                        "type": "string"
-                    },
-                    "logo": {
-                        "type": [
-                            "string",
-                            "null"
-                        ]
-                    },
-                    "low_stock_qty": {
-                        "type": "integer"
-                    },
-                    "reorder_qty": {
-                        "type": "integer"
-                    },
-                    "created_at": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "format": "date-time"
-                    },
-                    "updated_at": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "format": "date-time"
-                    }
-                },
-                "required": [
-                    "id",
-                    "site_name",
-                    "logo",
-                    "low_stock_qty",
-                    "reorder_qty",
-                    "created_at",
-                    "updated_at"
-                ],
-                "title": "Setting"
-            },
             "ShippingMethodResource": {
                 "type": "object",
                 "properties": {
@@ -10112,98 +11278,6 @@
                 "type": "array",
                 "items": {},
                 "title": "SizeResource"
-            },
-            "User": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "email_verified_at": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "format": "date-time"
-                    },
-                    "profile_image": {
-                        "type": [
-                            "string",
-                            "null"
-                        ]
-                    },
-                    "status": {
-                        "type": "integer"
-                    },
-                    "last_login_at": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "format": "date-time"
-                    },
-                    "created_by": {
-                        "type": [
-                            "integer",
-                            "null"
-                        ]
-                    },
-                    "updated_by": {
-                        "type": [
-                            "integer",
-                            "null"
-                        ]
-                    },
-                    "deleted_by": {
-                        "type": [
-                            "integer",
-                            "null"
-                        ]
-                    },
-                    "created_at": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "format": "date-time"
-                    },
-                    "updated_at": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "format": "date-time"
-                    },
-                    "deleted_at": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "format": "date-time"
-                    }
-                },
-                "required": [
-                    "id",
-                    "name",
-                    "email",
-                    "email_verified_at",
-                    "profile_image",
-                    "status",
-                    "last_login_at",
-                    "created_by",
-                    "updated_by",
-                    "deleted_by",
-                    "created_at",
-                    "updated_at",
-                    "deleted_at"
-                ],
-                "title": "User"
             },
             "UserResource": {
                 "type": "object",
@@ -11120,6 +12194,80 @@
                     "updated_at"
                 ],
                 "title": "WarehouseReceivingResource"
+            },
+            "WarehouseResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "city": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "country": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "postal_code": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "manager_name": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "phone": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "status": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "code",
+                    "address",
+                    "city",
+                    "country",
+                    "postal_code",
+                    "manager_name",
+                    "phone",
+                    "status",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "WarehouseResource"
             }
         },
         "responses": {

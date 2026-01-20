@@ -28,23 +28,13 @@
           <h2 class="text-lg font-semibold text-gray-900 mb-4">General Information</h2>
           
           <!-- Site Name -->
-          <div>
-            <label for="site_name" class="block text-sm font-medium text-gray-700 mb-2">
-              Site Name <span class="text-red-500">*</span>
-            </label>
-            <input
-              id="site_name"
-              v-model="form.site_name"
-              type="text"
-              placeholder="Enter site name"
-              :class="{
-                'border-red-300 bg-red-50': errors.site_name,
-                'border-gray-200': !errors.site_name
-              }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-            />
-            <ErrorMessage :error="errors.site_name" />
-          </div>
+          <BaseInput
+            v-model="form.site_name"
+            label="Site Name"
+            placeholder="Enter site name"
+            required
+            :error="errors.site_name?.[0]"
+          />
 
           <!-- Current Logo -->
           <div v-if="currentLogo">
@@ -78,7 +68,7 @@
               <span v-if="selectedLogo" class="text-sm text-gray-600">{{ selectedLogo.name }}</span>
             </div>
             <p class="text-xs text-gray-500 mt-2">PNG or SVG recommended. Max 2MB.</p>
-            <ErrorMessage :error="errors.logo" />
+            <small v-if="errors.logo" class="text-red-500 text-xs mt-1 block">{{ errors.logo[0] }}</small>
           </div>
 
           <!-- Preview New Logo -->
@@ -98,18 +88,14 @@
             <button
               type="submit"
               :disabled="loading"
-              class="px-6 py-2.5 bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+              class="btn-primary-new"
             >
-              <span v-if="!loading">Save General Settings</span>
-              <span v-else class="flex items-center gap-2">
-                <span class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                Saving...
-              </span>
+              {{ loading ? 'Saving...' : 'Save General Settings' }}
             </button>
             <button
               type="button"
               @click="resetGeneralForm"
-              class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
+              class="btn-secondary-new"
             >
               Reset
             </button>
@@ -124,46 +110,30 @@
           <p class="text-sm text-gray-600 mb-6">Configure stock thresholds for automatic status calculation</p>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Low Stock Quantity -->
             <div>
-              <label for="low_stock_qty" class="block text-sm font-medium text-gray-700 mb-2">
-                Low Stock Quantity (Critical Threshold) <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="low_stock_qty"
+              <BaseInput
                 v-model.number="form.low_stock_qty"
                 type="number"
-                min="0"
+                label="Low Stock Quantity (Critical Threshold)"
                 placeholder="e.g., 10"
-                :class="{
-                  'border-red-300 bg-red-50': errors.low_stock_qty,
-                  'border-gray-200': !errors.low_stock_qty
-                }"
-                class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
+                required
+                min="0"
+                :error="errors.low_stock_qty?.[0]"
               />
               <p class="text-xs text-gray-500 mt-1">Products with projected qty ≤ this value will be marked as "Critical"</p>
-              <ErrorMessage :error="errors.low_stock_qty" />
             </div>
 
-            <!-- Reorder Quantity -->
             <div>
-              <label for="reorder_qty" class="block text-sm font-medium text-gray-700 mb-2">
-                Reorder Quantity Threshold <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="reorder_qty"
+              <BaseInput
                 v-model.number="form.reorder_qty"
                 type="number"
-                min="0"
+                label="Reorder Quantity Threshold"
                 placeholder="e.g., 50"
-                :class="{
-                  'border-red-300 bg-red-50': errors.reorder_qty,
-                  'border-gray-200': !errors.reorder_qty
-                }"
-                class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
+                required
+                min="0"
+                :error="errors.reorder_qty?.[0]"
               />
               <p class="text-xs text-gray-500 mt-1">Products with projected qty ≤ this value will be marked as "Reorder"</p>
-              <ErrorMessage :error="errors.reorder_qty" />
             </div>
           </div>
 
@@ -183,13 +153,9 @@
             <button
               type="submit"
               :disabled="loading"
-              class="px-6 py-2.5 bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+              class="btn-primary-new"
             >
-              <span v-if="!loading">Save Inventory Settings</span>
-              <span v-else class="flex items-center gap-2">
-                <span class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                Saving...
-              </span>
+              {{ loading ? 'Saving...' : 'Save Inventory Settings' }}
             </button>
           </div>
         </form>
@@ -203,7 +169,7 @@ import { ref, computed, onMounted } from 'vue'
 import { settingsService } from '@/services'
 import { useToast } from '@/composables/useToast'
 import { usePermission } from '@/composables/usePermission'
-import ErrorMessage from '@/components/ErrorMessage.vue'
+import BaseInput from '@/components/form/BaseInput.vue'
 
 const toast = useToast()
 const { can } = usePermission()

@@ -28,51 +28,30 @@
         <h2 class="text-lg font-semibold text-gray-900 mb-4">Basic Information</h2>
         
         <form @submit.prevent="updateProfile" class="space-y-4 max-w-2xl">
-          <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-              Full Name <span class="text-red-500">*</span>
-            </label>
-            <input
-              id="name"
-              v-model="profileForm.name"
-              type="text"
-              :class="{
-                'border-red-300 bg-red-50': profileErrors.name,
-                'border-gray-200': !profileErrors.name
-              }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-            />
-            <ErrorMessage :error="profileErrors.name" />
-          </div>
+          <BaseInput
+            v-model="profileForm.name"
+            label="Full Name"
+            placeholder="Enter your full name"
+            required
+            :error="profileErrors.name?.[0]"
+          />
 
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-              Email Address <span class="text-red-500">*</span>
-            </label>
-            <input
-              id="email"
-              v-model="profileForm.email"
-              type="email"
-              :class="{
-                'border-red-300 bg-red-50': profileErrors.email,
-                'border-gray-200': !profileErrors.email
-              }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-            />
-            <ErrorMessage :error="profileErrors.email" />
-          </div>
+          <BaseInput
+            v-model="profileForm.email"
+            type="email"
+            label="Email Address"
+            placeholder="Enter your email"
+            required
+            :error="profileErrors.email?.[0]"
+          />
 
           <div class="flex gap-3 pt-4">
             <button
               type="submit"
               :disabled="profileLoading"
-              class="px-6 py-2.5 bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+              class="btn-primary-new"
             >
-              <span v-if="!profileLoading">Save Changes</span>
-              <span v-else class="flex items-center gap-2">
-                <span class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                Saving...
-              </span>
+              {{ profileLoading ? 'Saving...' : 'Save Changes' }}
             </button>
           </div>
         </form>
@@ -83,68 +62,40 @@
         <h2 class="text-lg font-semibold text-gray-900 mb-4">Change Password</h2>
         
         <form @submit.prevent="updatePassword" class="space-y-4 max-w-2xl">
-          <div>
-            <label for="current_password" class="block text-sm font-medium text-gray-700 mb-2">
-              Current Password <span class="text-red-500">*</span>
-            </label>
-            <input
-              id="current_password"
-              v-model="passwordForm.current_password"
-              type="password"
-              :class="{
-                'border-red-300 bg-red-50': passwordErrors.current_password,
-                'border-gray-200': !passwordErrors.current_password
-              }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-            />
-            <ErrorMessage :error="passwordErrors.current_password" />
-          </div>
+          <BaseInput
+            v-model="passwordForm.current_password"
+            type="password"
+            label="Current Password"
+            placeholder="Enter current password"
+            required
+            :error="passwordErrors.current_password?.[0]"
+          />
 
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-              New Password <span class="text-red-500">*</span>
-            </label>
-            <input
-              id="password"
-              v-model="passwordForm.password"
-              type="password"
-              :class="{
-                'border-red-300 bg-red-50': passwordErrors.password,
-                'border-gray-200': !passwordErrors.password
-              }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-            />
-            <ErrorMessage :error="passwordErrors.password" />
-          </div>
+          <BaseInput
+            v-model="passwordForm.password"
+            type="password"
+            label="New Password"
+            placeholder="Enter new password"
+            required
+            :error="passwordErrors.password?.[0]"
+          />
 
-          <div>
-            <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
-              Confirm New Password <span class="text-red-500">*</span>
-            </label>
-            <input
-              id="password_confirmation"
-              v-model="passwordForm.password_confirmation"
-              type="password"
-              :class="{
-                'border-red-300 bg-red-50': passwordErrors.password_confirmation,
-                'border-gray-200': !passwordErrors.password_confirmation
-              }"
-              class="w-full px-4 py-3 bg-gray-50 border rounded-lg text-gray-900 focus:outline-none focus:border-gray-700 transition-all"
-            />
-            <ErrorMessage :error="passwordErrors.password_confirmation" />
-          </div>
+          <BaseInput
+            v-model="passwordForm.password_confirmation"
+            type="password"
+            label="Confirm New Password"
+            placeholder="Confirm new password"
+            required
+            :error="passwordErrors.password_confirmation?.[0]"
+          />
 
           <div class="flex gap-3 pt-4">
             <button
               type="submit"
               :disabled="passwordLoading"
-              class="px-6 py-2.5 bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+              class="btn-primary-new"
             >
-              <span v-if="!passwordLoading">Update Password</span>
-              <span v-else class="flex items-center gap-2">
-                <span class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                Updating...
-              </span>
+              {{ passwordLoading ? 'Updating...' : 'Update Password' }}
             </button>
           </div>
         </form>
@@ -194,24 +145,20 @@
               <span v-if="selectedImage" class="text-sm text-gray-600">{{ selectedImage.name }}</span>
             </div>
             <p class="text-xs text-gray-500 mt-2">JPG, PNG or GIF. Max 2MB.</p>
-            <ErrorMessage :error="imageErrors.image" />
+            <small v-if="imageErrors.image" class="text-red-500 text-xs mt-1 block">{{ imageErrors.image[0] }}</small>
           </div>
 
           <div v-if="selectedImage" class="flex gap-3">
             <button
               @click="uploadImage"
               :disabled="imageLoading"
-              class="px-6 py-2.5 bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+              class="btn-primary-new"
             >
-              <span v-if="!imageLoading">Upload Image</span>
-              <span v-else class="flex items-center gap-2">
-                <span class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                Uploading...
-              </span>
+              {{ imageLoading ? 'Uploading...' : 'Upload Image' }}
             </button>
             <button
               @click="cancelUpload"
-              class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
+              class="btn-secondary-new"
             >
               Cancel
             </button>
@@ -227,7 +174,7 @@ import { ref, onMounted } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { userService } from '@/services'
 import { useToast } from '@/composables/useToast'
-import ErrorMessage from '@/components/ErrorMessage.vue'
+import BaseInput from '@/components/form/BaseInput.vue'
 
 const { user, fetchUser } = useAuth()
 const toast = useToast()
