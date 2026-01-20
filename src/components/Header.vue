@@ -92,7 +92,11 @@
         </router-link>
 
         <!-- User Management Dropdown -->
-        <Dropdown ref="userManagementDropdown" contentClasses="w-56 left-0 right-auto">
+        <Dropdown
+          v-if="hasPermission('users.view') || hasPermission('users.viewAny') || hasPermission('roles.view') || hasPermission('roles.viewAny')"
+          ref="userManagementDropdown"
+          contentClasses="w-56 left-0 right-auto"
+        >
           <template #trigger>
             <button
                 class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
@@ -106,6 +110,32 @@
             <div class="py-1">
               <DropdownItem
                   v-for="item in userManagementItems"
+                  :key="item.label"
+                  :item="item"
+              />
+            </div>
+          </template>
+        </Dropdown>
+
+        <!-- Settings Dropdown -->
+        <Dropdown
+          v-if="settingsItems.length > 0"
+          ref="settingsDropdown"
+          contentClasses="w-56 left-0 right-auto"
+        >
+          <template #trigger>
+            <button
+                class="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-blue-600 transition group"
+            >
+              <Settings :size="18" />
+              Settings <ChevronDown :size="16" class="opacity-50 group-hover:opacity-70 transition-opacity"/>
+            </button>
+          </template>
+
+          <template #content>
+            <div class="py-1">
+              <DropdownItem
+                  v-for="item in settingsItems"
                   :key="item.label"
                   :item="item"
               />
@@ -208,18 +238,33 @@
  import { useSettings } from '@/composables/useSettings';
  import apiClient from '@/utils/axios';
 
- const { user, logout } = useAuth();
+ const { user, logout, hasPermission } = useAuth();
  const { settings: siteSettings, fetchSettings } = useSettings();
  const showLogoutModal = ref(false);
  const categories = ref([]);
 
- // Fetch site settings on mount
+ // Fetch site settings on mount only if user is authenticated
  onMounted(async () => {
-   try {
-     await fetchSettings();
-     await fetchCategories();
-   } catch (error) {
-     console.error('Failed to load site settings:', error);
+   // Only fetch if user is authenticated
+   if (user.value) {
+     try {
+       await fetchSettings();
+       await fetchCategories();
+     } catch (error) {
+       console.error('Failed to load site settings:', error);
+     }
+   }
+ });
+
+ // Watch for user login and fetch data when authenticated
+ watch(user, async (newUser) => {
+   if (newUser && (!siteSettings.value || categories.value.length === 0)) {
+     try {
+       await fetchSettings();
+       await fetchCategories();
+     } catch (error) {
+       console.error('Failed to load site settings:', error);
+     }
    }
  });
 
@@ -240,10 +285,19 @@
  };
 
 
- const menuItems = [
-   { label: 'Profile', icon: User, route: '/profile' },
-   { label: 'Settings', icon: Settings, route: '/settings' },
- ]
+ const menuItems = computed(() => {
+   const items = [];
+   
+   // Profile is always available for authenticated users
+   items.push({ label: 'Profile', icon: User, route: '/profile' });
+   
+   // Settings requires specific permissions
+   if (hasPermission('general-settings.view') || hasPermission('inventory-settings.view')) {
+     items.push({ label: 'System Settings', icon: Settings, route: '/settings' });
+   }
+   
+   return items;
+ });
 
 // Build product items with dynamic categories
 const productItems = computed(() => {
@@ -295,14 +349,42 @@ const buildCategoryTree = (cats) => {
    // { label: 'Return to Vendor', to: '/packs'},
  ]
 
- const userManagementItems = [
-   { label: 'Users', to: '/users' },
-   { label: 'Roles', to: '/roles' },
- ]
+ const userManagementItems = computed(() => {
+   const items = [];
+   
+   if (hasPermission('users.view') || hasPermission('users.viewAny')) {
+     items.push({ label: 'Users', to: '/users' });
+   }
+   
+   if (hasPermission('roles.view') || hasPermission('roles.viewAny')) {
+     items.push({ label: 'Roles', to: '/roles' });
+   }
+   
+   return items;
+ });
+
+ const settingsItems = computed(() => {
+   const items = [];
+   
+   if (hasPermission('payment-terms.view')) {
+     items.push({ label: 'Payment Terms', to: '/settings/payment-terms' });
+   }
+   
+   if (hasPermission('shipping-methods.view')) {
+     items.push({ label: 'Shipping Methods', to: '/settings/shipping-methods' });
+   }
+   
+   if (hasPermission('warehouses.view')) {
+     items.push({ label: 'Warehouses', to: '/settings/warehouses' });
+   }
+   
+   return items;
+ });
 
  const productDropdown = ref(null);
  const receivingDropdown = ref(null);
  const userManagementDropdown = ref(null);
+ const settingsDropdown = ref(null);
  const userDropdown = ref(null);
  const route = useRoute();
 
@@ -315,6 +397,9 @@ const buildCategoryTree = (cats) => {
    }
    if (userManagementDropdown.value) {
      userManagementDropdown.value.close();
+   }
+   if (settingsDropdown.value) {
+     settingsDropdown.value.close();
    }
    if (userDropdown.value) {
      userDropdown.value.close();

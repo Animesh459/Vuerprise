@@ -13,6 +13,7 @@ import inventoryRoutes from './modules/inventory'
 import utilityRoutes from './modules/utilities'
 import profileRoutes from './modules/profile'
 import userManagementRoutes from './modules/userManagement'
+import settingsRoutes from './modules/settings'
 
 // Combine all routes
 const routes = [
@@ -27,6 +28,7 @@ const routes = [
   ...utilityRoutes,
   ...profileRoutes,
   ...userManagementRoutes,
+  ...settingsRoutes,
   // Unauthorized page
   {
     path: '/unauthorized',
@@ -53,6 +55,22 @@ const router = createRouter({
 
 // Global navigation guard
 router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('authToken')
+  const isAuthRoute = to.path === '/login'
+  
+  // Check authentication first to prevent flash of unauthorized content
+  if (!token && !isAuthRoute) {
+    // User is not authenticated and trying to access protected route
+    next('/login')
+    return
+  }
+  
+  if (token && isAuthRoute) {
+    // User is authenticated and trying to access login page
+    next('/')
+    return
+  }
+  
   // Set page title from route meta
   if (to.meta.title) {
     document.title = `${to.meta.title} - Vlan24 ERP`
